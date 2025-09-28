@@ -27,3 +27,5 @@ Nevermore — это проект по созданию веб-платформ�
 
 # 3. Ссылка на прототипы страниц
 figma - https://www.figma.com/design/xmbfF9RLeLMyZ2yJ9hMxyp/Nevermore?m=auto&t=QIW4hMBLrJr9D2ij-1
+# 4. Ccылка на API сервера
+пока что http://localhost:3000/ ;(
