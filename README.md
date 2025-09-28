@@ -24,3 +24,6 @@ Nevermore — это проект по созданию веб-платформ�
 - **Контейнеризация:** `Docker`
 - **Языки программирования:** `TypeScript`, `JavaScript`
 - **Инструменты и IDE:** `VS Code`, `Figma`, `Chrome DevTools`
+
+# 3. Ссылка на прототипы страниц
+figma - https://www.figma.com/design/xmbfF9RLeLMyZ2yJ9hMxyp/Nevermore?m=auto&t=QIW4hMBLrJr9D2ij-1
