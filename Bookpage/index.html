@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nevermore — Book</title>
+  <script src="auth\script.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <img src="auth\icon.png" alt="logo" class="logo-icon">
+      <h1>Nevermore</h1>
+    </div>
+    <div class="header-right">
+      <span>Hi, user!</span>
+      <div class="user-icon">N</div>
+    </div>
+  </header>
+
+  <main class="book-container">
+    <div class="book-cover-section">
+      <div class="book-cover">book example</div>
+      <button class="btn read-btn">Read</button>
+      <button class="btn secondary">Add to bookmarks</button>
+      <button class="btn secondary">Report</button>
+    </div>
+
+    <div class="book-info-section">
+      <p class="book-meta">year/author/etc</p>
+      <h2 class="book-title">Book Title Example</h2>
+
+      <div class="tags">
+        <span class="tag">Жанр1</span>
+        <span class="tag">Жанр2</span>
+        <span class="tag">Жанр3</span>
+      </div>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="description">Description</button>
+        <button class="tab" data-tab="chapters">Chapters</button>
+        <button class="tab" data-tab="reviews">Reviews</button>
+      </nav>
+
+      <div class="tab-content active" id="description">
+        <p class="book-description">
+          Description
+        </p>
+      </div>
+
+      <div class="tab-content" id="chapters">
+        <h3>New Chapters</h3>
+        <div class="chapter-list">
+          <div class="chapter">1</div>
+          <div class="chapter">2</div>
+          <div class="chapter">3</div>
+          <div class="chapter">4</div>
+          <div class="chapter">5</div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="reviews">
+        <h3>User Reviews</h3>
+        <div class="review"><strong>@reader01:</strong> Отличная книга, читается на одном дыхании.</div>
+        <div class="review"><strong>@anna:</strong> Хорошо написано, но хотелось бы больше деталей.</div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="mobile-menu">
+    <button>✏️</button>
+    <button>📷</button>
+    <button>➕</button>
+    <button>🏠</button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
