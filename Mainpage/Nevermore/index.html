@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Главная</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="avatar.png" alt="Nevermore" class="logo-image">
+            <div class="logo-text">
+                <span class="first-letter">N</span>evermore
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Поиск книг, авторов...">
+        </div>
+        <div class="user-icon">
+            <img src="Icon.png" alt="Nevermore" class="logo-image">
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="nav-items">
+                <div class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Домой</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Читательские клубы</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Таймер для чтения</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-book-open"></i>
+                    <span>Мои книги</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-heart"></i>
+                    <span>Любимые книги</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Добавить книгу</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content-wrapper">
+            <div class="main-content">
+                <div class="books-section">
+                    <h2 class="clubs-title">
+                        Мои книги
+                    </h2>
+                    
+                    <div class="horizontal-scroll-container">
+                        <div class="books-scroll" id="recent-books">
+                            <div class="book-card">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    ПРЕСТУПЛЕНИЕ И НАКАЗАНИЕ
+                                </div>
+                                <div class="book-title">Преступление и наказание</div>
+                                <div class="book-author">Ф.М. Достоевский</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="book-card">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    НАД ПРОПАСТЬЮ ВО РЖИ
+                                </div>
+                                <div class="book-title">Над пропастью во ржи</div>
+                                <div class="book-author">Джером Сэлинджер</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 33%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="book-card">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    МАСТЕР И МАРГАРИТА
+                                </div>
+                                <div class="book-title">Мастер и Маргарита</div>
+                                <div class="book-author">М.А. Булгаков</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="book-card">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    1984
+                                </div>
+                                <div class="book-title">1984</div>
+                                <div class="book-author">Джордж Оруэлл</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="book-card">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    ТИХИЙ ДОН
+                                </div>
+                                <div class="book-title">Тихий Дон</div>
+                                <div class="book-author">М.А. Шолохов</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="book-card">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    АННА КАРЕНИНА
+                                </div>
+                                <div class="book-title">Анна Каренина</div>
+                                <div class="book-author">Л.Н. Толстой</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="book-card">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    ГОРЕ ОТ УМА
+                                </div>
+                                <div class="book-title">Горе от ума</div>
+                                <div class="book-author">А.С. Грибоедов</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Clubs Section -->
+                <div class="clubs-section">
+                    <h2 class="clubs-title">
+                        Мои читательские клубы
+                    </h2>
+                    
+                    <div class="clubs-list">
+                        <div class="club-item">
+                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <div class="club-info">
+                                <div class="club-name">Классика навсегда</div>
+                                <div class="club-members">24 участника</div>
+                            </div>
+                            <div class="club-notifications">3+</div>
+                        </div>
+                        
+                         <div class="club-item">
+                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <div class="club-info">
+                                <div class="club-name">Мировая литература</div>
+                                <div class="club-members">42 участника</div>
+                            </div>
+                            <div class="club-notifications">12+</div>
+                        </div>
+                        
+                        <div class="club-item">
+                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <div class="club-info">
+                                <div class="club-name">Современная проза</div>
+                                <div class="club-members">18 участников</div>
+                            </div>
+                            <div class="club-notifications">1+</div>
+                        </div>
+                        <div class="club-item">
+                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <div class="club-info">
+                                <div class="club-name">Драматургия</div>
+                                <div class="club-members">15 участников</div>
+                            </div>
+                            <div class="club-notifications">0+</div>
+                        </div>
+                        <div class="club-item">
+                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <div class="club-info">
+                                <div class="club-name">Олени навсегда</div>
+                                <div class="club-members">52 участника</div>
+                            </div>
+                            <div class="club-notifications">52+</div>
+                        </div>
+                        <div class="club-item">
+                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <div class="club-info">
+                                <div class="club-name">Оленьи рассказы</div>
+                                <div class="club-members">12 участников</div>
+                            </div>
+                            <div class="club-notifications">66+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goals Sidebar -->
+            <div class="goals-sidebar">
+                <div class="goal-card" id="annual-goal">
+                    <div class="goal-title">Моя ежегодная цель</div>
+                    <div class="goal-box">
+                         <img src="edit.png" alt="Nevermore" class="time-icon">
+                         <div class="goal-value">12 книг</div>
+                     </div>
+                    <div class="goal-subtitle">Установите свою цель</div>
+                </div>
+                
+                <div class="time-card" id="weekly-reading">
+                    <div class="time-title">Время чтения за эту неделю</div>
+                    <div class="reading-time">
+                        <img src="alarm.png" alt="Nevermore" class="time-icon">
+                        <div class="time-value">05h:42min</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-container">
+            <div class="mobile-nav-item">
+                <i class="fas fa-folder"></i>
+            </div>
+            <div class="mobile-nav-item">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="mobile-nav-item">
+                <i class="fas fa-plus"></i>
+            </div>
+            <div class="mobile-nav-item">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="mobile-nav-item active">
+                <i class="fas fa-home"></i>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
