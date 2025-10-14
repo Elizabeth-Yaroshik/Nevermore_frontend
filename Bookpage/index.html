@@ -7,8 +7,8 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="script.js"></script>
   <link rel="stylesheet" href="style.css">
- <script src="script.js"></script>
 </head>
 <body>
 
@@ -23,17 +23,36 @@
     </div>
 
     <div class="user-icon">
-      <img src="icon.jpg" alt="User" />
+      <img src="avatar.png" alt="User" />
     </div>
   </header>
 
-  <main class="book-container">
-    <div class="book-cover-section">
-      <div class="book-cover">book example</div>
-      <button class="btn read-btn">Read</button>
-      <button class="btn secondary">Add to bookmarks</button>
-      <button class="btn secondary">Report</button>
-    </div>
+  <div class="container">
+
+    <aside class="sidebar">
+      <div class="nav-items">
+        <div class="nav-item"><i class="fas fa-home"></i><span>Домой</span></div>
+        <div class="nav-item"><i class="fas fa-users"></i><span>Читательские клубы</span></div>
+        <div class="nav-item"><i class="fas fa-clock"></i><span>Таймер для чтения</span></div>
+        <div class="nav-item"><i class="fas fa-book-open"></i><span>Мои книги</span></div>
+        <div class="nav-item"><i class="fas fa-heart"></i><span>Любимые книги</span></div>
+        <div class="nav-item"><i class="fas fa-plus-circle"></i><span>Добавить книгу</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content-wrapper">
+
+      <section class="book-panel">
+        <div class="book-grid">
+
+          <div class="book-cover-section">
+            <div class="book-cover">Пример обложки</div>
+            <div class="actions">
+              <button class="btn read">Читать</button>
+              <button class="btn secondary">Добавить в закладки</button>
+              <button class="btn secondary">Пожаловаться</button>
+            </div>
+          </div>
 
           <div class="book-info-section">
             <div class="book-meta">2021 / Автор: Иванов И.И.</div>
@@ -62,9 +81,9 @@
               <div class="chapter-list">
                 <div class="chapter">Глава 1</div>
                 <div class="chapter">Глава 2</div>
-                <div class="chapter">Глава 3 </div>
-                <div class="chapter">Глава 4 </div>
-                <div class="chapter">Глава 5 </div>
+                <div class="chapter">Глава 3</div>
+                <div class="chapter">Глава 4</div>
+                <div class="chapter">Глава 5</div>
               </div>
             </div>
 
