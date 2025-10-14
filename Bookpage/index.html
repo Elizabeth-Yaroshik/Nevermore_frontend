@@ -1,57 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nevermore — Book</title>
-  <script src="auth\script.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nevermore — Книга</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+ <script src="script.js"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="header-left">
-      <img src="auth\icon.png" alt="logo" class="logo-icon">
-      <h1>Nevermore</h1>
+
+  <header>
+    <div class="logo">
+      <img src="icon.png" alt="Nevermore" class="logo-image">
+      <div class="logo-text"><span class="first-letter">N</span>evermore</div>
     </div>
-    <div class="header-right">
-      <span>Hi, user!</span>
-      <div class="user-icon">N</div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Поиск книг, авторов..." />
+    </div>
+
+    <div class="user-icon">
+      <img src="icon.jpg" alt="User" />
     </div>
   </header>
 
-<<<<<<< Updated upstream
   <main class="book-container">
     <div class="book-cover-section">
       <div class="book-cover">book example</div>
       <button class="btn read-btn">Read</button>
       <button class="btn secondary">Add to bookmarks</button>
       <button class="btn secondary">Report</button>
-=======
-  <div class="container">
-
-    <aside class="sidebar">
-      <div class="nav-items">
-        <div class="nav-item"><i class="fas fa-home"></i><span>Домой</span></div>
-        <div class="nav-item"><i class="fas fa-users"></i><span>Читательские клубы</span></div>
-        <div class="nav-item"><i class="fas fa-clock"></i><span>Таймер для чтения</span></div>
-        <div class="nav-item"><i class="fas fa-book-open"></i><span>Мои книги</span></div>
-        <div class="nav-item"><i class="fas fa-heart"></i><span>Любимые книги</span></div>
-        <div class="nav-item"><i class="fas fa-plus-circle"></i><span>Добавить книгу</span></div>
-      </div>
-    </aside>
-
-    <main class="main-content-wrapper">
-
-      <section class="book-panel">
-        <div class="book-grid">
-          <div class="book-cover-section">
-            <div class="book-cover">Пример обложки</div>
-            <div class="actions">
-              <button class="btn read">Читать</button>
-              <button class="btn secondary">Добавить в закладки</button>
-              <button class="btn secondary">Пожаловаться</button>
-            </div>
-          </div>
+    </div>
 
           <div class="book-info-section">
             <div class="book-meta">2021 / Автор: Иванов И.И.</div>
@@ -119,7 +101,7 @@
 
     </main>
   </div>
-  <!-- навигация -->
+
   <div class="mobile-nav">
     <div class="mobile-nav-container">
       <div class="mobile-nav-item"><i class="fas fa-folder"></i></div>
@@ -127,57 +109,7 @@
       <div class="mobile-nav-item"><i class="fas fa-plus"></i></div>
       <div class="mobile-nav-item"><i class="fas fa-comments"></i></div>
       <div class="mobile-nav-item active"><i class="fas fa-home"></i></div>
->>>>>>> Stashed changes
     </div>
-
-    <div class="book-info-section">
-      <p class="book-meta">year/author/etc</p>
-      <h2 class="book-title">Book Title Example</h2>
-
-      <div class="tags">
-        <span class="tag">Жанр1</span>
-        <span class="tag">Жанр2</span>
-        <span class="tag">Жанр3</span>
-      </div>
-
-      <nav class="tabs">
-        <button class="tab active" data-tab="description">Description</button>
-        <button class="tab" data-tab="chapters">Chapters</button>
-        <button class="tab" data-tab="reviews">Reviews</button>
-      </nav>
-
-      <div class="tab-content active" id="description">
-        <p class="book-description">
-          Description
-        </p>
-      </div>
-
-      <div class="tab-content" id="chapters">
-        <h3>New Chapters</h3>
-        <div class="chapter-list">
-          <div class="chapter">1</div>
-          <div class="chapter">2</div>
-          <div class="chapter">3</div>
-          <div class="chapter">4</div>
-          <div class="chapter">5</div>
-        </div>
-      </div>
-
-      <div class="tab-content" id="reviews">
-        <h3>User Reviews</h3>
-        <div class="review"><strong>@reader01:</strong> Отличная книга, читается на одном дыхании.</div>
-        <div class="review"><strong>@anna:</strong> Хорошо написано, но хотелось бы больше деталей.</div>
-      </div>
-    </div>
-  </main>
-
-  <nav class="mobile-menu">
-    <button>✏️</button>
-    <button>📷</button>
-    <button>➕</button>
-    <button>🏠</button>
-  </nav>
-
-  <script src="script.js"></script>
+  </div>
 </body>
 </html>
