@@ -29,7 +29,11 @@ document.getElementById("authForm").addEventListener("submit", function(e) {
     if (login.value === "user" && password.value === "1234") {
       globalMessage.textContent = "Login successful!";
       globalMessage.className = "global-message success";
-    } else {
+    } 
+    else if (login.value === "1111" && password.value === "1111") {
+      window.location.href = "../Mainpage/Nevermore/main.html";
+    } 
+    else {
       globalMessage.textContent = "Invalid login or password.";
       globalMessage.className = "global-message error";
     }
