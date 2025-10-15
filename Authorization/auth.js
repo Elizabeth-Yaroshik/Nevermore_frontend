@@ -15,12 +15,12 @@ document.getElementById("authForm").addEventListener("submit", function(e) {
   passwordError.classList.remove("error-visible");
 
   if (login.value.trim() === "") {
-    loginError.textContent = "Please enter your login or email.";
+    loginError.textContent = "Поле не может быть пустым.";
     loginError.classList.add("error-visible");
     hasError = true;
   }
   if (password.value.trim() === "") {
-    passwordError.textContent = "Please enter your password.";
+    passwordError.textContent = "Поле не может быть пустым.";
     passwordError.classList.add("error-visible");
     hasError = true;
   }
@@ -31,7 +31,7 @@ document.getElementById("authForm").addEventListener("submit", function(e) {
       globalMessage.className = "global-message success";
     } 
     else if (login.value === "1111" && password.value === "1111") {
-      window.location.href = "../Mainpage/Nevermore/main.html";
+      window.location.href = "../Mainpage/main.html";
     } 
     else {
       globalMessage.textContent = "Invalid login or password.";

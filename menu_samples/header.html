@@ -1,0 +1,39 @@
+<!--для подключения нужно вставить  <div id="header"></div сразу после <body> и 
+    script src="../menu_samples/menu_loader.js"></script> перед </body>-->
+<header style="
+  background-color:#6750A4;
+  color:white;
+  padding:8px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+  height:80px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  font-family:'Playfair Display',serif;
+">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <img src='../resources/logo.png' alt='logo' style='width:60px;height:60px;object-fit:contain;'>
+    <div style="font-size:1.8rem;font-weight:700;display:flex;align-items:center;">
+      <span style='color:#471414;font-size:2.2rem;'>N</span>evermore
+    </div>
+  </div>
+
+  <div style="flex:1;max-width:500px;margin:0 20px;">
+    <input type="text" placeholder="Поиск книг, авторов..." style="
+      width:100%;
+      padding:10px 15px;
+      border:none;
+      border-radius:20px;
+      background-color:rgba(255,255,255,0.1);
+      color:white;
+      font-size:1rem;
+    ">
+  </div>
+
+  <div>
+    <img src='../resources/Icon.png' alt='Профиль' style='width:40px;height:40px;border-radius:50%;'>
+  </div>
+</header>

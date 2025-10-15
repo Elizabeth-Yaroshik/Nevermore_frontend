@@ -8,30 +8,32 @@
   <script defer src="auth.js"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="logo-box">
-      <img src="icon.png" alt="logo" class="logo-icon">
-      <h1 class="logo-text"><span>N</span>evermore</h1>
-    </div>
-  </header>
+<header>
+        <div class="logo">
+            <img src="../resources/logo.png" alt="Nevermore" class="logo-image">
+            <div class="logo-text">
+                <span class="first-letter">N</span>evermore
+            </div>
+        </div>
+    </header>
 
   <main class="main">
     <div class="auth-box">
-      <h2>Authorization</h2>
+      <h2>Авторизация</h2>
       <form id="authForm" novalidate>
         <div class="input-group">
-          <input id="login" type="text" placeholder="Login or email" required>
+          <input id="login" type="text" placeholder="Введите логин" required>
           <p class="error-message" id="loginError"></p>
         </div>
         <div class="input-group">
-          <input id="password" type="password" placeholder="Password" required>
+          <input id="password" type="password" placeholder="Введите пароль" required>
           <p class="error-message" id="passwordError"></p>
         </div>
-        <button type="submit">Enter</button>
+        <button type="submit">Войти</button>
       </form>
       <div class="links">
-        <p><a href="#">Forgot your password?</a></p>
-        <p><a href="#">Register an account</a></p>
+        <p><a href="#">Забыли пароль?</a></p>
+        <p><a href="#">Зарегистрироваться</a></p>
       </div>
       <p class="global-message" id="globalMessage"></p>
     </div>
