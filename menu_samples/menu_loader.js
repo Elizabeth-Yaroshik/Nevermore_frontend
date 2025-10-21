@@ -1,11 +1,25 @@
-function loadComponent(id, file) {
-  fetch(file)
-    .then(r => r.text())
-    .then(html => document.getElementById(id).innerHTML = html);
+// Универсальная функция для подключения компонентов интерфейса
+function loadComponent(id, path) {
+  fetch(path)
+    .then(r => {
+      if (!r.ok) throw new Error(`Не удалось загрузить ${path}`);
+      return r.text();
+    })
+    .then(html => document.getElementById(id).innerHTML = html)
+    .catch(err => console.error(err));
+}
+
+// Определяем путь к menu_samples относительно текущего файла
+function getMenuSamplesPath() {
+  const script = document.currentScript;
+  const currentDir = script.src.substring(0, script.src.lastIndexOf('/'));
+  return currentDir + '/../menu_samples';
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header", "/menu_samples/header.html");
-  loadComponent("sidebar", "sidebar.html");
-  loadComponent("mobile-nav", "mobile-nav.html");
+  const base = getMenuSamplesPath();
+
+  loadComponent("header", `${base}/header.html`);
+  loadComponent("sidebar", `${base}/sidebar.html`);
+  loadComponent("mobile-nav", `${base}/mobile.html`);
 });
