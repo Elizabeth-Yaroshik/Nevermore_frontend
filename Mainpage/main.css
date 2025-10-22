@@ -163,7 +163,7 @@ header {
     box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     width: 70%;
-    height: 8%;
+    height: 60px;
 }   
 
 .mobile-nav-container {
@@ -588,6 +588,38 @@ header {
     .goal-card,
     .time-card {
         min-width: auto;
+    }
+}
+@media (max-width: 768px) {
+    #mobile-nav {
+        display: flex !important;
+    }
+    
+    #sidebar {
+        display: none !important;
+    }
+    
+    body {
+        padding-bottom: 100px;
+    }
+    
+    .container {
+        flex-direction: column;
+    }
+}
+
+/* Десктопная версия (769px и больше) */
+@media (min-width: 769px) {
+    #mobile-nav {
+        display: none !important;
+    }
+    
+    #sidebar {
+        display: block !important;
+    }
+    
+    body {
+        padding-bottom: 0;
     }
 }
 /* ======= Toast Notifications ======= */

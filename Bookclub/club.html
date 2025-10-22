@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nevermore — Клуб</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="club.css">
+  <script src="club.js" defer></script>
+</head>
+
+<body>
+
+  <div id="header"></div>
+
+  <div class="container">
+
+  <div id="sidebar"></div>
+
+  </div>
+
+  <div id="mobile-nav"></div>
+
+  <script>
+ fetch("../menu_samples/header.html")
+  .then(r => r.text())
+  .then(h => document.getElementById("header").innerHTML = h); 
+</script>
+
+<script>
+  fetch("../menu_samples/sidebar.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("sidebar").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading sidebar:', err));
+</script>
+<script>
+  fetch("../menu_samples/mobile-nav.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("mobile-nav").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading mobile navigation:', err));
+</script>
+  <script src="../menu_samples/menu_loader.js"></script>
+  
+</body>
+</html>

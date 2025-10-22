@@ -11,50 +11,11 @@
 <body>
     <div id="toastContainer" class="toast-container"></div>
 
-    <header>
-        <div class="logo">
-            <img src="avatar.png" alt="Nevermore" class="logo-image">
-            <div class="logo-text">
-                <span class="first-letter">N</span>evermore
-            </div>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Поиск книг, авторов...">
-        </div>
-        <div class="user-icon">
-            <img src="Icon.png" alt="Nevermore" class="logo-image">
-        </div>
-    </header>
+    <div id="header"></div>
 
+    
     <div class="container">
-        <div class="sidebar">
-            <div class="nav-items">
-                <div class="nav-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Домой</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-users"></i>
-                    <span>Читательские клубы</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-clock"></i>
-                    <span>Таймер для чтения</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-book-open"></i>
-                    <span>Каталог книг</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-heart"></i>
-                    <span>Любимые книги</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-plus-circle"></i>
-                    <span>Добавить книгу</span>
-                </div>
-            </div>
-        </div>
+        <div id="sidebar"></div>
 
         <!-- Main Content -->
         <div class="main-content-wrapper">
@@ -154,7 +115,7 @@
                     
                     <div class="clubs-list">
                         <div class="club-item">
-                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Классика навсегда</div>
                                 <div class="club-members">24 участника</div>
@@ -163,7 +124,7 @@
                         </div>
                         
                          <div class="club-item">
-                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Мировая литература</div>
                                 <div class="club-members">42 участника</div>
@@ -172,7 +133,7 @@
                         </div>
                         
                         <div class="club-item">
-                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Современная проза</div>
                                 <div class="club-members">18 участников</div>
@@ -180,7 +141,7 @@
                             <div class="club-notifications">1+</div>
                         </div>
                         <div class="club-item">
-                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Драматургия</div>
                                 <div class="club-members">15 участников</div>
@@ -188,7 +149,7 @@
                             <div class="club-notifications">0+</div>
                         </div>
                         <div class="club-item">
-                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Олени навсегда</div>
                                 <div class="club-members">52 участника</div>
@@ -196,7 +157,7 @@
                             <div class="club-notifications">52+</div>
                         </div>
                         <div class="club-item">
-                            <img src="Ellipse 2.png" alt="Nevermore" class="club-icon">
+                            <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Оленьи рассказы</div>
                                 <div class="club-members">12 участников</div>
@@ -212,7 +173,7 @@
                 <div class="goal-card" id="annual-goal">
                     <div class="goal-title">Моя ежегодная цель</div>
                     <div class="goal-box">
-                         <img src="edit.png" alt="Nevermore" class="time-icon">
+                         <img src="../resources/edit.png" alt="Nevermore" class="time-icon">
                          <div class="goal-value">12 книг</div>
                      </div>
                     <div class="goal-subtitle">Установите свою цель</div>
@@ -221,7 +182,7 @@
                 <div class="time-card" id="weekly-reading">
                     <div class="time-title">Время чтения за эту неделю</div>
                     <div class="reading-time">
-                        <img src="alarm.png" alt="Nevermore" class="time-icon">
+                        <img src="../resources/alarm.png" alt="Nevermore" class="time-icon">
                         <div class="time-value">05h:42min</div>
                     </div>
                 </div>
@@ -229,26 +190,28 @@
         </div>
     </div>
 
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav">
-        <div class="mobile-nav-container">
-            <div class="mobile-nav-item">
-                <i class="fas fa-folder"></i>
-            </div>
-            <div class="mobile-nav-item">
-                <i class="fas fa-clock"></i>
-            </div>
-            <div class="mobile-nav-item">
-                <i class="fas fa-plus"></i>
-            </div>
-            <div class="mobile-nav-item">
-                <i class="fas fa-comments"></i>
-            </div>
-            <div class="mobile-nav-item active">
-                <i class="fas fa-home"></i>
-            </div>
-        </div>
-    </div>
-
+    <div id="mobile-nav"></div>
+    <script>
+  fetch("../menu_samples/sidebar.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("sidebar").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading sidebar:', err));
+</script>
+<script>
+ fetch("../menu_samples/header.html")
+  .then(r => r.text())
+  .then(h => document.getElementById("header").innerHTML = h); 
+</script>
+<script>
+  fetch("../menu_samples/mobile-nav.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("mobile-nav").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading mobile navigation:', err));
+</script>
+<script src="../menu_samples/menu_loader.js"></script>
 </body>
 </html>
