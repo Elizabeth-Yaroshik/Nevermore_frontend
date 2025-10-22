@@ -9,7 +9,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: url('background.jpg') no-repeat center/cover;
+  background: url('../resources/background.jpg') no-repeat center/cover;
 }
 
 /* HEADER */
