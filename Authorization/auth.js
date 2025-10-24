@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'https://4ee4b751a306736111235546528c12f7.serveo.net';
 
 document.addEventListener('DOMContentLoaded', function() {
   const authForm = document.getElementById('authForm');
