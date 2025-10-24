@@ -1,41 +1,92 @@
-document.getElementById("authForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+const API_BASE_URL = 'http://localhost:3000';
 
-  const login = document.getElementById("login");
-  const password = document.getElementById("password");
-  const loginError = document.getElementById("loginError");
-  const passwordError = document.getElementById("passwordError");
-  const globalMessage = document.getElementById("globalMessage");
-
-  let hasError = false;
-  loginError.textContent = "";
-  passwordError.textContent = "";
-  globalMessage.textContent = "";
-  loginError.classList.remove("error-visible");
-  passwordError.classList.remove("error-visible");
-
-  if (login.value.trim() === "") {
-    loginError.textContent = "Поле не может быть пустым.";
-    loginError.classList.add("error-visible");
-    hasError = true;
-  }
-  if (password.value.trim() === "") {
-    passwordError.textContent = "Поле не может быть пустым.";
-    passwordError.classList.add("error-visible");
-    hasError = true;
-  }
-
-  if (!hasError) {
-    if (login.value === "user" && password.value === "1234") {
-      globalMessage.textContent = "Login successful!";
-      globalMessage.className = "global-message success";
-    } 
-    else if (login.value === "1111" && password.value === "1111") {
-      window.location.href = "../Mainpage/main.html";
-    } 
-    else {
-      globalMessage.textContent = "Invalid login or password.";
-      globalMessage.className = "global-message error";
+document.addEventListener('DOMContentLoaded', function() {
+  const authForm = document.getElementById('authForm');
+  
+  authForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Сброс сообщений об ошибках
+    document.querySelectorAll('.error-message').forEach(el => {
+      el.textContent = '';
+      el.classList.remove('error-visible');
+    });
+    
+    const globalMessage = document.getElementById('globalMessage');
+    globalMessage.textContent = '';
+    globalMessage.className = 'global-message';
+    
+    // Получение значений полей
+    const login = document.getElementById('login').value.trim();
+    const password = document.getElementById('password').value;
+    
+    let isValid = true;
+    
+    // Валидация логина (email)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!login) {
+      showError('loginError', 'Пожалуйста, введите email');
+      isValid = false;
+    } else if (!emailRegex.test(login)) {
+      showError('loginError', 'Пожалуйста, введите корректный email');
+      isValid = false;
     }
+    
+    // Валидация пароля
+    if (!password) {
+      showError('passwordError', 'Пожалуйста, введите пароль');
+      isValid = false;
+    }
+    
+    // Если форма валидна
+    if (isValid) {
+      try {
+        // Отправка данных на сервер
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: login,
+            password: password
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Сохраняем токены в localStorage
+          localStorage.setItem('access_token', data.access_token);
+          localStorage.setItem('refresh_token', data.refresh_token);
+          
+          showGlobalMessage('Успешный вход!', 'success');
+          
+          // Перенаправление на главную страницу через 1 секунду
+          setTimeout(() => {
+            window.location.href = '../index.html';
+          }, 1000);
+        } else {
+          showGlobalMessage(data.error || 'Ошибка при входе', 'error');
+        }
+      } catch (error) {
+        console.error('Ошибка:', error);
+        showGlobalMessage('Ошибка соединения с сервером', 'error');
+      }
+    }
+  });
+  
+  // Функция для показа ошибок
+  function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = message;
+    errorElement.classList.add('error-visible');
+  }
+  
+  // Функция для показа глобальных сообщений
+  function showGlobalMessage(message, type) {
+    const globalMessage = document.getElementById('globalMessage');
+    globalMessage.textContent = message;
+    globalMessage.classList.add(type);
   }
 });
