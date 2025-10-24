@@ -1,43 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Chat</title>
-<link rel="stylesheet" href="chat.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nevermore — Чат</title>
+
+  <!-- Хедер, сайдбар и мобильное меню -->
+  <link rel="stylesheet" href="../menu_samples/header.css">
+  <link rel="stylesheet" href="../menu_samples/sidebar.css">
+
+
+  <!-- Основной чат -->
+  <link rel="stylesheet" href="chat.css" />
 </head>
+
 <body>
-<script src="../menu_samples/menu_loader.js"></script>
-<div id="sidebar"></div>
+
 <div id="header"></div>
 
-<div class="chat-wrapper">
-  <div class="chat-header">
-    <div class="chat-user">
-      <img src="avatar.png" class="avatar" />
-      <div class="info">
-        <div class="name">Name</div>
-        <div class="status">online</div>
+<div class="container">
+  <div id="sidebar"></div>
+
+  <div class="chat-area">
+
+    <div class="chat-wrapper">
+
+      <div class="chat-header">
+        <div class="chat-user">
+          <img src="avatar.png" class="avatar" />
+          <div class="info">
+            <div class="name">Имя пользователя</div>
+            <div class="status">online</div>
+          </div>
+        </div>
       </div>
+
+      <div class="chat-body"></div>
+
+      <div class="chat-input">
+        <div class="input-box">
+          <img src="icon.png" class="icon" />
+          <input type="text" placeholder="Message..." />
+        </div>
+        <button class="send">➤</button>
+      </div>
+
     </div>
+
   </div>
 
-  <div class="chat-body">
-    <div class="msg left">Hello<div class="time">12:00</div></div>
-    <div class="msg right">Hi<div class="time">12:00</div></div>
-    <div class="msg right">How are you?<div class="time">12:01</div></div>
-    <div class="msg left">Fine<div class="time">12:02</div></div>
-    <div class="msg right">Great<div class="time">12:03</div></div>
-  </div>
-
-  <div class="chat-input">
-    <div class="input-box">
-      <img src="icon.png" class="icon" />
-      <input type="text" placeholder="Message..." />
-    </div>
-    <button class="send">➤</button>
-  </div>
 </div>
+
+<div id="mobile-nav"></div>
+
+<!-- Подключение скриптов -->
+<script src="chat.js"></script>
+
+<script>
+  fetch("../menu_samples/header.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("header").innerHTML = html);
+
+  fetch("../menu_samples/sidebar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("sidebar").innerHTML = html);
+</script>
 
 </body>
 </html>
