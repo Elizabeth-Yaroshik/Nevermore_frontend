@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nevermore - Registration</title>
+  <link rel="stylesheet" href="reg.css">
+  <script defer src="reg.js"></script>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <img src="../resources/logo.png" alt="Nevermore" class="logo-image">
+    <div class="logo-text">
+      <span class="first-letter">N</span>evermore
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="auth-box">
+    <h2>Регистрация</h2>
+    <form id="registerForm" novalidate>
+      <div class="input-group">
+        <input id="name" type="text" placeholder="Введите ваше имя" required>
+        <p class="error-message" id="nameError"></p>
+      </div>
+      <div class="input-group">
+        <input id="email" type="email" placeholder="Введите email" required>
+        <p class="error-message" id="emailError"></p>
+      </div>
+      <div class="input-group">
+        <input id="password" type="password" placeholder="Введите пароль" required>
+        <p class="error-message" id="passwordError"></p>
+      </div>
+      <div class="input-group">
+        <input id="confirmPassword" type="password" placeholder="Повторите пароль" required>
+        <p class="error-message" id="confirmPasswordError"></p>
+      </div>
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+    <div class="links">
+      <p><a href="../Authorization/auth.html">Уже есть аккаунт? Войти</a></p>
+    </div>
+    <p class="global-message" id="globalMessage"></p>
+  </div>
+</main>
+</body>
+</html>
