@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://4ee4b751a306736111235546528c12f7.serveo.net';
+const API_BASE_URL = 'https://natosha-considerable-rheumily.ngrok-free.dev';
 
 document.addEventListener('DOMContentLoaded', function() {
   const registerForm = document.getElementById('registerForm');

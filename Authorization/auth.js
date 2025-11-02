@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://4ee4b751a306736111235546528c12f7.serveo.net';
+const API_BASE_URL = 'https://natosha-considerable-rheumily.ngrok-free.dev';
 
 document.addEventListener('DOMContentLoaded', function() {
   const authForm = document.getElementById('authForm');
@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
           
           showGlobalMessage('Успешный вход!', 'success');
           
-          // Перенаправление на главную страницу через 1 секунду
+          // Перенаправление на главную страницу через 1 екунду
           setTimeout(() => {
-            window.location.href = '../index.html';
+            window.location.href = '../Mainpage/main.html';
           }, 1000);
         } else {
           showGlobalMessage(data.error || 'Ошибка при входе', 'error');
