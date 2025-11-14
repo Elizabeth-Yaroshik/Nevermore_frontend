@@ -1,0 +1,16 @@
+body{margin:0;font-family:Arial;background:#e9dbf7;}
+.chat-wrapper{margin-left:200px;margin-top:70px;padding:0 20px;}
+.chat-header{background:#d6c5ff;padding:15px;border-radius:20px 20px 0 0;display:flex;align-items:center;}
+.chat-user{display:flex;align-items:center;gap:10px;}
+.avatar{width:40px;height:40px;border-radius:50%;background:#fff;}
+.name{font-size:18px;font-weight:bold;}
+.status{font-size:12px;margin-top:-4px;}
+.chat-body{background:#fff;height:400px;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:20px;}
+.msg{max-width:40%;padding:15px;border-radius:15px;position:relative;font-size:14px;}
+.left{background:#675199;color:#fff;border-bottom-left-radius:0;align-self:flex-start;}
+.right{background:#e8ccff;color:#000;border-bottom-right-radius:0;align-self:flex-end;}
+.time{font-size:10px;margin-top:5px;text-align:right;}
+.chat-input{background:#d6c5ff;padding:15px;display:flex;align-items:center;gap:15px;border-radius:0 0 20px 20px;}
+.input-box{flex:1;display:flex;align-items:center;background:#e8ccff;padding:10px;border-radius:10px;gap:10px;}
+.input-box input{border:none;background:none;outline:none;width:100%;font-size:14px;}
+.send{background:#675199;color:#fff;border:none;padding:10px 15px;border-radius:10px;font-size:18px;cursor:pointer;}

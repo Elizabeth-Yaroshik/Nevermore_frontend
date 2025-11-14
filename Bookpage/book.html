@@ -11,14 +11,11 @@
   <script src="book.js" defer></script>
 </head>
 <body>
-<script>
- fetch("../menu_samples/header.html")
-  .then(r => r.text())
-  .then(h => document.getElementById("header").innerHTML = h); </script>
+
   <div id="header"></div>
 
   <div class="container">
-
+    
     <div id="sidebar"></div>
 
     <main class="main-content-wrapper">
@@ -99,5 +96,6 @@
   </div>
 
   <div id="mobile-nav"></div>
+  <script src="../menu_samples/menu_loader.js"></script>
 </body>
 </html>

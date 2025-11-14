@@ -1,4 +1,3 @@
-// Универсальная функция для подключения компонентов интерфейса
 function loadComponent(id, path) {
   fetch(path)
     .then(r => {
@@ -9,7 +8,6 @@ function loadComponent(id, path) {
     .catch(err => console.error(err));
 }
 
-// Определяем путь к menu_samples относительно текущего файла
 function getMenuSamplesPath() {
   const script = document.currentScript;
   const currentDir = script.src.substring(0, script.src.lastIndexOf('/'));
