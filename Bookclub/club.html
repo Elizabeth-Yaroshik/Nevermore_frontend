@@ -22,24 +22,52 @@
     
     <!-- Левая часть с информацией о клубе -->
     <div class="club-wrapper">
-      <img src="../resources/club_image.png" alt="Клуб" class="overlay-club-image">
-      <div class="club-info">
-        <div class="club-title">Название клуба</div>
-        <div class="club-subtitle">123 участника</div>
+      <div class="club-header-section">
+        <img src="../resources/club_image.png" alt="Клуб" class="overlay-club-image">
+        <div class="club-header-info">
+          <div class="club-title-section">
+            <div class="club-info">
+              <div class="club-title" id="clubTitle">Название клуба</div>
+              <div class="club-subtitle" id="clubMembers">123 участника</div>
+              
+            
+          </div>
+          <button class="join-btn" id="joinClubBtn">
+            <i class="fas fa-user-plus"></i> Вступить в клуб
+          </button>
+        </div>
+        </div>
       </div>
+      
       <div class="info-container">
         <div class="independent-info-column">
           <div class="independent-info">
-            <div class="info-title">Сейчас читаем: с++ для начинающих</div>
-            <div class="info-title">Обсуждение через: время</div>
+            <div class="info-title">Сейчас читаем: <span id="currentBook">с++ для начинающих</span></div>
+            <div class="info-title">Обсуждение через: <span id="nextDiscussion">3 дня</span></div>
           </div>
           <div class="independent-info">
             <div class="info-title">Описание клуба:</div>
-            <div class="info-subtitle">блаблабла блаблабла блаблабла блаблабла блаблабла блаблабла блаблабла блаблабла блаблабла блаблабла блаблабла блаблабла</div>
+            <div class="info-subtitle" id="clubDescription">
+              Клуб для любителей литературы и книг. Обсуждаем классические и современные произведения, 
+              делимся впечатлениями и находим новых друзей.
+            </div>
+            <button class="chat-btn" id="startDiscussionBtn">
+              <i class="fas fa-comments"></i> Чат
+            </button>
           </div>
         </div>
         <div class="additional-info">
-          <div class="info-title">С++ для начинающих</div>
+          <div class="current-book-info">
+            <div class="book-title-current" id="currentBookTitle">С++ для начинающих</div>
+            <div class="book-author-current">Автор: <span id="bookAuthor">Иванов И.И.</span></div>
+          </div>
+          
+          <div class="book-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill" style="width: 65%"></div>
+            </div>
+            <div class="progress-text" id="progressText">65% прочитано</div>
+          </div>
         </div>
       </div>
     </div>
@@ -48,19 +76,13 @@
     <div class="gallery-sidebar">
       <div class="gallery-container">
         <div class="gallery-title">Участники</div>
-        <div class="gallery-items">
-          <div class="gallery-item">
-            <img src="../resources/Ellipse 2.png" alt="Мероприятие 1" class="gallery-image">
-            <div class="gallery-caption">Встреча участников</div>
-          </div>
-          <div class="gallery-item">
-            <img src="../resources/Ellipse 2.png" alt="Мероприятие 2" class="gallery-image">
-            <div class="gallery-caption">Обсуждение книги</div>
-          </div>
-          <div class="gallery-item">
-            <img src="../resources/Ellipse 2.png" alt="Мероприятие 3" class="gallery-image">
-            <div class="gallery-caption">Читательский вечер</div>
-          </div>
+        <div class="gallery-items" id="membersGallery">
+          <!-- Участники будут загружены через JS -->
+        </div>
+        
+        <div class="gallery-title" style="margin-top: 30px;">Предыдущие обсуждения</div>
+        <div class="discussion-list" id="discussionList">
+          <!-- Обсуждения будут загружены через JS -->
         </div>
       </div>
     </div>
@@ -70,27 +92,326 @@
   <div id="mobile-nav"></div>
 
   <script>
- fetch("../menu_samples/header.html")
-  .then(r => r.text())
-  .then(h => document.getElementById("header").innerHTML = h); 
-</script>
+    // Получение параметров из URL
+    function getUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        id: params.get('id') || '1',
+        name: params.get('name') || 'Классика навсегда'
+      };
+    }
 
-<script>
-  fetch("../menu_samples/sidebar.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("sidebar").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading sidebar:', err));
-</script>
-<script>
-  fetch("../menu_samples/mobile-nav.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("mobile-nav").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading mobile navigation:', err));
-</script>
+    // Данные клубов
+    const clubsData = {
+      '1': {
+        name: 'Классика навсегда',
+        members: '24 участника',
+        currentBook: 'Преступление и наказание',
+        nextDiscussion: '2 дня',
+        description: 'Обсуждение классической литературы разных эпох и стран. Читаем и анализируем произведения, которые прошли проверку временем.',
+        bookTitle: 'Преступление и наказание',
+        bookAuthor: 'Ф.М. Достоевский',
+        isMember: true,
+        progress: 65,
+        membersList: [
+          { name: 'Анна К.', role: 'Организатор' },
+          { name: 'Михаил П.', role: 'Модератор' },
+          { name: 'Ольга С.', role: 'Участник' },
+          { name: 'Дмитрий Л.', role: 'Участник' },
+          { name: 'Екатерина М.', role: 'Участник' }
+        ],
+        discussions: [
+          { title: 'Анализ "Войны и мира"', date: '15.03.2024', participants: 18 },
+          { title: 'Обсуждение "Мастера и Маргариты"', date: '01.03.2024', participants: 22 },
+          { title: 'Тема: Русская классика 19 века', date: '14.02.2024', participants: 20 }
+        ]
+      },
+      '2': {
+        name: 'Мировая литература',
+        members: '42 участника',
+        currentBook: 'Сто лет одиночества',
+        nextDiscussion: '5 дней',
+        description: 'Открываем для себя литературу со всего мира. Каждый месяц - новая страна и новый автор.',
+        bookTitle: 'Сто лет одиночества',
+        bookAuthor: 'Габриэль Гарсиа Маркес',
+        isMember: true,
+        progress: 45,
+        membersList: [
+          { name: 'Сергей В.', role: 'Организатор' },
+          { name: 'Марина К.', role: 'Модератор' },
+          { name: 'Алексей П.', role: 'Участник' },
+          { name: 'Наталья Р.', role: 'Участник' },
+          { name: 'Иван С.', role: 'Участник' }
+        ],
+        discussions: [
+          { title: 'Латинская американская литература', date: '10.03.2024', participants: 35 },
+          { title: 'Японские авторы', date: '25.02.2024', participants: 28 },
+          { title: 'Современная европейская проза', date: '10.02.2024', participants: 30 }
+        ]
+      },
+      '3': {
+        name: 'Современная проза',
+        members: '18 участников',
+        currentBook: 'Книжный вор',
+        nextDiscussion: '1 день',
+        description: 'Изучаем лучшие произведения современной литературы. От нобелевских лауреатов до молодых авторов.',
+        bookTitle: 'Книжный вор',
+        bookAuthor: 'Маркус Зусак',
+        isMember: false,
+        progress: 30,
+        membersList: [
+          { name: 'Елена Д.', role: 'Организатор' },
+          { name: 'Артем К.', role: 'Модератор' },
+          { name: 'София Л.', role: 'Участник' },
+          { name: 'Павел М.', role: 'Участник' },
+          { name: 'Юлия Н.', role: 'Участник' }
+        ],
+        discussions: [
+          { title: 'Современная антиутопия', date: '12.03.2024', participants: 15 },
+          { title: 'Нобелевские лауреаты 21 века', date: '28.02.2024', participants: 16 },
+          { title: 'Молодые авторы', date: '15.02.2024', participants: 12 }
+        ]
+      },
+      '4': {
+        name: 'Драматургия',
+        members: '15 участников',
+        currentBook: 'Вишнёвый сад',
+        nextDiscussion: '7 дней',
+        description: 'Читаем и обсуждаем пьесы от античности до современности. Учимся видеть за текстом сценическое воплощение.',
+        bookTitle: 'Вишнёвый сад',
+        bookAuthor: 'А.П. Чехов',
+        isMember: false,
+        progress: 80,
+        membersList: [
+          { name: 'Андрей Б.', role: 'Организатор' },
+          { name: 'Татьяна В.', role: 'Модератор' },
+          { name: 'Роман Г.', role: 'Участник' },
+          { name: 'Алиса Д.', role: 'Участник' },
+          { name: 'Максим Е.', role: 'Участник' }
+        ],
+        discussions: [
+          { title: 'Чехов: пьесы и подтекст', date: '08.03.2024', participants: 14 },
+          { title: 'Шекспир: вечные темы', date: '22.02.2024', participants: 13 },
+          { title: 'Современная драматургия', date: '08.02.2024', participants: 10 }
+        ]
+      },
+      '5': {
+        name: 'Научная фантастика',
+        members: '28 участников',
+        currentBook: '451° по Фаренгейту',
+        nextDiscussion: '4 дня',
+        description: 'Путешествия во времени, далёкие галактики, технологии будущего. Исследуем лучшие образцы научной фантастики.',
+        bookTitle: '451° по Фаренгейту',
+        bookAuthor: 'Рэй Брэдбери',
+        isMember: false,
+        progress: 55,
+        membersList: [
+          { name: 'Виктор Ж.', role: 'Организатор' },
+          { name: 'Светлана З.', role: 'Модератор' },
+          { name: 'Кирилл И.', role: 'Участник' },
+          { name: 'Лариса К.', role: 'Участник' },
+          { name: 'Николай Л.', role: 'Участник' }
+        ],
+        discussions: [
+          { title: 'Брэдбери: предвидение будущего', date: '05.03.2024', participants: 25 },
+          { title: 'Айзек Азимов и роботы', date: '20.02.2024', participants: 26 },
+          { title: 'Киберпанк как жанр', date: '05.02.2024', participants: 22 }
+        ]
+      },
+      '6': {
+        name: 'Фэнтези и магия',
+        members: '35 участников',
+        currentBook: 'Властелин колец',
+        nextDiscussion: '6 дней',
+        description: 'Волшебные миры, эпические битвы, магические системы. Погружаемся в лучшие фэнтези-саги и обсуждаем мировоззрение.',
+        bookTitle: 'Властелин колец',
+        bookAuthor: 'Дж. Р. Р. Толкин',
+        isMember: false,
+        progress: 40,
+        membersList: [
+          { name: 'Александр М.', role: 'Организатор' },
+          { name: 'Валентина Н.', role: 'Модератор' },
+          { name: 'Георгий О.', role: 'Участник' },
+          { name: 'Дарья П.', role: 'Участник' },
+          { name: 'Евгений Р.', role: 'Участник' }
+        ],
+        discussions: [
+          { title: 'Толкин: создание Средиземья', date: '03.03.2024', participants: 32 },
+          { title: 'Магические системы в фэнтези', date: '18.02.2024', participants: 30 },
+          { title: 'Современное фэнтези', date: '03.02.2024', participants: 28 }
+        ]
+      }
+    };
+
+    // Загрузка данных клуба
+    function loadClubData() {
+      const params = getUrlParams();
+      const clubId = params.id;
+      const club = clubsData[clubId] || clubsData['1'];
+      
+      // Обновление заголовка страницы
+      document.title = `Nevermore — ${club.name}`;
+      
+      // Обновление данных на странице
+      document.getElementById('clubTitle').textContent = club.name;
+      document.getElementById('clubMembers').textContent = club.members;
+      document.getElementById('currentBook').textContent = club.currentBook;
+      document.getElementById('nextDiscussion').textContent = club.nextDiscussion;
+      document.getElementById('clubDescription').textContent = club.description;
+      document.getElementById('currentBookTitle').textContent = club.bookTitle;
+      document.getElementById('bookAuthor').textContent = club.bookAuthor;
+      
+      // Обновление прогресса чтения
+      const progressFill = document.getElementById('progressFill');
+      const progressText = document.getElementById('progressText');
+      if (progressFill && progressText) {
+        progressFill.style.width = `${club.progress}%`;
+        progressText.textContent = `${club.progress}% прочитано`;
+      }
+      
+      // Обновление кнопки вступления
+      const joinBtn = document.getElementById('joinClubBtn');
+      if (club.isMember) {
+        joinBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Выйти из клуба';
+        joinBtn.classList.remove('join-btn');
+        joinBtn.classList.add('joined-btn');
+        joinBtn.onclick = () => leaveClub(clubId);
+      } else {
+        joinBtn.innerHTML = '<i class="fas fa-user-plus"></i> Вступить в клуб';
+        joinBtn.classList.remove('joined-btn');
+        joinBtn.classList.add('join-btn');
+        joinBtn.onclick = () => joinClub(clubId);
+      }
+      
+      // Загрузка участников
+      loadMembers(club.membersList);
+      
+      // Загрузка обсуждений
+      loadDiscussions(club.discussions);
+    }
+    
+    // Загрузка списка участников
+    function loadMembers(membersList) {
+      const gallery = document.getElementById('membersGallery');
+      gallery.innerHTML = '';
+      
+      membersList.forEach(member => {
+        const memberItem = document.createElement('div');
+        memberItem.className = 'gallery-item';
+        memberItem.innerHTML = `
+          <img src="../resources/Ellipse 2.png" alt="${member.name}" class="gallery-image">
+          <div class="gallery-caption">
+            <div>${member.name}</div>
+            <div style="font-size: 0.8rem; color: #888;">${member.role}</div>
+          </div>
+        `;
+        gallery.appendChild(memberItem);
+      });
+    }
+    
+    // Загрузка списка обсуждений
+    function loadDiscussions(discussions) {
+      const list = document.getElementById('discussionList');
+      list.innerHTML = '';
+      
+      discussions.forEach(discussion => {
+        const discussionItem = document.createElement('div');
+        discussionItem.className = 'discussion-item';
+        discussionItem.innerHTML = `
+          <div class="discussion-title">${discussion.title}</div>
+          <div class="discussion-meta">
+            <span><i class="far fa-calendar"></i> ${discussion.date}</span>
+            <span><i class="fas fa-user-friends"></i> ${discussion.participants} участников</span>
+          </div>
+        `;
+        list.appendChild(discussionItem);
+      });
+    }
+    
+    // Функции вступления/выхода из клуба
+    function joinClub(clubId) {
+      clubsData[clubId].isMember = true;
+      clubsData[clubId].members = (parseInt(clubsData[clubId].members) + 1) + ' участников';
+      
+      // Обновление страницы
+      loadClubData();
+      
+      // Toast уведомление
+      showToast('success', `Вы вступили в клуб "${clubsData[clubId].name}"!`);
+    }
+    
+    function leaveClub(clubId) {
+      clubsData[clubId].isMember = false;
+      clubsData[clubId].members = (parseInt(clubsData[clubId].members) - 1) + ' участников';
+      
+      // Обновление страницы
+      loadClubData();
+      
+      // Toast уведомление
+      showToast('info', `Вы вышли из клуба "${clubsData[clubId].name}"`);
+    }
+    
+    // Функция toast уведомлений
+    function showToast(type, message) {
+      const toastContainer = document.createElement("div");
+      toastContainer.className = "toast-container";
+      toastContainer.style.cssText = "position:fixed;top:20px;right:20px;z-index:3000;";
+      
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+      toast.style.cssText = "display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:10px;color:#fff;background:#623a88;box-shadow:0 2px 10px rgba(0,0,0,0.15);animation:slideIn 0.4s forwards;";
+      
+      let icon = "";
+      switch (type) {
+        case "success": icon = '<i class="fas fa-check-circle"></i>'; break;
+        case "error": icon = '<i class="fas fa-times-circle"></i>'; break;
+        case "warning": icon = '<i class="fas fa-exclamation-triangle"></i>'; break;
+        case "info": icon = '<i class="fas fa-info-circle"></i>'; break;
+      }
+      
+      toast.innerHTML = `${icon}<span>${message}</span>`;
+      toastContainer.appendChild(toast);
+      document.body.appendChild(toastContainer);
+      
+      setTimeout(() => {
+        toast.style.animation = "fadeOut 0.4s forwards";
+        setTimeout(() => toastContainer.remove(), 400);
+      }, 3000);
+    }
+    
+    // Кнопка чата
+    document.getElementById('startDiscussionBtn').addEventListener('click', function() {
+      const params = getUrlParams();
+      const club = clubsData[params.id];
+      showToast('info', `Открывается чат клуба "${club.name}"`);
+    });
+    
+    // Загрузка данных при загрузке страницы
+    document.addEventListener('DOMContentLoaded', loadClubData);
+  </script>
+
+  <script>
+    fetch("../menu_samples/header.html")
+      .then(r => r.text())
+      .then(h => document.getElementById("header").innerHTML = h); 
+  </script>
+
+  <script>
+    fetch("../menu_samples/sidebar.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("sidebar").innerHTML = html;
+      })
+      .catch(err => console.error('Error loading sidebar:', err));
+  </script>
+  <script>
+    fetch("../menu_samples/mobile-nav.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("mobile-nav").innerHTML = html;
+      })
+      .catch(err => console.error('Error loading mobile navigation:', err));
+  </script>
   <script src="../menu_samples/menu_loader.js"></script>
   
 </body>

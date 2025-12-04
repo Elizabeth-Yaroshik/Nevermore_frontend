@@ -1,250 +1,537 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Playfair Display', serif;
-  background-color: #f5f7fa;
-  color: #222;
-  line-height: 1.5;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
 }
 
-/* ====== ОСНОВНОЙ КОНТЕЙНЕР ====== */
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-bottom: 80px;
+    min-height: 100vh;
+}
+
 .container {
-  display: flex;
-  gap: 20px;
-  max-width: 1400px;
-  margin: 24px auto;
-  padding: 0 18px;
+    display: flex;
+    min-height: calc(100vh - 80px);
+    max-width: 100vw;
+}
+
+/* ====== САЙДБАР ====== */
+#sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    height: calc(100vh - 80px);
+    position: sticky;
+    top: 80px;
+    flex-shrink: 0;
+}
+
+.nav-item {
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item:hover {
+    background-color: #f0f4f8;
+}
+
+.nav-item.active {
+    background-color: #e8f4fc;
+    border-left: 3px solid #D0BCFF;
+    color: #6750A4;
+}
+
+.nav-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.nav-item::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 4px solid #999;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 0.3s ease;
+    margin-left: auto;
+}
+
+.nav-item:hover::after {
+    border-left-color: #6750A4;
 }
 
 /* ====== ОСНОВНОЙ КОНТЕНТ ====== */
 .main-content-wrapper {
-  display: flex;
-  flex: 1;
-  gap: 24px;
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    padding: 20px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .book-panel {
-  flex: 1;
-  background: #fff;
-  border-radius: 10px;
-  padding: 22px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
 .book-grid {
-  display: flex;
-  gap: 24px;
+    display: flex;
+    gap: 24px;
 }
 
 /* ====== ОБЛОЖКА И КНОПКИ ====== */
 .book-cover-section {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
 }
 
 .book-cover {
-  width: 100%;
-  aspect-ratio: 3/4;
-  background: #e9dfff;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #2b0b45;
-  font-weight: 700;
-  text-align: center;
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #6750A4;
+    opacity: 0.6;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .actions {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .btn {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .btn.read {
-  background: #6750A4;
-  color: white;
+    background: #6750A4;
+    color: white;
 }
 
 .btn.secondary {
-  background: #f3e8ff;
-  color: #4b0082;
+    background: #f3e8ff;
+    color: #4F378B;
+}
+
+.btn.secondary:hover {
+    background: #e9dfff;
 }
 
 /* ====== ИНФОРМАЦИЯ О КНИГЕ ====== */
 .book-info-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .book-meta {
-  color: #6b21a8;
-  font-size: 14px;
+    color: #6b21a8;
+    font-size: 14px;
+    opacity: 0.8;
 }
 
 .book-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #2b0b45;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2b0b45;
+    margin-bottom: 5px;
 }
 
 .tags {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .tag {
-  background: #ede9fe;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #3a1a5a;
+    background: #ede9fe;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #3a1a5a;
 }
 
 /* ====== ВКЛАДКИ (ТАБЫ) ====== */
 .tabs {
-  display: flex;
-  gap: 16px;
-  border-bottom: 1px solid #e6e9ee;
+    display: flex;
+    gap: 16px;
+    border-bottom: 1px solid #e6e9ee;
+    margin-top: 10px;
 }
 
 .tab {
-  background: none;
-  border: none;
-  padding: 8px 6px;
-  font-weight: 700;
-  color: #6b21a8;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
+    background: none;
+    border: none;
+    padding: 10px 0;
+    font-weight: 700;
+    color: #6b21a8;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.tab:hover {
+    color: #4F378B;
 }
 
 .tab.active {
-  color: #4F378B;
-  border-bottom-color: #7e22ce;
+    color: #4F378B;
+    border-bottom-color: #7e22ce;
 }
 
 .tab-content {
-  display: none;
-  padding-top: 14px;
+    display: none;
+    padding-top: 20px;
+    animation: fadeIn 0.3s ease;
 }
 
 .tab-content.active {
-  display: block;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .book-description {
-  background: #f5f3ff;
-  padding: 16px;
-  border-radius: 8px;
-  line-height: 1.6;
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 8px;
+    line-height: 1.6;
+    color: #2c3e50;
 }
 
 .chapter-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .chapter {
-  background: #ede9fe;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
+    background: #ede9fe;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 120px;
+    text-align: center;
+}
+
+.chapter:hover {
+    background: #e9dfff;
+    transform: translateY(-2px);
 }
 
 .review {
-  background: #f3e8ff;
-  border-radius: 8px;
-  padding: 12px;
-  margin-top: 8px;
+    background: #f3e8ff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.review:hover {
+    background: #e9dfff;
 }
 
 /* ====== РЕКОМЕНДАЦИИ ====== */
 .recommendations {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
 }
 
 .card h3 {
-  color: #4F378B;
-  margin-bottom: 8px;
+    color: #4F378B;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .rec-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 10px;
 }
 
 .rec-item:hover {
-  background: #f8f6ff;
+    background: #f8fafc;
+    transform: translateX(5px);
 }
 
 .rec-item img {
-  width: 56px;
-  height: 78px;
-  border-radius: 6px;
-  object-fit: cover;
+    width: 56px;
+    height: 78px;
+    border-radius: 6px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .rec-info .rec-title {
-  font-weight: 700;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2c3e50;
 }
 
 .rec-info .rec-author {
-  font-size: 0.9rem;
-  color: #6b21a8;
+    font-size: 0.85rem;
+    color: #6b21a8;
+    margin: 3px 0;
 }
 
 .rec-year {
-  font-size: 0.82rem;
-  color: #8a60d1;
+    font-size: 0.8rem;
+    color: #8a60d1;
+}
+
+/* ====== МОБИЛЬНАЯ НАВИГАЦИЯ ====== */
+#mobile-nav {
+    display: none;
 }
 
 /* ====== МОБИЛЬНАЯ АДАПТАЦИЯ ====== */
+@media (max-width: 1200px) {
+    .main-content-wrapper {
+        flex-direction: column;
+    }
+    
+    .recommendations {
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .card {
+        width: 100%;
+    }
+}
+
 @media (max-width: 900px) {
-  .container {
-    flex-direction: column;
-  }
+    .container {
+        flex-direction: column;
+    }
+    
+    #sidebar {
+        display: none;
+    }
+    
+    .book-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .book-cover-section {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .recommendations {
+        display: block;
+    }
+    
+    #mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 20px;
+        left: 15%;
+        right: 15%;
+        background-color: #E2C2FF;
+        border: 1px solid #E2C2FF;
+        padding: 10px 0;
+        z-index: 1000;
+        box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        width: 70%;
+        height: 60px;
+    }
+    
+    .mobile-nav-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        height: 100%;
+    }
+    
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .mobile-nav-item.active {
+        background-color: #e8f4fc;
+        color: #D0BCFF;
+        opacity: 0.7;
+    }
+    
+    .mobile-nav-item i {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    
+    .mobile-nav-item span {
+        font-size: 0.7rem;
+        text-align: center;
+    }
+}
 
-  .book-grid {
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 80px;
+    }
+    
+    .book-title {
+        font-size: 24px;
+    }
+    
+    .tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 5px;
+    }
+    
+    .tab {
+        padding: 8px 12px;
+    }
+    
+    .chapter {
+        min-width: 100px;
+    }
+}
+
+@media (min-width: 901px) {
+    #mobile-nav {
+        display: none !important;
+    }
+    
+    #sidebar {
+        display: block !important;
+    }
+    
+    body {
+        padding-bottom: 0;
+    }
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
     flex-direction: column;
+    gap: 12px;
+    z-index: 3000;
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
     align-items: center;
-  }
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.4s forwards, fadeOut 0.4s 3.6s forwards;
+    pointer-events: auto;
+}
 
-  .book-cover-section {
-    width: 60%;
-  }
+.toast i {
+    font-size: 18px;
+}
 
-  .recommendations {
-    display: none;
-  }
+.toast-success { background-color: #623a88; }
+.toast-error { background-color: #e53935; }
+.toast-warning { background-color: #ffb300; color: #000; }
+.toast-info { background-color: #2196f3; }
+
+.toast button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(100%); }
 }

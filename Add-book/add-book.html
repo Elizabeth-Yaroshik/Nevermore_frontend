@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Добавить книгу</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <link rel="stylesheet" href="add-book.css">
+</head>
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content-wrapper">
+            <div class="add-book-container">
+                <div class="add-book-header">
+                    <h1 class="add-book-title">Добавить книгу</h1>
+                    <p class="add-book-subtitle">Поделитесь своей любимой книгой с сообществом</p>
+                </div>
+                
+                <form class="add-book-form" id="addBookForm">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label">Название книги *</label>
+                                <input type="text" class="form-input" id="bookTitle" required placeholder="Введите название книги">
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label">Автор *</label>
+                                <input type="text" class="form-input" id="bookAuthor" required placeholder="Введите автора">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label">Год издания</label>
+                                <input type="number" class="form-input" id="bookYear" placeholder="Например: 2023" min="1000" max="2099">
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label">ISBN (если есть)</label>
+                                <input type="text" class="form-input" id="bookISBN" placeholder="Международный идентификатор">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Жанры *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="classic"> Классика
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="fantasy"> Фэнтези
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="scifi"> Научная фантастика
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="romance"> Роман
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="detective"> Детектив
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="drama"> Драма
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="poetry"> Поэзия
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="biography"> Биография
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Описание книги</label>
+                        <textarea class="form-input form-textarea" id="bookDescription" placeholder="Краткое описание сюжета, темы и особенности книги..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Обложка книги</label>
+                        <div class="file-upload" id="fileUpload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div>Перетащите изображение сюда или нажмите для выбора</div>
+                            <div class="file-info">Рекомендуемый размер: 600×800 px. Форматы: JPG, PNG</div>
+                        </div>
+                        <input type="file" id="bookCover" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Язык книги</label>
+                        <select class="form-input" id="bookLanguage">
+                            <option value="ru">Русский</option>
+                            <option value="en">Английский</option>
+                            <option value="fr">Французский</option>
+                            <option value="de">Немецкий</option>
+                            <option value="es">Испанский</option>
+                            <option value="other">Другой</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Теги (через запятую)</label>
+                        <input type="text" class="form-input" id="bookTags" placeholder="литература, классика, философия, психология">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="agreeTerms" required> 
+                            Я подтверждаю, что имею право публиковать эту книгу и она не нарушает авторские права
+                        </label>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="cancel-btn" onclick="window.history.back()">
+                            Отмена
+                        </button>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-plus-circle"></i> Добавить книгу
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mobile-nav"></div>
+    
+    <script src="add-book.js"></script>
+    <script src="../menu_samples/menu_loader.js"></script>
+</body>
+</html>

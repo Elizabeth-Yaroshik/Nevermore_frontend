@@ -1,0 +1,379 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 80px);
+    max-width: 100vw;
+}
+
+/* ====== САЙДБАР (убираем sticky) ====== */
+#sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    height: auto; /* Убираем фиксированную высоту */
+    flex-shrink: 0;
+}
+
+.nav-item {
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item:hover {
+    background-color: #f0f4f8;
+}
+
+.nav-item.active {
+    background-color: #e8f4fc;
+    border-left: 3px solid #D0BCFF;
+    color: #6750A4;
+}
+
+.nav-item i {
+    width: 20px;
+    text-align: center;
+}
+
+/* ====== ОСНОВНОЙ КОНТЕНТ ЧТЕНИЯ ====== */
+.reader-container {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.reader-header {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#readerBookTitle {
+    font-size: 24px;
+    color: #4F378B;
+    text-align: center;
+}
+
+.reader-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.reader-btn {
+    background: #6750A4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reader-btn:hover {
+    background: #7e22ce;
+    transform: translateY(-2px);
+}
+
+.chapter-select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 2px solid #D0BCFF;
+    background: white;
+    color: #333;
+    min-width: 200px;
+    cursor: pointer;
+}
+
+.reader-settings {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.settings-btn {
+    background: #f3e8ff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #4F378B;
+    transition: all 0.3s;
+}
+
+.settings-btn:hover {
+    background: #e9dfff;
+    transform: scale(1.1);
+}
+
+.settings-btn.active {
+    background: #6750A4;
+    color: white;
+}
+
+/* ====== СОДЕРЖИМОЕ КНИГИ (убираем ограничения по высоте) ====== */
+.reader-content {
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    /* Убираем ограничения по высоте */
+    overflow-y: visible; /* вместо auto */
+    max-height: none; /* убираем ограничение */
+    min-height: auto;
+}
+
+.text-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#bookText {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+}
+
+#bookText.font-small {
+    font-size: 16px;
+}
+
+#bookText.font-large {
+    font-size: 22px;
+}
+
+.reader-progress {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e6e9ee;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6750A4, #D0BCFF);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+}
+
+/* ====== МОБИЛЬНАЯ НАВИГАЦИЯ ====== */
+#mobile-nav {
+    display: none;
+}
+
+/* ====== МОБИЛЬНАЯ АДАПТАЦИЯ ====== */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    #sidebar {
+        display: none;
+    }
+    
+    .reader-container {
+        padding: 15px;
+    }
+    
+    .reader-content {
+        padding: 20px;
+    }
+    
+    #bookText {
+        font-size: 16px;
+    }
+    
+    .reader-controls {
+        flex-direction: column;
+    }
+    
+    .reader-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .chapter-select {
+        width: 100%;
+    }
+    
+    #mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 20px;
+        left: 15%;
+        right: 15%;
+        background-color: #E2C2FF;
+        border: 1px solid #E2C2FF;
+        padding: 10px 0;
+        z-index: 1000;
+        box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        width: 70%;
+        height: 60px;
+    }
+    
+    .mobile-nav-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        height: 100%;
+    }
+    
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .mobile-nav-item.active {
+        background-color: #e8f4fc;
+        color: #D0BCFF;
+        opacity: 0.7;
+    }
+    
+    .mobile-nav-item i {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    
+    .mobile-nav-item span {
+        font-size: 0.7rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 80px;
+    }
+    
+    .reader-content {
+        padding: 15px;
+    }
+}
+
+@media (min-width: 901px) {
+    #mobile-nav {
+        display: none !important;
+    }
+    
+    #sidebar {
+        display: block !important;
+    }
+    
+    body {
+        padding-bottom: 0;
+    }
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 3000;
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.4s forwards, fadeOut 0.4s 3.6s forwards;
+    pointer-events: auto;
+}
+
+.toast i {
+    font-size: 18px;
+}
+
+.toast-success { background-color: #623a88; }
+.toast-error { background-color: #e53935; }
+.toast-warning { background-color: #ffb300; color: #000; }
+.toast-info { background-color: #2196f3; }
+
+.toast button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(100%); }
+}

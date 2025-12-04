@@ -1,0 +1,144 @@
+/* Стили для страницы каталога книг */
+.catalog-container {
+    flex: 1;
+    padding: 20px;
+}
+
+.catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.catalog-title {
+    font-size: 2rem;
+    color: #4F378B;
+    font-weight: 700;
+}
+
+.search-filter {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 2px solid #e6e6fa;
+    background: white;
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    min-width: 180px;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.catalog-book-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+    transition: all 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.catalog-book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+}
+
+.catalog-book-cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #6750A4;
+    opacity: 0.6;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+}
+
+.catalog-book-info {
+    flex: 1;
+}
+
+.catalog-book-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.catalog-book-author {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.catalog-book-genre {
+    display: inline-block;
+    background: #f3e8ff;
+    color: #4F378B;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    padding: 8px 15px;
+    border: 2px solid #e6e6fa;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    transition: all 0.3s;
+}
+
+.page-btn.active {
+    background: #6750A4;
+    color: white;
+    border-color: #6750A4;
+}
+
+.page-btn:hover:not(.active) {
+    background: #f3e8ff;
+}
+
+@media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .catalog-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

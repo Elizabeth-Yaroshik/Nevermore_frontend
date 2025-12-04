@@ -1,0 +1,74 @@
+/* Стили для страницы статистики */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    padding: 20px;
+}
+
+.stats-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+h1 {
+    color: #4F378B;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    display: inline-block;
+    background: #6750A4;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: #D0BCFF;
+    opacity: 0.7;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.stat-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    color: #4F378B;
+    font-weight: bold;
+}
+
+.timer-display {
+    font-size: 3rem;
+    color: #4F378B;
+    text-align: center;
+    margin: 20px 0;
+    font-family: monospace;
+}
+
+.timer-controls button {
+    background: #6750A4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+}

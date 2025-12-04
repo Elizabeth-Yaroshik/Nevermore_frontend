@@ -1,0 +1,180 @@
+/* Стили для страницы добавления книги */
+.add-book-container {
+    flex: 1;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.add-book-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.add-book-title {
+    font-size: 2rem;
+    color: #4F378B;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.add-book-subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.add-book-form {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #4F378B;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e6e6fa;
+    border-radius: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    background: #f9f7ff;
+    transition: border 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #6750A4;
+    background: white;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+.file-upload {
+    border: 2px dashed #D0BCFF;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #f9f7ff;
+}
+
+.file-upload:hover {
+    border-color: #6750A4;
+    background: #f5f3ff;
+}
+
+.file-upload i {
+    font-size: 2.5rem;
+    color: #D0BCFF;
+    margin-bottom: 15px;
+}
+
+.file-info {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #6750A4;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.submit-btn {
+    padding: 15px 30px;
+    background: #6750A4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    min-width: 150px;
+}
+
+.submit-btn:hover {
+    background: #4F378B;
+}
+
+.cancel-btn {
+    padding: 15px 30px;
+    background: #f3e8ff;
+    color: #4F378B;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    min-width: 150px;
+}
+
+.cancel-btn:hover {
+    background: #e6d6ff;
+}
+
+@media (max-width: 768px) {
+    .add-book-form {
+        padding: 20px;
+    }
+    
+    .form-buttons {
+        justify-content: center;
+    }
+    
+    .submit-btn, .cancel-btn {
+        width: 100%;
+    }
+}

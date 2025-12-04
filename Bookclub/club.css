@@ -6,12 +6,11 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
     background-color: #f5f7fa;
     color: #333;
     line-height: 1.6;
     overflow-x: hidden;
+    padding-bottom: 80px;
 }
 
 .container {
@@ -157,7 +156,7 @@ body {
     box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     width: 70%;
-    height: 8%;
+    height: 60px;
 }   
 
 .mobile-nav-container {
@@ -252,302 +251,6 @@ body {
     }
 }
 
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-}
-
-.overlay-image {
-  position: absolute;
-  top: 0;
-  left: -0.49%; 
-  width: 101%; 
-  height: 100%; 
-  object-fit: contain;
-  object-position: top center;
-}
-
-/* ОБЩИЙ КОНТЕЙНЕР для картинки и текста */
-.club-wrapper {
-  position: absolute;
-  top: 18%;
-  left: 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 10%;
-}
-
-.overlay-club-image {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1/1;
-  object-fit: contain;
-}
-
-.club-info {
-  width: 600%;
-  height: 150%; 
-  background: #6E59A8; 
-  opacity: 0.8;
-  border-radius: 6px;
-  margin-top: 0px;
-  text-align: flex-start;
-  backdrop-filter: blur(5px);
-}
-
-.club-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 32px;
-  color: white;
-  line-height: 1.2;
-  margin-left: 10px;
-}
-
-.club-subtitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
-  color: #e0e0e0;
-  line-height: 1.1;
-  margin-left: 10px;
-  margin-top: 2px;
-}
-
-/* Контейнер для двух колонок */
-.info-container {
-  display: flex;
-  gap: 20px;
-  width: 600%;
-  margin-top: 15px;
-}
-
-/* Левая колонка с independent-info блоками */
-.independent-info-column {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  flex: 1;
-}
-
-.independent-info {
-  background: #6E59A8;
-  opacity: 0.8;
-  padding: 8px 4px;
-  border-radius: 4px;
-  text-align: flex-start;
-  backdrop-filter: blur(5px);
-  height: auto;
-  min-height: 60px;
-}
-
-/* Правый блок с дополнительной информацией */
-.additional-info {
-  background: #6750A4;
-  opacity: 0.9;
-  padding: 8px 4px;
-  border-radius: 4px;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(5px);
-  height: auto;
-  max-height: 400px;
-  max-width: 300px;
-  flex: 1;
-  border-radius: 10px;
-  display: flex;
-  font-weight: 700;
-}
-
-/* Галерея справа на экране */
-.gallery-sidebar {
-  position: absolute;
-  top: 26.25%;
-  right: 1%;
-  width: 33%;
-  max-width: 500px;
-}
-
-.gallery-container {
-  background: #6E59A8;
-  opacity: 0.8;
-  padding: 20px;
-  border-radius: 6px;
-  backdrop-filter: blur(5px);
-  height: auto;
-}
-
-.gallery-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 32px;
-  color: white;
-  text-align: flex-start;
-  margin-bottom: 10px;
-}
-
-.gallery-items {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.gallery-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-}
-
-.gallery-image {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 6px;
-  flex-shrink: 0;
-}
-
-.gallery-caption {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  color: #e0e0e0;
-  flex: 1;
-}
-
-.info-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: white;
-  line-height: 1.2;
-  margin-left: 10px;
-}
-
-.info-subtitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  color: #e0e0e0;
-  line-height: 1.1;
-  margin-top: 2px;
-  margin-left: 10px;
-}
-
-/* МОБИЛЬНАЯ ВЕРСИЯ */
-@media (max-width: 768px) {
-  .image-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    padding-bottom: 100%;
-  }
-
-  .overlay-image {
-    position: absolute;
-    top: 0;
-    left: -0.49%;
-    width: 101%; 
-    height: 100%; 
-    object-fit: contain;
-    object-position: top center;
-  }
-
-  /* АДАПТИВНЫЙ КОНТЕЙНЕР для мобильных */
-  .club-wrapper {
-    position: absolute;
-    top: 10%;
-    left: 35%;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .overlay-club-image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1/1;
-    object-fit: contain;
-  }
-
-  .club-info {
-    width: 300%;
-    margin-top: 0px;
-    text-align: center;
-  }
-  
-  .club-title {
-    font-size: 32px;
-  }
-  
-  .club-subtitle {
-    font-size: 15px;
-  }
-
-  .info-container {
-    flex-direction: column;
-    width: 300%;
-    gap: 12px;
-  }
-
-  .independent-info-column {
-    gap: 12px;
-  }
-
-  .independent-info {
-    width: 100%;
-    margin-top: 0;
-  }
-
-  .additional-info {
-    display: none;
-  }
-
-  /* Галерея в мобильной версии - перемещаем под основную информацию */
-  .gallery-sidebar {
-    position: absolute;
-    top: 165%; /* Располагаем под всей информацией */
-    left: 5%; /* Такое же позиционирование как у club-wrapper */
-    width: 30%; /* Такая же ширина как у club-wrapper */
-    max-width: none;
-    margin-top: 20px;
-  }
-
-  .gallery-container {
-    width: 300%;
-  }
-
-  .gallery-title {
-    font-size: 20px;
-  }
-
-  .gallery-item {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-  }
-
-  .gallery-image {
-    width: 80px;
-    height: 80px;
-  }
-
-  .gallery-caption {
-    font-size: 14px;
-  }
-  
-  .info-title {
-    font-size: 32px;
-  }
-  
-  .info-subtitle {
-    font-size: 32px;
-  }
-}
 /* ======= Toast Notifications ======= */
 .toast-container {
     position: fixed;
@@ -603,3 +306,572 @@ body {
     to { opacity: 0; transform: translateX(100%); }
 }
 
+/* ================================== */
+/* CLUB PAGE STYLES - Визуал из 1-го варианта с функционалом 2-го */
+/* ================================== */
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+}
+
+.overlay-image {
+    position: absolute;
+    top: 0;
+    left: -0.49%; 
+    width: 101%; 
+    height: 100%; 
+    object-fit: contain;
+    object-position: top center;
+}
+
+/* ОБЩИЙ КОНТЕЙНЕР для картинки и текста - внешний вид как в 1-м варианте */
+.club-wrapper {
+    position: absolute;
+    top: 18%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 10%;
+}
+
+.overlay-club-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+}
+
+/* Секция заголовка с кнопкой вступления - функционал из 2-го варианта */
+.club-header-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 10px;
+}
+
+.club-header-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    gap: 20px;
+}
+
+.club-title-section {
+    flex: 1;
+}
+
+/* Фиолетовый фон под название клуба - шире */
+.club-info {
+    width: 250%; /* Увеличил ширину с 600% до 650% */
+    height: 150%; 
+    background: #6E59A8; 
+    opacity: 0.8;
+    border-radius: 6px;
+    margin-top: 0px;
+    text-align: flex-start;
+    backdrop-filter: blur(5px);
+    padding: 15px 20px; /* Добавил внутренние отступы */
+}
+
+.club-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: white;
+    line-height: 1.2;
+    margin-left: 0; /* Убрал отступ слева */
+    margin-bottom: 8px;
+}
+
+.club-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: #e0e0e0;
+    line-height: 1.1;
+    margin-left: 0; /* Убрал отступ слева */
+    margin-top: 2px;
+    opacity: 0.9;
+}
+
+/* Кнопки - функционал из 2-го варианта */
+.join-btn, .joined-btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+    min-width: 200px;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.join-btn {
+    background: white;
+    color: #6750A4;
+}
+
+.join-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.joined-btn {
+    background: #D0BCFF;
+    color: #000;
+}
+
+.joined-btn:hover {
+    background: #c2a8ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.chat-btn {
+    padding: 12px 24px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.chat-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}
+
+/* Контейнер для двух колонок - внешний вид как в 1-м варианте */
+.info-container {
+    display: flex;
+    gap: 20px;
+    width: 600%; /* Увеличил ширину с 600% до 650% */
+    margin-top: 15px;
+}
+
+/* Левая колонка с independent-info блоками */
+.independent-info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+}
+
+.independent-info {
+    background: #6E59A8;
+    opacity: 0.8;
+    padding: 12px 15px; /* Увеличил внутренние отступы */
+    border-radius: 6px; /* Увеличил радиус скругления */
+    text-align: flex-start;
+    backdrop-filter: blur(5px);
+    height: auto;
+    min-height: 70px; /* Увеличил минимальную высоту */
+}
+
+.info-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    line-height: 1.2;
+    margin-left: 0; /* Убрал отступ слева */
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-title span {
+    font-weight: 700;
+    color: #D0BCFF;
+}
+
+.info-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #e0e0e0;
+    line-height: 1.1;
+    margin-top: 2px;
+    margin-left: 0; /* Убрал отступ слева */
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 600px;
+}
+
+/* Фиолетовый фон под название книги, автора и процесс чтения */
+.book-info-container {
+    background: #6E59A8;
+    opacity: 0.8;
+    padding: 15px 20px;
+    border-radius: 6px;
+    backdrop-filter: blur(5px);
+    margin-top: 10px;
+    width: 100%;
+}
+
+.book-title-large {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.book-author {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #e0e0e0;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+/* Правый блок с дополнительной информацией - фиолетовый фон */
+.additional-info {
+    background: #6E59A8; /* Изменил на тот же фиолетовый цвет */
+    opacity: 0.9;
+    padding: 20px 25px; /* Увеличил отступы */
+    border-radius: 8px; /* Увеличил радиус скругления */
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    height: auto;
+    max-height: 400px;
+    max-width: 350px; /* Увеличил максимальную ширину */
+    flex: 1;
+    border-radius: 10px;
+    display: flex;
+    font-weight: 700;
+    flex-direction: column;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.current-book-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.book-title-current {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.book-author-current {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #e0e0e0;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.book-progress {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px; /* Увеличил высоту */
+    background: rgba(255,255,255,0.2);
+    border-radius: 5px; /* Увеличил радиус */
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #D0BCFF;
+    border-radius: 5px; /* Увеличил радиус */
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    font-size: 1rem; /* Увеличил размер шрифта */
+    text-align: center;
+    opacity: 0.9;
+    color: white;
+    font-weight: 600;
+}
+
+/* Галерея справа на экране - внешний вид как в 1-м варианте */
+.gallery-sidebar {
+    position: absolute;
+    top: 26.25%;
+    right: 1%;
+    width: 33%;
+    max-width: 500px;
+}
+
+.gallery-container {
+    background: #6E59A8;
+    opacity: 0.8;
+    padding: 25px 30px; /* Увеличил отступы */
+    border-radius: 8px; /* Увеличил радиус */
+    backdrop-filter: blur(5px);
+    height: auto;
+}
+
+.gallery-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: white;
+    text-align: flex-start;
+    margin-bottom: 15px; /* Увеличил отступ снизу */
+}
+
+.gallery-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.gallery-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px; /* Увеличил отступы */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px; /* Увеличил радиус */
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.gallery-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gallery-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.gallery-caption {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #e0e0e0;
+    flex: 1;
+}
+
+/* Дополнительные элементы из 2-го варианта */
+.discussion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px; /* Увеличил отступ сверху */
+}
+
+.discussion-item {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px; /* Увеличил радиус */
+    border-left: 4px solid #D0BCFF;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.discussion-item:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.discussion-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.discussion-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+.discussion-meta i {
+    margin-right: 5px;
+    color: #D0BCFF;
+}
+
+/* МОБИЛЬНАЯ ВЕРСИЯ - адаптация для клубной страницы */
+@media (max-width: 768px) {
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-bottom: 100%;
+    }
+
+    .overlay-image {
+        position: absolute;
+        top: 0;
+        left: -0.49%;
+        width: 101%; 
+        height: 100%; 
+        object-fit: contain;
+        object-position: top center;
+    }
+
+    /* АДАПТИВНЫЙ КОНТЕЙНЕР для мобильных */
+    .club-wrapper {
+        position: absolute;
+        top: 10%;
+        left: 35%;
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .overlay-club-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/1;
+        object-fit: contain;
+    }
+
+    .club-info {
+        width: 320%; /* Увеличил для мобильной версии */
+        margin-top: 0px;
+        text-align: center;
+        padding: 12px 15px;
+    }
+    
+    .club-title {
+        font-size: 28px; /* Немного уменьшил для мобильных */
+    }
+    
+    .club-subtitle {
+        font-size: 14px;
+    }
+
+    .info-container {
+        flex-direction: column;
+        width: 320%; /* Увеличил для мобильной версии */
+        gap: 12px;
+    }
+
+    .independent-info-column {
+        gap: 12px;
+    }
+
+    .independent-info {
+        width: 100%;
+        margin-top: 0;
+        padding: 10px 12px;
+    }
+
+    .additional-info {
+        display: none;
+    }
+
+    /* Кнопки в мобильной версии */
+    .join-btn, .joined-btn {
+        min-width: auto;
+        width: 100%;
+        padding: 12px 20px;
+    }
+    
+    .chat-btn {
+        width: 100%;
+    }
+
+    /* Галерея в мобильной версии - перемещаем под основную информацию */
+    .gallery-sidebar {
+        position: absolute;
+        top: 165%;
+        left: 5%;
+        width: 30%;
+        max-width: none;
+        margin-top: 20px;
+    }
+
+    .gallery-container {
+        width: 320%; /* Увеличил для мобильной версии */
+        padding: 20px 25px;
+    }
+
+    .gallery-title {
+        font-size: 24px; /* Уменьшил для мобильных */
+    }
+
+    .gallery-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 10px 12px;
+    }
+
+    .gallery-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .gallery-caption {
+        font-size: 14px;
+    }
+    
+    .info-title {
+        font-size: 18px; /* Уменьшил для мобильных */
+    }
+    
+    .info-subtitle {
+        font-size: 28px; /* Немного уменьшил */
+    }
+}
+
+/* Адаптивность для клубной страницы на планшетах */
+@media (max-width: 1200px) {
+    .club-header-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .join-btn, .joined-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Адаптивность для клубной страницы на больших планшетах */
+@media (max-width: 1024px) {
+    .club-wrapper, .gallery-sidebar {
+        width: 100%;
+    }
+    
+    .info-container {
+        flex-direction: column;
+    }
+}

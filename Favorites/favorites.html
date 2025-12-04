@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Избранное</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <link rel="stylesheet" href="favorites.css">
+</head>
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content-wrapper">
+            <div class="favorites-container">
+                <div class="favorites-header">
+                    <h1 class="favorites-title">Избранное</h1>
+                    <p class="favorites-subtitle">Книги, авторы и цитаты, которые вы сохранили</p>
+                </div>
+                
+                <div class="favorites-tabs">
+                    <button class="fav-tab active" data-tab="books">Книги (3)</button>
+                    <button class="fav-tab" data-tab="authors">Авторы (2)</button>
+                    <button class="fav-tab" data-tab="quotes">Цитаты</button>
+                    <button class="fav-tab" data-tab="clubs">Клубы (1)</button>
+                </div>
+                
+                <div id="books" class="fav-content active">
+                    <div class="books-grid">
+                        <div class="fav-book-card">
+                            <button class="remove-fav" onclick="removeFromFavorites(this, 'book1')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="fav-book-cover">МАСТЕР И МАРГАРИТА</div>
+                            <div class="fav-book-title">Мастер и Маргарита</div>
+                            <div class="fav-book-author">М.А. Булгаков</div>
+                            <div style="color: #888; font-size: 0.8rem;">1967 год</div>
+                        </div>
+                        
+                        <div class="fav-book-card">
+                            <button class="remove-fav" onclick="removeFromFavorites(this, 'book2')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="fav-book-cover">ПРЕСТУПЛЕНИЕ И НАКАЗАНИЕ</div>
+                            <div class="fav-book-title">Преступление и наказание</div>
+                            <div class="fav-book-author">Ф.М. Достоевский</div>
+                            <div style="color: #888; font-size: 0.8rem;">1866 год</div>
+                        </div>
+                        
+                        <div class="fav-book-card">
+                            <button class="remove-fav" onclick="removeFromFavorites(this, 'book3')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="fav-book-cover">Анна Каренина</div>
+                            <div class="fav-book-title">Анна Каренина</div>
+                            <div class="fav-book-author">Л.Н. Толстой</div>
+                            <div style="color: #888; font-size: 0.8rem;">1877 год</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="authors" class="fav-content">
+                    <div class="books-grid">
+                        <div class="fav-book-card">
+                            <button class="remove-fav" onclick="removeFromFavorites(this, 'author1')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="fav-book-cover" style="background-color: #4F378B; opacity: 0.8;">
+                                Ф.Д.
+                            </div>
+                            <div class="fav-book-title">Фёдор Достоевский</div>
+                            <div class="fav-book-author">Русский писатель</div>
+                            <div style="color: #888; font-size: 0.8rem;">11 книг</div>
+                        </div>
+                        
+                        <div class="fav-book-card">
+                            <button class="remove-fav" onclick="removeFromFavorites(this, 'author2')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="fav-book-cover" style="background-color: #4F378B; opacity: 0.8;">
+                                Л.Т.
+                            </div>
+                            <div class="fav-book-title">Лев Толстой</div>
+                            <div class="fav-book-author">Русский писатель</div>
+                            <div style="color: #888; font-size: 0.8rem;">8 книг</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="quotes" class="fav-content">
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <div class="empty-text">Здесь пока нет сохраненных цитат</div>
+                        <div class="empty-subtext">Сохраняйте понравившиеся цитаты из книг</div>
+                        <button class="browse-btn" onclick="showToast('info', 'Функция в разработке')">
+                            <i class="fas fa-search"></i> Найти цитаты
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="clubs" class="fav-content">
+                    <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);">
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <img src="../resources/Ellipse 2.png" alt="Nevermore" style="width: 50px; height: 50px; border-radius: 50%;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; font-size: 1.1rem; color: #2c3e50;">Классика навсегда</div>
+                                <div style="color: #7f8c8d; font-size: 0.9rem;">24 участника</div>
+                            </div>
+                            <button style="background: #f3e8ff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; color: #4F378B; font-family: 'Playfair Display', serif;">
+                                <i class="fas fa-users"></i> Вступить
+                            </button>
+                        </div>
+                        <p style="color: #666; line-height: 1.6;">
+                            Обсуждение классической литературы разных эпох и стран. 
+                            Читаем и анализируем произведения, которые прошли проверку временем.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mobile-nav"></div>
+    
+    <script src="favorites.js"></script>
+    <script src="../menu_samples/menu_loader.js"></script>
+</body>
+</html>

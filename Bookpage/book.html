@@ -7,8 +7,8 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="book.css">
-  <script src="book.js" defer></script>
+  <link rel="stylesheet" href="../Bookpage/book.css">
+  <script src="../Bookpage/book.js" defer></script>
 </head>
 <body>
 
@@ -23,22 +23,20 @@
         <div class="book-grid">
 
           <div class="book-cover-section">
-            <div class="book-cover">Пример обложки</div>
+            <div class="book-cover" id="bookCover">Загрузка...</div>
             <div class="actions">
-              <button class="btn read">Читать</button>
-              <button class="btn secondary">Добавить в закладки</button>
-              <button class="btn secondary">Пожаловаться</button>
+              <button class="btn read" onclick="startReading()">Читать</button>
+              <button class="btn secondary" onclick="addToBookmarks()">Добавить в закладки</button>
+              <button class="btn secondary" onclick="reportBook()">Пожаловаться</button>
             </div>
           </div>
 
           <div class="book-info-section">
-            <div class="book-meta">2021 / Автор: Иванов И.И.</div>
-            <h1 class="book-title">Пример книги</h1>
+            <div class="book-meta">Загрузка...</div>
+            <h1 class="book-title">Загрузка...</h1>
 
             <div class="tags">
-              <span class="tag">Фантастика</span>
-              <span class="tag">Приключения</span>
-              <span class="tag">Роман</span>
+              <!-- Теги будут загружены через JS -->
             </div>
 
             <nav class="tabs">
@@ -49,23 +47,22 @@
 
             <div id="description" class="tab-content active">
               <p class="book-description">
-                Описание книги.
+                Загрузка...
               </p>
             </div>
 
             <div id="chapters" class="tab-content">
               <h3>Главы</h3>
               <div class="chapter-list">
-                <div class="chapter">Глава 1</div>
-                <div class="chapter">Глава 2</div>
-                <div class="chapter">Глава 3</div>
+                <!-- Главы будут загружены через JS -->
               </div>
             </div>
 
             <div id="reviews" class="tab-content">
               <h3>Отзывы</h3>
-              <div class="review"><strong>@reader01:</strong> Отличная книга!</div>
-              <div class="review"><strong>@anna:</strong> Хорошо написано.</div>
+              <div class="reviews-list">
+                <!-- Отзывы будут загружены через JS -->
+              </div>
             </div>
           </div>
         </div>
@@ -74,28 +71,35 @@
       <aside class="recommendations">
         <div class="card">
           <h3>Похожие книги</h3>
-          <div class="rec-item">
-            <img src="covers/book1.png" alt="">
-            <div class="rec-info">
-              <div class="rec-title">Мастер и Маргарита</div>
-              <div class="rec-author">М.А. Булгаков</div>
-              <div class="rec-year">1940</div>
-            </div>
-          </div>
-          <div class="rec-item">
-            <img src="covers/book2.png" alt="">
-            <div class="rec-info">
-              <div class="rec-title">Преступление и наказание</div>
-              <div class="rec-author">Ф.М. Достоевский</div>
-              <div class="rec-year">1866</div>
-            </div>
-          </div>
+          <!-- Рекомендации будут загружены через JS -->
         </div>
       </aside>
     </main>
   </div>
 
   <div id="mobile-nav"></div>
+ <script>
+    fetch("../menu_samples/header.html")
+      .then(r => r.text())
+      .then(h => document.getElementById("header").innerHTML = h); 
+  </script>
+
+  <script>
+    fetch("../menu_samples/sidebar.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("sidebar").innerHTML = html;
+      })
+      .catch(err => console.error('Error loading sidebar:', err));
+  </script>
+  <script>
+    fetch("../menu_samples/mobile-nav.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("mobile-nav").innerHTML = html;
+      })
+      .catch(err => console.error('Error loading mobile navigation:', err));
+  </script>
   <script src="../menu_samples/menu_loader.js"></script>
 </body>
 </html>

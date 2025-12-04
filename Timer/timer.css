@@ -1,0 +1,184 @@
+/* Стили для таймера чтения */
+.timer-container {
+    flex: 1;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.timer-display {
+    font-size: 5rem;
+    font-weight: 700;
+    color: #4F378B;
+    font-family: 'Playfair Display', serif;
+    margin: 20px 0;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.timer-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Playfair Display', serif;
+}
+
+.timer-btn.start {
+    background: #6750A4;
+    color: white;
+    min-width: 120px;
+}
+
+.timer-btn.pause {
+    background: #D0BCFF;
+    color: #000;
+}
+
+.timer-btn.reset {
+    background: #f3e8ff;
+    color: #4F378B;
+}
+
+.book-selection {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 30px;
+}
+
+.select-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #4F378B;
+    font-weight: 600;
+}
+
+.book-select {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 2px solid #e6e6fa;
+    font-size: 1rem;
+    font-family: 'Playfair Display', serif;
+    background: #f9f7ff;
+    color: #333;
+}
+
+.stats-box {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: #f5f3ff;
+    border-radius: 10px;
+    min-width: 150px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #6750A4;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #6b21a8;
+    font-size: 0.9rem;
+}
+
+.reading-status {
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 10px;
+    background: #f0f9ff;
+    color: #0369a1;
+}
+
+.book-stats {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 10px;
+    display: none;
+}
+
+.book-stats.active {
+    display: block;
+}
+
+.book-stats h3 {
+    color: #4F378B;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stats-grid div {
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stats-grid div span:first-child {
+    display: block;
+    font-weight: 700;
+    color: #6750A4;
+    font-size: 1.2rem;
+}
+
+.stats-grid div span:last-child {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .timer-display {
+        font-size: 3.5rem;
+    }
+    
+    .timer-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .timer-btn {
+        width: 200px;
+    }
+    
+    .stats-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

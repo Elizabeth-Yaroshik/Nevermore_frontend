@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Nevermore — Чтение</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Reader/reader.css">
+    <script src="../Reader/reader.js" defer></script>
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="container">
+        <div id="sidebar"></div>
+
+        <main class="reader-container">
+            <div class="reader-header">
+                <h1 id="readerBookTitle">Загрузка...</h1>
+                <div class="reader-controls">
+                    <button id="prevChapter" class="reader-btn">
+                        <i class="fas fa-chevron-left"></i> Предыдущая
+                    </button>
+                    <select id="chapterSelect" class="chapter-select">
+                        <option value="">Выберите главу</option>
+                    </select>
+                    <button id="nextChapter" class="reader-btn">
+                        Следующая <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="reader-settings">
+                    <button id="fontSizeSmall" class="settings-btn" title="Уменьшить шрифт">
+                        <i class="fas fa-font"></i> A-
+                    </button>
+                    <button id="fontSizeNormal" class="settings-btn" title="Стандартный шрифт">
+                        <i class="fas fa-font"></i> A
+                    </button>
+                    <button id="fontSizeLarge" class="settings-btn" title="Увеличить шрифт">
+                        <i class="fas fa-font"></i> A+
+                    </button>
+                    <!-- Убрана кнопка темной темы -->
+                    <button id="bookmarkBtn" class="settings-btn" title="Добавить закладку">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reader-content" id="readerContent">
+                <div class="text-container">
+                    <div id="bookText">
+                        <p>Загрузка текста книги...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reader-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="currentPosition">Страница 1 из 10</span>
+                    <span id="readingTime">Примерное время чтения: 2 ч</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="mobile-nav"></div>
+
+   <script>
+  fetch("../menu_samples/header.html")
+    .then(r => r.text())
+    .then(h => document.getElementById("header").innerHTML = h); 
+</script>
+
+<script>
+  fetch("../menu_samples/sidebar.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("sidebar").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading sidebar:', err));
+</script>
+
+<script>
+  fetch("../menu_samples/mobile-nav.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("mobile-nav").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading mobile navigation:', err));
+</script>
+</body>
+</html>

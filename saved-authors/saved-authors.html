@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nevermore — Сохраненные авторы</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../Mainpage/main.css">
+  <link rel="stylesheet" href="../saved-authors/saved-authors.css">
+  <script src="../services/authors-api.js" defer></script>
+  <script src="../saved-authors/saved-authors.js" defer></script>
+</head>
+
+<body>
+<div id="toastContainer" class="toast-container"></div>
+
+<div id="header"></div>
+
+<div class="container">
+  <div id="sidebar"></div>
+  
+  <main class="main-content-wrapper">
+    <div class="main-content">
+      <div class="books-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-bookmark"></i> Мои сохраненные авторы
+          </h2>
+          <span class="authors-count" id="authorsCount">0 авторов</span>
+        </div>
+        
+        <div class="filter-section" id="filterContainer">
+          <!-- Фильтры будут здесь -->
+        </div>
+        
+        <div class="saved-authors-container">
+          <div class="loading" id="loading">Загрузка...</div>
+          <div class="authors-grid" id="authorsGrid">
+            <!-- Авторы будут здесь -->
+          </div>
+          <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-book-reader fa-3x"></i>
+            <h3>Список сохраненных авторов пуст</h3>
+            <p>Сохраняйте понравившихся авторов, чтобы вернуться к ним позже</p>
+            <a href="../Mainpage/main.html" class="btn-primary">Найти авторов</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="mobile-nav"></div>
+
+<script>
+  fetch("../menu_samples/header.html")
+    .then(r => r.text())
+    .then(h => document.getElementById("header").innerHTML = h); 
+</script>
+
+<script>
+  fetch("../menu_samples/sidebar.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("sidebar").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading sidebar:', err));
+</script>
+
+<script>
+  fetch("../menu_samples/mobile-nav.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("mobile-nav").innerHTML = html;
+    })
+    .catch(err => console.error('Error loading mobile navigation:', err));
+</script>
+
+<script src="../menu_samples/menu_loader.js"></script>
+</body>
+</html>

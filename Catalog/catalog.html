@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Каталог книг</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content-wrapper">
+            <div class="catalog-container">
+                <div class="catalog-header">
+                    <h1 class="catalog-title">Каталог книг</h1>
+                    
+                    <div class="search-filter">
+                        <select class="filter-select" id="genreFilter">
+                            <option value="">Все жанры</option>
+                            <option value="classic">Классика</option>
+                            <option value="fantasy">Фэнтези</option>
+                            <option value="scifi">Научная фантастика</option>
+                            <option value="drama">Драма</option>
+                            <option value="romance">Роман</option>
+                        </select>
+                        
+                        <select class="filter-select" id="sortFilter">
+                            <option value="newest">Сначала новые</option>
+                            <option value="popular">По популярности</option>
+                            <option value="title">По названию</option>
+                            <option value="author">По автору</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="books-grid" id="booksGrid">
+                    <!-- Книги будут загружаться через JS -->
+                </div>
+                
+                <div class="pagination">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <span style="align-self: center; margin: 0 10px;">...</span>
+                    <button class="page-btn">10</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mobile-nav"></div>
+    
+    <script src="catalog.js"></script>
+    <script src="../menu_samples/menu_loader.js"></script>
+</body>
+</html>

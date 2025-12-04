@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Книжные клубы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <link rel="stylesheet" href="book-club.css">
+</head>
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content-wrapper">
+            <div class="clubs-container">
+                <div class="clubs-header">
+                    <h1 class="clubs-title">Книжные клубы</h1>
+                    <p class="clubs-subtitle">Присоединяйтесь к сообществам читателей, обсуждайте книги и находите единомышленников</p>
+                    
+                    <div class="clubs-actions">
+                        <div class="search-clubs">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchClubs" placeholder="Поиск клубов по названию, жанру или описанию...">
+                        </div>
+                        <button class="create-club-btn" id="createClubBtn">
+                            <i class="fas fa-plus"></i> Создать клуб
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="clubs-tabs">
+                    <button class="club-tab active" data-tab="all">
+                        Все клубы
+                    </button>
+                    <button class="club-tab" data-tab="my">
+                        Мои клубы
+                    </button>
+                    <button class="club-tab" data-tab="popular">
+                        Популярные
+                    </button>
+                    <button class="club-tab" data-tab="new">
+                        Новые
+                    </button>
+                </div>
+                
+                <div class="clubs-grid" id="clubsGrid">
+                    <!-- Клубы будут загружены через HTML структуру -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно создания клуба -->
+    <div class="modal" id="createClubModal">
+        <div class="modal-content">
+            <div class="modal-title">Создать новый книжный клуб</div>
+            
+            <form id="createClubForm">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4F378B;">Название клуба *</label>
+                    <input type="text" style="width: 100%; padding: 12px; border: 2px solid #e6e6fa; border-radius: 8px; font-family: 'Playfair Display', serif;" 
+                           placeholder="Придумайте название" required>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4F378B;">Описание клуба *</label>
+                    <textarea style="width: 100%; padding: 12px; border: 2px solid #e6e6fa; border-radius: 8px; font-family: 'Playfair Display', serif; min-height: 100px;" 
+                              placeholder="Опишите тематику и цели клуба" required></textarea>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4F378B;">Жанры</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox"> Классика
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox"> Фэнтези
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox"> Научная фантастика
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox"> Детектив
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox"> Современная проза
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox"> Поэзия
+                        </label>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4F378B;">Настройки приватности</label>
+                    <div>
+                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <input type="radio" name="privacy" value="public" checked> Открытый клуб (может присоединиться любой)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="radio" name="privacy" value="private"> Закрытый клуб (только по приглашению)
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-btn" style="padding: 10px 20px; background: #f3e8ff; color: #4F378B; border: none; border-radius: 8px; font-family: 'Playfair Display', serif; cursor: pointer;" 
+                            onclick="closeModal()">Отмена</button>
+                    <button type="submit" class="submit-btn" style="padding: 10px 20px; background: #6750A4; color: white; border: none; border-radius: 8px; font-family: 'Playfair Display', serif; cursor: pointer;">
+                        Создать клуб
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="mobile-nav"></div>
+    
+    <script src="book-club.js"></script>
+    <script src="../menu_samples/menu_loader.js"></script>
+</body>
+</html>

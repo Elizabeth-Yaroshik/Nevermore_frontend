@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Таймер чтения</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <link rel="stylesheet" href="timer.css">
+</head>
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content-wrapper">
+            <div class="timer-container">
+                <h1 style="color: #4F378B; margin-bottom: 10px;">Таймер чтения</h1>
+                <p style="color: #666; text-align: center; max-width: 500px; margin-bottom: 30px;">
+                    Таймер автоматически отслеживает время чтения. Выберите книгу и начинайте читать!
+                </p>
+                
+                <div class="reading-status" id="readingStatus">
+                    <i class="fas fa-book"></i> Выберите книку для начала отслеживания
+                </div>
+                
+                <div class="timer-display" id="timerDisplay">00:00</div>
+                
+                <div class="timer-controls">
+                    <button class="timer-btn start" id="startTimer">
+                        <i class="fas fa-play"></i> Старт вручную
+                    </button>
+                    <button class="timer-btn pause" id="pauseTimer" disabled>
+                        <i class="fas fa-pause"></i> Пауза
+                    </button>
+                    <button class="timer-btn reset" id="resetTimer">
+                        <i class="fas fa-redo"></i> Сброс сессии
+                    </button>
+                </div>
+                
+                <div class="book-selection">
+                    <label class="select-label">Выберите книгу для чтения:</label>
+                    <select class="book-select" id="bookSelect">
+                        <option value="">-- Выберите книгу --</option>
+                        <option value="crime">Преступление и наказание</option>
+                        <option value="master">Мастер и Маргарита</option>
+                        <option value="anna">Анна Каренина</option>
+                        <option value="quiet">Тихий Дон</option>
+                        <option value="holden">Над пропастью во ржи</option>
+                    </select>
+                </div>
+                
+                <div class="book-stats" id="bookStats">
+                    <h3>Статистика по книге</h3>
+                    <div class="stats-grid">
+                        <div>
+                            <span id="sessionsCount">0</span>
+                            <span>Сессий</span>
+                        </div>
+                        <div>
+                            <span id="totalTimeBook">0:00</span>
+                            <span>Всего времени</span>
+                        </div>
+                        <div>
+                            <span id="avgSession">0:00</span>
+                            <span>Средняя сессия</span>
+                        </div>
+                        <div>
+                            <span id="lastRead">-</span>
+                            <span>Последнее чтение</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-box">
+                    <div class="stat-item">
+                        <div class="stat-value" id="todayTime">0:00</div>
+                        <div class="stat-label">Сегодня</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="weekTime">0:00</div>
+                        <div class="stat-label">На этой неделе</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="monthTime">0:00</div>
+                        <div class="stat-label">В этом месяце</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mobile-nav"></div>
+    
+    <script src="timer.js"></script>
+    <script src="../menu_samples/menu_loader.js"></script>
+</body>
+</html>

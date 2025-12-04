@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nevermore - Главная</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="main.css">
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <script src="../Mainpage/main.js"></script>
 </head>
 <body>
     <div id="toastContainer" class="toast-container"></div>
 
     <div id="header"></div>
 
-    
     <div class="container">
         <div id="sidebar"></div>
 
@@ -27,7 +26,8 @@
                     
                     <div class="horizontal-scroll-container">
                         <div class="books-scroll" id="recent-books">
-                            <div class="book-card">
+                            <!-- Книга 1 с data-id для перехода на страницу книги -->
+                            <div class="book-card" data-book-id="1" data-title="Преступление и наказание" data-author="Ф.М. Достоевский">
                                 <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
                                     ПРЕСТУПЛЕНИЕ И НАКАЗАНИЕ
                                 </div>
@@ -38,18 +38,8 @@
                                 </div>
                             </div>
                             
-                            <div class="book-card">
-                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
-                                    НАД ПРОПАСТЬЮ ВО РЖИ
-                                </div>
-                                <div class="book-title">Над пропастью во ржи</div>
-                                <div class="book-author">Джером Сэлинджер</div>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 33%"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="book-card">
+                            <!-- Книга 2 -->
+                            <div class="book-card" data-book-id="3" data-title="Мастер и Маргарита" data-author="М.А. Булгаков">
                                 <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
                                     МАСТЕР И МАРГАРИТА
                                 </div>
@@ -60,7 +50,20 @@
                                 </div>
                             </div>
                             
-                            <div class="book-card">
+                            <!-- Книга 3 -->
+                            <div class="book-card" data-book-id="2" data-title="Над пропастью во ржи" data-author="Джером Сэлинджер">
+                                <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
+                                    НАД ПРОПАСТЬЮ ВО РЖИ
+                                </div>
+                                <div class="book-title">Над пропастью во ржи</div>
+                                <div class="book-author">Джером Сэлинджер</div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 33%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Книга 4 -->
+                            <div class="book-card" data-book-id="4" data-title="1984" data-author="Джордж Оруэлл">
                                 <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
                                     1984
                                 </div>
@@ -71,7 +74,8 @@
                                 </div>
                             </div>
                             
-                            <div class="book-card">
+                            <!-- Книга 5 -->
+                            <div class="book-card" data-book-id="5" data-title="Тихий Дон" data-author="М.А. Шолохов">
                                 <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
                                     ТИХИЙ ДОН
                                 </div>
@@ -82,7 +86,8 @@
                                 </div>
                             </div>
                             
-                            <div class="book-card">
+                            <!-- Книга 6 -->
+                            <div class="book-card" data-book-id="6" data-title="Анна Каренина" data-author="Л.Н. Толстой">
                                 <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
                                     АННА КАРЕНИНА
                                 </div>
@@ -93,7 +98,8 @@
                                 </div>
                             </div>
                             
-                            <div class="book-card">
+                            <!-- Книга 7 -->
+                            <div class="book-card" data-book-id="7" data-title="Горе от ума" data-author="А.С. Грибоедов">
                                 <div class="book-cover" style="background-color: #6750A4; opacity: 0.6;">
                                     ГОРЕ ОТ УМА
                                 </div>
@@ -114,7 +120,8 @@
                     </h2>
                     
                     <div class="clubs-list">
-                        <div class="club-item">
+                        <!-- Клуб 1 с data-id для перехода на страницу клуба -->
+                        <div class="club-item" data-club-id="1" data-club-name="Классика навсегда">
                             <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Классика навсегда</div>
@@ -123,7 +130,8 @@
                             <div class="club-notifications">3+</div>
                         </div>
                         
-                         <div class="club-item">
+                        <!-- Клуб 2 -->
+                        <div class="club-item" data-club-id="2" data-club-name="Мировая литература">
                             <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Мировая литература</div>
@@ -132,7 +140,8 @@
                             <div class="club-notifications">12+</div>
                         </div>
                         
-                        <div class="club-item">
+                        <!-- Клуб 3 -->
+                        <div class="club-item" data-club-id="3" data-club-name="Современная проза">
                             <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Современная проза</div>
@@ -140,7 +149,9 @@
                             </div>
                             <div class="club-notifications">1+</div>
                         </div>
-                        <div class="club-item">
+                        
+                        <!-- Клуб 4 -->
+                        <div class="club-item" data-club-id="4" data-club-name="Драматургия">
                             <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
                                 <div class="club-name">Драматургия</div>
@@ -148,19 +159,23 @@
                             </div>
                             <div class="club-notifications">0+</div>
                         </div>
-                        <div class="club-item">
+                        
+                        <!-- Клуб 5 -->
+                        <div class="club-item" data-club-id="5" data-club-name="Олени навсегда">
                             <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
-                                <div class="club-name">Олени навсегда</div>
-                                <div class="club-members">52 участника</div>
+                                <div class="club-name">Научная фантастика</div>
+                                <div class="club-members">28 участника</div>
                             </div>
                             <div class="club-notifications">52+</div>
                         </div>
-                        <div class="club-item">
+                        
+                        <!-- Клуб 6 -->
+                        <div class="club-item" data-club-id="6" data-club-name="Оленьи рассказы">
                             <img src="../resources/Ellipse 2.png" alt="Nevermore" class="club-icon">
                             <div class="club-info">
-                                <div class="club-name">Оленьи рассказы</div>
-                                <div class="club-members">12 участников</div>
+                                <div class="club-name">Фэнтези и магия</div>
+                                <div class="club-members">35 участников</div>
                             </div>
                             <div class="club-notifications">66+</div>
                         </div>
@@ -170,7 +185,8 @@
 
             <!-- Goals Sidebar -->
             <div class="goals-sidebar">
-                <div class="goal-card" id="annual-goal">
+                <!-- Карточка с целью (переход на страницу статистики) -->
+                <div class="goal-card" id="annual-goal" data-goal-type="annual">
                     <div class="goal-title">Моя ежегодная цель</div>
                     <div class="goal-box">
                          <img src="../resources/edit.png" alt="Nevermore" class="time-icon">
@@ -179,7 +195,8 @@
                     <div class="goal-subtitle">Установите свою цель</div>
                 </div>
                 
-                <div class="time-card" id="weekly-reading">
+                <!-- Карточка с временем чтения (переход на страницу таймера/статистики) -->
+                <div class="time-card" id="weekly-reading" data-goal-type="stats">
                     <div class="time-title">Время чтения за эту неделю</div>
                     <div class="reading-time">
                         <img src="../resources/alarm.png" alt="Nevermore" class="time-icon">
@@ -191,27 +208,94 @@
     </div>
 
     <div id="mobile-nav"></div>
+    
+    <!-- Скрипты для загрузки меню -->
     <script>
-  fetch("../menu_samples/sidebar.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("sidebar").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading sidebar:', err));
-</script>
-<script>
- fetch("../menu_samples/header.html")
-  .then(r => r.text())
-  .then(h => document.getElementById("header").innerHTML = h); 
-</script>
-<script>
-  fetch("../menu_samples/mobile-nav.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("mobile-nav").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading mobile navigation:', err));
-</script>
-<script src="../menu_samples/menu_loader.js"></script>
+      fetch("../menu_samples/sidebar.html")
+        .then(r => r.text())
+        .then(html => {
+          document.getElementById("sidebar").innerHTML = html;
+        })
+        .catch(err => console.error('Error loading sidebar:', err));
+    </script>
+    <script>
+     fetch("../menu_samples/header.html")
+      .then(r => r.text())
+      .then(h => document.getElementById("header").innerHTML = h); 
+    </script>
+    <script>
+      fetch("../menu_samples/mobile-nav.html")
+        .then(r => r.text())
+        .then(html => {
+          document.getElementById("mobile-nav").innerHTML = html;
+        })
+        .catch(err => console.error('Error loading mobile navigation:', err));
+    </script>
+    <script src="../menu_samples/menu_loader.js"></script>
+    
+    <!-- Скрипт для обработки кликов по книгам, клубам и таймеру -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          
+          // ====== ОБРАБОТЧИК ДЛЯ КНИГ ======
+          document.querySelectorAll('.book-card').forEach(card => {
+              card.addEventListener('click', function(event) {
+                  event.preventDefault();
+                  
+                  const bookId = this.getAttribute('data-book-id');
+                  const bookTitle = this.getAttribute('data-title');
+                  const bookAuthor = this.getAttribute('data-author');
+                  
+                  if (bookId) {
+                      // Сохраняем данные книги в localStorage для использования на странице книги
+                      localStorage.setItem('currentBook', JSON.stringify({
+                          id: bookId,
+                          title: bookTitle,
+                          author: bookAuthor
+                      }));
+                      
+                      // Переход на страницу книги с передачей ID
+                      window.location.href = `../Bookpage/book.html?id=${bookId}`;
+                  }
+              });
+          });
+          
+          // ====== ОБРАБОТЧИК ДЛЯ КЛУБОВ ======
+          document.querySelectorAll('.club-item').forEach(club => {
+              club.addEventListener('click', function(event) {
+                  event.preventDefault();
+                  
+                  const clubId = this.getAttribute('data-club-id');
+                  const clubName = this.getAttribute('data-club-name');
+                  
+                  if (clubId) {
+                      // Сохраняем данные клуба в localStorage
+                      localStorage.setItem('currentClub', JSON.stringify({
+                          id: clubId,
+                          name: clubName
+                      }));
+                      
+                      // Переход на страницу клуба с передачей ID
+                      window.location.href = `../Bookclub/club.html?id=${clubId}&name=${encodeURIComponent(clubName)}`;
+                  }
+              });
+          });
+          
+          // ====== ОБРАБОТЧИК ДЛЯ ЦЕЛЕЙ ======
+          document.getElementById('annual-goal').addEventListener('click', function(event) {
+              event.preventDefault();
+              // Переход на страницу статистики целей
+              window.location.href = `../Stats/stats.html?type=goals`;
+          });
+          
+          // ====== ОБРАБОТЧИК ДЛЯ ТАЙМЕРА ======
+          document.getElementById('weekly-reading').addEventListener('click', function(event) {
+              event.preventDefault();
+              // Переход на страницу статистики/таймера
+              window.location.href = `../Timer/timer.html?type=timer`;
+          });
+          
+      });
+    </script>
 </body>
 </html>

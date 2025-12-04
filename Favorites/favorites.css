@@ -1,0 +1,183 @@
+/* Стили для страницы избранного */
+.favorites-container {
+    flex: 1;
+    padding: 20px;
+}
+
+.favorites-header {
+    margin-bottom: 30px;
+}
+
+.favorites-title {
+    font-size: 2rem;
+    color: #4F378B;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.favorites-subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.favorites-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e6e6fa;
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.fav-tab {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Playfair Display', serif;
+    color: #666;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.fav-tab.active {
+    background: #6750A4;
+    color: white;
+}
+
+.fav-tab:hover:not(.active) {
+    background: #f3e8ff;
+}
+
+.fav-content {
+    display: none;
+}
+
+.fav-content.active {
+    display: block;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.fav-book-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.fav-book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+}
+
+.fav-book-cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #6750A4;
+    opacity: 0.6;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+}
+
+.fav-book-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.fav-book-author {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.remove-fav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e53935;
+    transition: all 0.3s;
+}
+
+.remove-fav:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #666;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    color: #D0BCFF;
+    margin-bottom: 20px;
+}
+
+.empty-text {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.empty-subtext {
+    color: #888;
+    margin-bottom: 25px;
+}
+
+.browse-btn {
+    padding: 12px 25px;
+    background: #6750A4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.browse-btn:hover {
+    background: #4F378B;
+}
+
+@media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .favorites-tabs {
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+}
