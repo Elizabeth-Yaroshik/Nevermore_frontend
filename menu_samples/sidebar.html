@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div style="
   width:250px;
   background:white;
@@ -26,9 +27,98 @@
   </div>
   <div style='padding:15px 25px;display:flex;align-items:center;gap:15px;cursor:pointer;' onclick="window.location.href='../Add-book/add-book.html'">
     <i class='fas fa-plus-circle'></i> Добавить
+=======
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidebar Single File</title>
+
+<!-- FONTAWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 250px;
+  background: white;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+  height: calc(100vh - 80px);
+  padding-top: 20px;
+  font-family: 'Playfair Display', serif;
+
+  position: fixed;
+  top: 80px;                 /* под header, как в оригинальном макете */
+  left: 0;
+  z-index: 900;
+}
+
+.sidebar-item {
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  color: #444;
+  transition: 0.2s;
+}
+
+.sidebar-item i {
+  font-size: 18px;
+}
+
+/* активная */
+.sidebar-item.active {
+  background: #e8f4fc;
+  border-left: 3px solid #D0BCFF;
+  color: #6750A4;
+}
+
+/* hover эффект */
+.sidebar-item:hover {
+  background: #f5ecff;
+  color: #5a2ca0;
+}
+
+/* скрыть на телефонах */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== SIDEBAR HTML ===== -->
+<div class="sidebar">
+  <div class="sidebar-item active">
+    <i class="fas fa-home"></i> Домой
+  </div>
+  <div class="sidebar-item">
+    <i class="fas fa-users"></i> Клубы
+  </div>
+  <div class="sidebar-item">
+    <i class="fas fa-clock"></i> Таймер
+  </div>
+  <div class="sidebar-item">
+    <i class="fas fa-book-open"></i> Каталог
+  </div>
+  <div class="sidebar-item">
+    <i class="fas fa-heart"></i> Избранное
+  </div>
+  <div class="sidebar-item">
+    <i class="fas fa-plus-circle"></i> Добавить
+>>>>>>> 29ee0eca495ebc7b523911044e0e6476d936a985
   </div>
 </div>
-<!-- 
-  для подключения нужно вставить:
-  <div id="header"></div> сразу после <body> 
-  и <script src="../menu_samples/menu_loader.js"></script> перед </body> 
+
+</body>
+</html>
