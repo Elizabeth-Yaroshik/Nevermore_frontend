@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Настройки профиля</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Playfair Display", serif;
+        background: #f8f4ff;
+    }
+
+    .wrap {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 0;
+        color: #5b338d;
+    }
+
+    .g {
+        margin-bottom: 20px;
+    }
+
+    label {
+        color: #5b338d;
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #d9c7f3;
+        background: #faf7ff;
+        font-size: 16px;
+    }
+
+    input[type="file"] {
+        margin-top: 10px;
+    }
+
+    .preview {
+        width: 100%;
+        border-radius: 12px;
+        margin-top: 10px;
+        display: none;
+    }
+
+    .avatar-prev {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-top: 10px;
+        border: 3px solid #e6d4ff;
+        display: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 15px;
+        background: #b37dfa;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #a26df0;
+    }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+    <h2>Настройки профиля</h2>
+
+    <div class="g">
+        <label>Имя</label>
+        <input id="n" type="text" placeholder="Введите имя">
+    </div>
+
+    <div class="g">
+        <label>Email</label>
+        <input id="e" type="email" placeholder="Введите email">
+    </div>
+
+    <div class="g">
+        <label>Аватар</label>
+        <input id="a" type="file" accept="image/*">
+        <img id="ap" class="avatar-prev">
+    </div>
+
+    <div class="g">
+        <label>Фон профиля</label>
+        <input id="b" type="file" accept="image/*">
+        <img id="bp" class="preview">
+    </div>
+
+    <button class="btn" id="s">Сохранить</button>
+</div>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+    const n = localStorage.getItem("username");
+    const e = localStorage.getItem("email");
+    const a = localStorage.getItem("avatar");
+    const b = localStorage.getItem("bg");
+
+    if (n) document.getElementById("n").value = n;
+    if (e) document.getElementById("e").value = e;
+
+    if (a) {
+        const img = document.getElementById("ap");
+        img.src = a;
+        img.style.display = "block";
+    }
+
+    if (b) {
+        const img = document.getElementById("bp");
+        img.src = b;
+        img.style.display = "block";
+    }
+});
+
+document.getElementById("a").addEventListener("change", function() {
+    const f = this.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+        ap.src = r.result;
+        ap.style.display = "block";
+    }
+    r.readAsDataURL(f);
+});
+
+document.getElementById("b").addEventListener("change", function() {
+    const f = this.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+        bp.src = r.result;
+        bp.style.display = "block";
+    }
+    r.readAsDataURL(f);
+});
+
+document.getElementById("s").addEventListener("click", () => {
+    localStorage.setItem("username", document.getElementById("n").value.trim());
+    localStorage.setItem("email", document.getElementById("e").value.trim());
+
+    if (ap.src) localStorage.setItem("avatar", ap.src);
+    if (bp.src) localStorage.setItem("bg", bp.src);
+
+    alert("Сохранено!");
+});
+</script>
+
+</body>
+</html>

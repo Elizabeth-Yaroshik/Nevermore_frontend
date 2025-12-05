@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Профиль пользователя</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="container">
+    <div id="sidebar"></div>
+
+    <main class="main-content-wrapper">
+      <section class="profile-panel">
+
+        <!-- Фон профиля -->
+        <div class="profile-banner">
+          <img id="profileBg" class="banner-img">
+        </div>
+
+        <!-- Основная инфа -->
+        <div class="profile-info-block">
+          <div class="avatar-wrapper">
+            <img id="profileAvatar" class="avatar-img">
+          </div>
+
+          <h1 id="profileName" class="profile-name">Загрузка...</h1>
+
+          <div class="profile-stats">
+            <div class="stat-item"><span>0</span> прочитанных книг</div>
+            <div class="stat-item"><span>27</span> отзывов</div>
+          </div>
+        </div>
+
+        <!-- Статистика по жанрам -->
+        <div class="profile-section">
+          <h2 class="section-title">Статистика по жанрам</h2>
+          <div class="tag-stats">
+            <div class="tag-line">Романтика <span>230</span></div>
+            <div class="tag-line">Драма <span>217</span></div>
+            <div class="tag-line">Фэнтези <span>210</span></div>
+            <div class="tag-line">Детектив <span>106</span></div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <div id="mobile-nav"></div>
+
+  <script>
+    /* Загрузка меню */
+    fetch("../menu_samples/header.html").then(r => r.text()).then(h => document.getElementById("header").innerHTML = h);
+    fetch("../menu_samples/sidebar.html").then(r => r.text()).then(h => document.getElementById("sidebar").innerHTML = h);
+    fetch("../menu_samples/mobile-nav.html").then(r => r.text()).then(h => document.getElementById("mobile-nav").innerHTML = h);
+
+    /* --- Загрузка данных профиля из localStorage --- */
+    window.addEventListener("DOMContentLoaded", () => {
+      const name = localStorage.getItem("username");
+      const avatar = localStorage.getItem("avatar");
+      const bg = localStorage.getItem("bg");
+
+      const nameEl = document.getElementById("profileName");
+      const avatarEl = document.getElementById("profileAvatar");
+      const bgEl = document.getElementById("profileBg");
+
+      if (name && nameEl) nameEl.textContent = name;
+      if (avatar && avatarEl) avatarEl.src = avatar;
+      if (bg && bgEl) bgEl.src = bg;
+    });
+  </script>
+</body>
+</html>

@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       msg.innerHTML = `${answer2}<div class="time">${getTime()}</div>`;
       body.appendChild(msg);
       scrollToBottom();
-    }, 1200); // второй отвечает позже первого
+    }, 1200);
   }
 
   sendBtn.addEventListener("click", sendMessage);
