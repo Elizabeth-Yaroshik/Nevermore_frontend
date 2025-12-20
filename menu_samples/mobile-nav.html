@@ -1,38 +1,70 @@
-<div style="
-  position:fixed;
-  bottom:20px;
-  left:15%;
-  right:15%;
-  background-color:#E2C2FF;
-  border:1px solid #E2C2FF;
-  padding:10px 0;
-  z-index:1000;
-  box-shadow:0 -2px 15px rgba(0,0,0,0.1);
-  border-radius:20px;
-  width:70%;
-  height:8%;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  font-family:'Playfair Display',serif;
-">
-  <div style='display:flex;flex-direction:column;align-items:center;'>
-    <i class='fas fa-folder'></i>
-  </div>
-  <div style='display:flex;flex-direction:column;align-items:center;'>
-    <i class='fas fa-clock'></i>
-  </div>
-  <div style='display:flex;flex-direction:column;align-items:center;'>
-    <i class='fas fa-plus'></i>
-  </div>
-  <div style='display:flex;flex-direction:column;align-items:center;'>
-    <i class='fas fa-comments'></i>
-  </div>
-  <div style='display:flex;flex-direction:column;align-items:center;'>
-    <i class='fas fa-home'></i>
-  </div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Menu</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: #f5f5f5;
+  }
+
+  /* ——— Мобильное нижнее меню ——— */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 15%;
+    right: 15%;
+    width: 70%;
+    height: 8%;
+    background-color: #E2C2FF;
+    border: 1px solid #E2C2FF;
+    padding: 10px 0;
+    border-radius: 20px;
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+
+    display: none; /* скрыто по умолчанию */
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .mobile-bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    color: #4A2F6E;
+  }
+
+  /* ——— Показать только на мобильных ——— */
+  @media (max-width: 768px) {
+    .mobile-bottom-nav {
+      display: flex;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+<!-- 🔽 Н И Ж Н Е Е   М О Б И Л Ь Н О Е   М Е Н Ю -->
+<div class="mobile-bottom-nav">
+  <div class="nav-item"><i class="fas fa-folder"></i></div>
+  <div class="nav-item"><i class="fas fa-clock"></i></div>
+  <div class="nav-item"><i class="fas fa-plus"></i></div>
+  <div class="nav-item"><i class="fas fa-comments"></i></div>
+  <div class="nav-item"><i class="fas fa-home"></i></div>
 </div>
-<!-- 
-  для подключения нужно вставить:
-  <div id="header"></div> сразу после <body> 
-  и <script src="../menu_samples/menu_loader.js"></script> перед </body> 
+
+</body>
+</html>

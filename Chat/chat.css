@@ -89,6 +89,13 @@ background: url('../resources/background.jpg') no-repeat center/cover;
   
 }
 
+.msg.third {
+  align-self: flex-start;
+  background: #825b8a;
+  color: #083b60;
+  border-bottom-left-radius: 4px;
+}
+
 .msg{
   max-width: 70%;
   padding: 12px 14px;

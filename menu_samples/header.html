@@ -1,4 +1,3 @@
-
 <header style="
   background-color:#6750A4;
   color:white;
@@ -32,11 +31,21 @@
     ">
   </div>
 
-  <div>
-    <img src='../resources/Icon.png' alt='Профиль' style='width:40px;height:40px;border-radius:50%;'>
+  <!-- АВДТР ПОЛЬЗОВАТЕЛЯ -->
+  <div onclick="location.href='../profile/profile.html'" style="cursor:pointer;">
+    <img id="headerAvatar" src="../resources/Icon.png" alt="Профиль" style="
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      object-fit:cover;
+    ">
   </div>
 </header>
-<!-- 
-  для подключения нужно вставить:
-  <div id="header"></div> сразу после <body> 
-  и <script src="../menu_samples/menu_loader.js"></script> перед </body> 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const savedAvatar = localStorage.getItem("avatar");
+  if (savedAvatar) {
+    document.getElementById("headerAvatar").src = savedAvatar;
+  }
+});
+</script>

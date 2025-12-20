@@ -27,11 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollToBottom();
     input.value = "";
 
-    botReply(text);
+    botReply1(text);  // первый собеседник
+    botReply2(text);  // второй собеседник
   }
 
-  /* ——— Автоматический ответ ——— */
-  function botReply(userText) {
+  /* ——— ПЕРВЫЙ АВТО-СОБЕСЕДНИК (фиолетовый слева) ——— */
+  function botReply1(userText) {
     const responses = [
       "Интересно!",
       "Расскажи подробнее.",
@@ -50,6 +51,28 @@ document.addEventListener("DOMContentLoaded", () => {
       body.appendChild(msg);
       scrollToBottom();
     }, 600);
+  }
+
+  /* ——— ВТОРОЙ АВТО-СОБЕСЕДНИК (голубой слева) ——— */
+  function botReply2(userText) {
+    const responses2 = [
+      "Хм, звучит любопытно.",
+      "Согласен с первым.",
+      "Тоже интересно!",
+      "Ого, неожиданно 👀",
+      "Можешь пояснить?",
+      "Не думал об этом!"
+    ];
+
+    const answer2 = responses2[Math.floor(Math.random() * responses2.length)];
+
+    setTimeout(() => {
+      const msg = document.createElement("div");
+      msg.classList.add("msg", "third");
+      msg.innerHTML = `${answer2}<div class="time">${getTime()}</div>`;
+      body.appendChild(msg);
+      scrollToBottom();
+    }, 1200);
   }
 
   sendBtn.addEventListener("click", sendMessage);
