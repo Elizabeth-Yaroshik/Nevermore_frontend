@@ -1,9 +1,34 @@
 {
-  "name": "nevermore",
+  "name": "nevermore-frontend",
   "version": "1.0.0",
   "type": "module",
-  "main": "server.js",
+  "description": "Frontend for Nevermore book tracking application",
+  "main": "index.html",
   "scripts": {
-    "start": "node server.js"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:logger": "jest tests/global-logger.test.js",
+    "test:mainpage": "jest tests/mainpage.test.js",
+    "dev": "live-server --port=5500 --host=localhost",
+    "start": "live-server --port=5500 --host=localhost"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^22.1.0",
+    "live-server": "^1.2.2"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "html", "lcov"],
+    "modulePaths": ["<rootDir>"],
+    "testMatch": ["**/tests/**/*.test.js"],
+    "setupFiles": ["./tests/setup.js"],
+    "moduleNameMapper": {
+      "^../assets/js/(.*)$": "<rootDir>/assets/js/$1"
+    }
   }
 }

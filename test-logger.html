@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест логгера</title>
+    <script src="./assets/js/global-logger.js"></script>
+</head>
+<body>
+    <h1>Тестирование логгера</h1>
+    
+    <button onclick="testInfo()">Тест Info</button>
+    <button onclick="testError()">Тест Error</button>
+    <button onclick="testFetch()">Тест Fetch</button>
+    <button onclick="checkConnection()">Проверить связь</button>
+    
+    <div id="output" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; min-height: 200px;"></div>
+    
+    <script>
+        function logToScreen(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += `<p>${new Date().toLocaleTimeString()}: ${message}</p>`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function testInfo() {
+            if (window.NevermoreLogger) {
+                const entry = window.NevermoreLogger.info('Тестовое сообщение Info', {
+                    test: 'данные',
+                    number: 123
+                });
+                logToScreen(`Отправлен Info лог: ${entry.message}`);
+            } else {
+                logToScreen('Логгер не инициализирован!');
+            }
+        }
+        
+        function testError() {
+            if (window.NevermoreLogger) {
+                try {
+                    throw new Error('Тестовая ошибка');
+                } catch (error) {
+                    window.NevermoreLogger.error('Поймана тестовая ошибка', {
+                        error: error.message,
+                        stack: error.stack
+                    });
+                    logToScreen(`Отправлен Error лог: ${error.message}`);
+                }
+            }
+        }
+        
+        async function testFetch() {
+            try {
+                const response = await fetch('http://jsonplaceholder.typicode.com/todos/1');
+                const data = await response.json();
+                logToScreen(`Fetch тест: получены данные - ${JSON.stringify(data)}`);
+                
+                if (window.NevermoreLogger) {
+                    window.NevermoreLogger.info('Тестовый fetch выполнен', {
+                        url: 'https://jsonplaceholder.typicode.com/todos/1',
+                        status: response.status
+                    });
+                }
+            } catch (error) {
+                logToScreen(`Fetch ошибка: ${error.message}`);
+            }
+        }
+        
+        async function checkConnection() {
+            const backendUrl = window.NevermoreLogger?.config?.endpoint?.replace('/api/logs', '') || 'http://localhost:8080';
+            
+            try {
+                logToScreen(`Проверяю соединение с ${backendUrl}...`);
+                
+                const response = await fetch(backendUrl + '/health', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                if (response.ok) {
+                    logToScreen('✓ Соединение с бэкендом установлено!');
+                } else {
+                    logToScreen(`✗ Бэкенд ответил с кодом: ${response.status}`);
+                }
+            } catch (error) {
+                logToScreen(`✗ Ошибка соединения: ${error.message}`);
+                logToScreen('Проверьте:');
+                logToScreen('1. Запущен ли бэкенд сервер?');
+                logToScreen('2. Правильный ли IP адрес?');
+                logToScreen('3. Открыт ли порт 8080 в firewall?');
+            }
+        }
+        
+        // Автоматический тест при загрузке
+        window.addEventListener('load', () => {
+            logToScreen('Страница загружена');
+            logToScreen(`Логгер: ${window.NevermoreLogger ? 'инициализирован' : 'НЕ инициализирован'}`);
+            if (window.NevermoreLogger) {
+                logToScreen(`Endpoint: ${window.NevermoreLogger.config.endpoint}`);
+                logToScreen(`Session ID: ${window.NevermoreLogger.sessionId}`);
+            }
+        });
+    </script>
+</body>
+</html>
