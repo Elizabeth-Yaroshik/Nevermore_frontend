@@ -5,17 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Настройки профиля</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="menu_samples/menu_loader.js"></script>
 <style>
     body {
         margin: 0;
         padding: 0;
         font-family: "Playfair Display", serif;
         background: #f8f4ff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
     .wrap {
         max-width: 600px;
-        margin: 40px auto;
+        margin: 120px auto 40px;
         background: #fff;
         border-radius: 20px;
         padding: 25px;
@@ -84,39 +89,90 @@
     .btn:hover {
         background: #a26df0;
     }
+
+    #sidebar {
+        position: fixed;
+        left: 0;
+        top: 80px;
+        height: calc(100% - 80px);
+        z-index: 20;
+    }
+
+    #mobile-nav {
+        display: none;
+    }
+
+    /* Мобильное меню */
+    @media (max-width: 900px) {
+        #sidebar {
+            display: none;
+        }
+        #mobile-nav {
+            display: block;
+        }
+        .wrap {
+            margin-top: 100px;
+        }
+    }
 </style>
+
 </head>
 <body>
 
-<div class="wrap">
-    <h2>Настройки профиля</h2>
+<!-- ХЭДЕР -->
+<div id="header"></div>
 
-    <div class="g">
-        <label>Имя</label>
-        <input id="n" type="text" placeholder="Введите имя">
+<div style="display:flex;gap:20px;">
+
+    <!-- САЙДБАР -->
+    <div id="sidebar"></div>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <div class="wrap">
+        <h2>Настройки профиля</h2>
+
+        <div class="g">
+            <label>Имя</label>
+            <input id="n" type="text" placeholder="Введите имя">
+        </div>
+
+        <div class="g">
+            <label>Email</label>
+            <input id="e" type="email" placeholder="Введите email">
+        </div>
+
+        <div class="g">
+            <label>Аватар</label>
+            <input id="a" type="file" accept="image/*">
+            <img id="ap" class="avatar-prev">
+        </div>
+
+        <div class="g">
+            <label>Фон профиля</label>
+            <input id="b" type="file" accept="image/*">
+            <img id="bp" class="preview">
+        </div>
+
+        <button class="btn" id="s">Сохранить</button>
     </div>
-
-    <div class="g">
-        <label>Email</label>
-        <input id="e" type="email" placeholder="Введите email">
-    </div>
-
-    <div class="g">
-        <label>Аватар</label>
-        <input id="a" type="file" accept="image/*">
-        <img id="ap" class="avatar-prev">
-    </div>
-
-    <div class="g">
-        <label>Фон профиля</label>
-        <input id="b" type="file" accept="image/*">
-        <img id="bp" class="preview">
-    </div>
-
-    <button class="btn" id="s">Сохранить</button>
 </div>
 
+<!-- МОБИЛЬНОЕ МЕНЮ -->
+<div id="mobile-nav"></div>
+
 <script>
+/* загрузка шаблонов */
+fetch("menu_samples/header.html").then(r => r.text()).then(h => {
+    document.getElementById("header").innerHTML = h;
+});
+fetch("menu_samples/sidebar.html").then(r => r.text()).then(h => {
+    document.getElementById("sidebar").innerHTML = h;
+});
+fetch("menu_samples/mobile-nav.html").then(r => r.text()).then(h => {
+    document.getElementById("mobile-nav").innerHTML = h;
+});
+
+/* загрузка сохранённых данных */
 window.addEventListener("DOMContentLoaded", () => {
     const n = localStorage.getItem("username");
     const e = localStorage.getItem("email");
@@ -125,51 +181,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (n) document.getElementById("n").value = n;
     if (e) document.getElementById("e").value = e;
-
-    if (a) {
-        const img = document.getElementById("ap");
-        img.src = a;
-        img.style.display = "block";
-    }
-
-    if (b) {
-        const img = document.getElementById("bp");
-        img.src = b;
-        img.style.display = "block";
-    }
+    if (a) { ap.src = a; ap.style.display = "block"; }
+    if (b) { bp.src = b; bp.style.display = "block"; }
 });
 
-document.getElementById("a").addEventListener("change", function() {
-    const f = this.files[0];
+a.onchange = () => {
+    const f = a.files[0];
     if (!f) return;
     const r = new FileReader();
-    r.onload = () => {
-        ap.src = r.result;
-        ap.style.display = "block";
-    }
+    r.onload = () => { ap.src = r.result; ap.style.display = "block"; };
     r.readAsDataURL(f);
-});
+};
 
-document.getElementById("b").addEventListener("change", function() {
-    const f = this.files[0];
+b.onchange = () => {
+    const f = b.files[0];
     if (!f) return;
     const r = new FileReader();
-    r.onload = () => {
-        bp.src = r.result;
-        bp.style.display = "block";
-    }
+    r.onload = () => { bp.src = r.result; bp.style.display = "block"; };
     r.readAsDataURL(f);
-});
+};
 
-document.getElementById("s").addEventListener("click", () => {
-    localStorage.setItem("username", document.getElementById("n").value.trim());
-    localStorage.setItem("email", document.getElementById("e").value.trim());
+s.onclick = () => {
+    localStorage.setItem("username", n.value.trim());
+    localStorage.setItem("email", e.value.trim());
 
     if (ap.src) localStorage.setItem("avatar", ap.src);
     if (bp.src) localStorage.setItem("bg", bp.src);
 
     alert("Сохранено!");
-});
+};
 </script>
 
 </body>
