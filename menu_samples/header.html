@@ -20,18 +20,39 @@
   </div>
 
   <div style="flex:1;max-width:500px;margin:0 20px;">
-    <input type="text" placeholder="Поиск книг, авторов..." style="
-      width:100%;
-      padding:10px 15px;
-      border:none;
-      border-radius:20px;
-      background-color:rgba(255,255,255,0.1);
-      color:white;
-      font-size:1rem;
-    ">
+    <div style="display:flex;align-items:center;background:rgba(255,255,255,0.1);border-radius:20px;padding-right:10px;">
+      <input type="text" 
+             id="headerSearchInput" 
+             placeholder="Поиск книг, авторов..." 
+             style="
+                flex:1;
+                padding:10px 15px;
+                border:none;
+                background:none;
+                color:white;
+                font-size:1rem;
+                outline:none;
+             ">
+      <button id="headerSearchBtn" style="
+                background:none;
+                border:none;
+                color:white;
+                cursor:pointer;
+                padding:10px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                opacity:0.8;
+                transition:opacity 0.3s;
+             "
+             onmouseover="this.style.opacity='1'"
+             onmouseout="this.style.opacity='0.8'">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
   </div>
 
-  <!-- АВДТР ПОЛЬЗОВАТЕЛЯ -->
+  <!-- АВАТАР ПОЛЬЗОВАТЕЛЯ -->
   <div onclick="location.href='../profile/profile.html'" style="cursor:pointer;">
     <img id="headerAvatar" src="../resources/Icon.png" alt="Профиль" style="
       width:40px;
@@ -41,11 +62,109 @@
     ">
   </div>
 </header>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+// ВАЖНО: Этот скрипт должен загружаться ПОСЛЕ Search/search.js
+// чтобы иметь приоритет над его обработчиками
+
+document.addEventListener("DOMContentLoaded", function() {
+  console.log('🔧 Header загружен - поиск FIX версия');
+  
+  // Загрузка аватара
   const savedAvatar = localStorage.getItem("avatar");
   if (savedAvatar) {
     document.getElementById("headerAvatar").src = savedAvatar;
   }
+  
+  // ========== ФИКС ПОИСКА ПО ENTER ==========
+  const searchInput = document.getElementById('headerSearchInput');
+  const searchBtn = document.getElementById('headerSearchBtn');
+  
+  if (!searchInput) {
+    console.error('❌ Поле поиска не найдено!');
+    return;
+  }
+  
+  console.log('✅ Поле поиска найдено, настраиваю обработчики...');
+  
+  // 1. УДАЛИТЬ ВСЕ СТАРЫЕ ОБРАБОТЧИКИ (чтобы не было конфликтов)
+  const newInput = searchInput.cloneNode(true);
+  searchInput.parentNode.replaceChild(newInput, searchInput);
+  
+  const newBtn = searchBtn.cloneNode(true);
+  searchBtn.parentNode.replaceChild(newBtn, searchBtn);
+  
+  // Обновляем переменные
+  const fixedSearchInput = document.getElementById('headerSearchInput');
+  const fixedSearchBtn = document.getElementById('headerSearchBtn');
+  
+  // 2. ПРОСТОЙ РАБОЧИЙ ПОИСК ПО ENTER
+  fixedSearchInput.addEventListener('keydown', function(e) {
+    console.log('⌨️ Нажата клавиша в поиске:', e.key);
+    
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Важно!
+      e.stopPropagation(); // Важно!
+      console.log('🔍 ENTER ЗАХВАЧЕН! Значение:', this.value);
+      
+      const query = this.value.trim();
+      if (!query) {
+        alert('Введите запрос для поиска');
+        return;
+      }
+      
+      console.log('🚀 Выполняю поиск:', query);
+      
+      // Сохраняем запрос
+      sessionStorage.setItem('lastSearchQuery', query);
+      
+      // Прямой переход на страницу результатов
+      window.location.href = '../Search/search-results.html?q=' + encodeURIComponent(query);
+    }
+  });
+  
+  // 3. КНОПКА ПОИСКА
+  fixedSearchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const query = fixedSearchInput.value.trim();
+    if (!query) {
+      alert('Введите запрос для поиска');
+      fixedSearchInput.focus();
+      return;
+    }
+    
+    console.log('🔍 Кнопка поиска нажата:', query);
+    
+    sessionStorage.setItem('lastSearchQuery', query);
+    window.location.href = '../Search/search-results.html?q=' + encodeURIComponent(query);
+  });
+  
+  // 4. Отключаем автодополнение если оно мешает (временно)
+  fixedSearchInput.addEventListener('keydown', function(e) {
+    // Если SearchEngine перехватывает Enter, отключаем его обработчик
+    if (e.key === 'Enter') {
+      // Отменяем все остальные обработчики
+      return false;
+    }
+  }, true); // true = capture phase, чтобы наш обработчик был первым
+  
+  console.log('✅ Поиск настроен. Тест: введи текст и нажми Enter');
 });
+
+// Глобальная функция для поиска (можно вызывать из других скриптов)
+window.performHeaderSearch = function() {
+  const searchInput = document.getElementById('headerSearchInput');
+  if (!searchInput) return;
+  
+  const query = searchInput.value.trim();
+  if (!query) {
+    alert('Введите запрос для поиска');
+    return;
+  }
+  
+  sessionStorage.setItem('lastSearchQuery', query);
+  window.location.href = '../Search/search-results.html?q=' + encodeURIComponent(query);
+};
 </script>

@@ -119,6 +119,22 @@ class GlobalLogger {
     debug(message, data) {
         return this.log('debug', message, data);
     }
+    // В global-logger.js добавим:
+trackSearch(query, filters = {}) {
+    this.info('Search performed', {
+        query,
+        filters,
+        timestamp: new Date().toISOString(),
+        page: window.location.pathname
+    });
+    
+    // Отправка аналитики если нужно
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'search', {
+            search_term: query
+        });
+    }
+}
     
     async flush() {
         if (this.isFlushing || this.buffer.length === 0 || !this.config.enabled) {
@@ -220,3 +236,4 @@ window.NevermoreLogger = new GlobalLogger({
     enabled: true,
     debugMode: window.location.hostname === 'localhost' // Включить debug на localhost
 });
+

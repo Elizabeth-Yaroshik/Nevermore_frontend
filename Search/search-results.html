@@ -1,0 +1,148 @@
+<!-- Search/search-results.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Результаты поиска</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <link rel="stylesheet" href="search-results.css">
+</head>
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content-wrapper">
+            <div class="search-results-container">
+                <!-- Шапка результатов -->
+                <div class="search-results-header">
+                    <div class="search-query-display">
+                        <h1 class="results-title">Результаты поиска</h1>
+                        <div class="query-info">
+                            <span class="query-text" id="queryText"></span>
+                            <span class="results-count" id="resultsCount"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="search-actions">
+                        <button class="btn-refine-search" id="refineSearchBtn">
+                            <i class="fas fa-filter"></i> Уточнить поиск
+                        </button>
+                        <button class="btn-advanced-search" id="advancedSearchBtn">
+                            <i class="fas fa-sliders-h"></i> Расширенный поиск
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Фильтры и сортировка -->
+                <div class="search-controls">
+                    <div class="filters-section">
+                        <div class="filter-group">
+                            <label>Тип:</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-type="all">Все</button>
+                                <button class="filter-btn" data-type="books">Книги</button>
+                                <button class="filter-btn" data-type="authors">Авторы</button>
+                                <button class="filter-btn" data-type="clubs">Клубы</button>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>Сортировка:</label>
+                            <select class="sort-select" id="sortSelect">
+                                <option value="relevance">По релевантности</option>
+                                <option value="newest">Сначала новые</option>
+                                <option value="popular">По популярности</option>
+                                <option value="title">По названию (А-Я)</option>
+                                <option value="author">По автору (А-Я)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="active-filters" id="activeFilters">
+                        <!-- Активные фильтры будут здесь -->
+                    </div>
+                </div>
+                
+                <!-- Контент результатов -->
+                <div class="results-content">
+                    <!-- Панель с детальными фильтрами (сворачиваемая) -->
+                    <div class="detailed-filters-panel" id="detailedFilters">
+                        <div class="filters-header">
+                            <h3><i class="fas fa-filter"></i> Фильтры</h3>
+                            <button class="btn-close-filters" id="closeFiltersBtn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="filters-body">
+                            <!-- Фильтры будут загружены динамически -->
+                        </div>
+                        
+                        <div class="filters-footer">
+                            <button class="btn-clear-filters" id="clearFiltersBtn">
+                                <i class="fas fa-times-circle"></i> Очистить все
+                            </button>
+                            <button class="btn-apply-filters" id="applyFiltersBtn">
+                                <i class="fas fa-check"></i> Применить
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Основная область с результатами -->
+                    <div class="results-area">
+                        <div class="results-loading" id="resultsLoading">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                            <p>Идет поиск...</p>
+                        </div>
+                        
+                        <div class="no-results" id="noResults" style="display: none;">
+                            <div class="no-results-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>По вашему запросу ничего не найдено</h3>
+                            <p>Попробуйте изменить запрос или используйте другие ключевые слова</p>
+                            <div class="suggestions">
+                                <p>Возможно, вы искали:</p>
+                                <ul>
+                                    <li>Проверьте правильность написания</li>
+                                    <li>Используйте более общие ключевые слова</li>
+                                    <li>Попробуйте другой жанр или автора</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Результаты будут здесь -->
+                        <div class="results-grid" id="resultsGrid"></div>
+                        
+                        <!-- Пагинация -->
+                        <div class="pagination" id="pagination" style="display: none;">
+                            <button class="page-btn prev-btn" disabled>
+                                <i class="fas fa-chevron-left"></i> Назад
+                            </button>
+                            <div class="page-numbers" id="pageNumbers"></div>
+                            <button class="page-btn next-btn">
+                                Вперед <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mobile-nav"></div>
+    
+    <!-- Подключаем скрипты -->
+    <script src="../services/search-demo-data.js"></script>
+<script src="../services/search-api.js"></script>
+<script src="search-results.js"></script>
+    <script src="../menu_samples/menu_loader.js"></script>
+</body>
+</html>

@@ -51,9 +51,10 @@
               Клуб для любителей литературы и книг. Обсуждаем классические и современные произведения, 
               делимся впечатлениями и находим новых друзей.
             </div>
-            <button class="chat-btn" id="startDiscussionBtn">
+            <!-- ИЗМЕНЕННАЯ КНОПКА ЧАТА - ТЕПЕРЬ ССЫЛКА -->
+            <a href="../Chat/chat.html" class="chat-btn" id="chatLinkBtn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
               <i class="fas fa-comments"></i> Чат
-            </button>
+            </a>
           </div>
         </div>
         <div class="additional-info">
@@ -283,6 +284,13 @@
         joinBtn.onclick = () => joinClub(clubId);
       }
       
+      // Обновление ссылки на чат (добавляем параметры клуба)
+      const chatLinkBtn = document.getElementById('chatLinkBtn');
+      if (chatLinkBtn) {
+        // Добавляем параметры клуба в ссылку чата
+        chatLinkBtn.href = `../Chat/chat.html?clubId=${clubId}&clubName=${encodeURIComponent(club.name)}`;
+      }
+      
       // Загрузка участников
       loadMembers(club.membersList);
       
@@ -379,13 +387,6 @@
       }, 3000);
     }
     
-    // Кнопка чата
-    document.getElementById('startDiscussionBtn').addEventListener('click', function() {
-      const params = getUrlParams();
-      const club = clubsData[params.id];
-      showToast('info', `Открывается чат клуба "${club.name}"`);
-    });
-    
     // Загрузка данных при загрузке страницы
     document.addEventListener('DOMContentLoaded', loadClubData);
   </script>
@@ -413,6 +414,9 @@
       .catch(err => console.error('Error loading mobile navigation:', err));
   </script>
   <script src="../menu_samples/menu_loader.js"></script>
-  
+  <!-- Подключаем поиск -->
+<script src="../services/search-demo-data.js"></script>
+<script src="../services/search-api.js"></script>
+<script src="../Search/search.js"></script>
 </body>
 </html>

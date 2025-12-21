@@ -27,7 +27,7 @@
 
       <div class="chat-header">
         <div class="chat-user">
-          <img src="avatar.png" class="avatar" />
+          <img src="../resources/club_image.png" class="avatar" />
           <div class="info">
             <div class="name">Чат клуба</div>
             <div class="status">online - 3</div>
@@ -39,7 +39,7 @@
 
       <div class="chat-input">
         <div class="input-box">
-          <img src="icon.png" class="icon" />
+          <img src="../resources/Ellipse 2.png" class="icon" />
           <input type="text" placeholder="Message..." />
         </div>
         <button class="send">➤</button>
@@ -65,6 +65,9 @@
     .then(r => r.text())
     .then(html => document.getElementById("sidebar").innerHTML = html);
 </script>
-
+<!-- Подключаем поиск -->
+<script src="../services/search-demo-data.js"></script>
+<script src="../services/search-api.js"></script>
+<script src="../Search/search.js"></script>
 </body>
 </html>
