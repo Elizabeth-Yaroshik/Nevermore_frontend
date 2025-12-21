@@ -29,6 +29,9 @@
                             <option value="scifi">Научная фантастика</option>
                             <option value="drama">Драма</option>
                             <option value="romance">Роман</option>
+                            <option value="novel">Роман</option>
+                            <option value="poetry">Поэзия</option>
+                            <option value="detective">Детектив</option>
                         </select>
                         
                         <select class="filter-select" id="sortFilter">
@@ -42,6 +45,10 @@
                 
                 <div class="books-grid" id="booksGrid">
                     <!-- Книги будут загружаться через JS -->
+                    <div style="text-align: center; padding: 40px;">
+                        <div class="loading-spinner"></div>
+                        <p>Загрузка книг...</p>
+                    </div>
                 </div>
                 
                 <div class="pagination">
@@ -59,11 +66,40 @@
     
     <div id="mobile-nav"></div>
     
+    <!-- Подключаем утилиты первыми -->
+    <script src="../utils.js"></script>
+    <script>
+        // Проверка авторизации при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!apiUtils.checkAuth()) {
+                return;
+            }
+            // Основной код страницы выполнится в catalog.js
+        });
+    </script>
+    
     <script src="catalog.js"></script>
     <script src="../menu_samples/menu_loader.js"></script>
     <!-- Подключаем поиск -->
-<script src="../services/search-demo-data.js"></script>
-<script src="../services/search-api.js"></script>
-<script src="../Search/search.js"></script>
+    <script src="../services/search-demo-data.js"></script>
+    <script src="../services/search-api.js"></script>
+    <script src="../Search/search.js"></script>
+    
+    <style>
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4F378B;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </body>
 </html>

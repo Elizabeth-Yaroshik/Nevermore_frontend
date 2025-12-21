@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="../menu_samples/header.css">
   <link rel="stylesheet" href="../menu_samples/sidebar.css">
 
-
   <!-- Основной чат -->
   <link rel="stylesheet" href="chat.css" />
 </head>
@@ -22,15 +21,13 @@
   <div id="sidebar"></div>
 
   <div class="chat-area">
-
     <div class="chat-wrapper">
-
       <div class="chat-header">
         <div class="chat-user">
           <img src="../resources/club_image.png" class="avatar" />
           <div class="info">
             <div class="name">Чат клуба</div>
-            <div class="status">online - 3</div>
+            <div class="status">online - 0</div>
           </div>
         </div>
       </div>
@@ -40,34 +37,41 @@
       <div class="chat-input">
         <div class="input-box">
           <img src="../resources/Ellipse 2.png" class="icon" />
-          <input type="text" placeholder="Message..." />
+          <input type="text" placeholder="Напишите сообщение..." />
         </div>
         <button class="send">➤</button>
       </div>
-
     </div>
-
   </div>
-
 </div>
 
 <div id="mobile-nav"></div>
 
-<!-- Подключение скриптов -->
+<!-- Подключение скриптов В ПРАВИЛЬНОМ ПОРЯДКЕ -->
+<script src="../utils.js"></script>
+<script src="chat-api.js"></script>
 <script src="chat.js"></script>
 
 <script>
-  fetch("../menu_samples/header.html")
-    .then(r => r.text())
-    .then(html => document.getElementById("header").innerHTML = html);
+  // Проверяем авторизацию перед загрузкой страницы
+  if (!apiUtils || !apiUtils.checkAuth()) {
+    // Редирект произойдет в utils.js
+  } else {
+    // Загружаем компоненты
+    fetch("../menu_samples/header.html")
+      .then(r => r.text())
+      .then(html => document.getElementById("header").innerHTML = html);
 
-  fetch("../menu_samples/sidebar.html")
-    .then(r => r.text())
-    .then(html => document.getElementById("sidebar").innerHTML = html);
+    fetch("../menu_samples/sidebar.html")
+      .then(r => r.text())
+      .then(html => document.getElementById("sidebar").innerHTML = html);
+  }
 </script>
+
 <!-- Подключаем поиск -->
 <script src="../services/search-demo-data.js"></script>
 <script src="../services/search-api.js"></script>
 <script src="../Search/search.js"></script>
+
 </body>
 </html>

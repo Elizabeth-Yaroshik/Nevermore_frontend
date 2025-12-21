@@ -34,6 +34,14 @@
     font-family: 'Playfair Display', serif;
     color: #333;
     min-width: 180px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+    border-color: #6750A4;
+    outline: none;
 }
 
 .books-grid {
@@ -41,6 +49,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 25px;
     margin-top: 20px;
+    min-height: 300px;
 }
 
 .catalog-book-card {
@@ -85,12 +94,22 @@
     margin-bottom: 5px;
     font-size: 1rem;
     color: #2c3e50;
+    display: -webkit-box;
+  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.4rem;
 }
 
 .catalog-book-author {
     color: #7f8c8d;
     font-size: 0.85rem;
     margin-bottom: 8px;
+    display: -webkit-box;
+  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 1.7rem;
 }
 
 .catalog-book-genre {
@@ -141,4 +160,24 @@
         flex-direction: column;
         align-items: flex-start;
     }
+    
+    .filter-select {
+        min-width: 100%;
+    }
+}
+
+/* Стили для состояния загрузки */
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4F378B;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

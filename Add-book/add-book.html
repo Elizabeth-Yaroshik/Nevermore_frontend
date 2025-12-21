@@ -139,10 +139,24 @@
     
     <div id="mobile-nav"></div>
     
+    <!-- Подключаем утилиты перед основным скриптом -->
+    <script src="../utils.js"></script>
     <script src="add-book.js"></script>
     <script src="../menu_samples/menu_loader.js"></script>
     <script src="../services/search-demo-data.js"></script>
-<script src="../services/search-api.js"></script>
-<script src="../Search/search.js"></script>
+    <script src="../services/search-api.js"></script>
+    <script src="../Search/search.js"></script>
+    
+    <script>
+        // Проверка авторизации при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.apiUtils && !window.apiUtils.checkAuth()) {
+                return; // Перенаправление произойдет в checkAuth()
+            }
+            
+            // Дополнительная инициализация страницы
+            console.log('Страница добавления книги загружена');
+        });
+    </script>
 </body>
 </html>

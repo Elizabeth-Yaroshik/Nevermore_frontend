@@ -1,5 +1,10 @@
 // saved-authors.js
 document.addEventListener('DOMContentLoaded', async () => {
+    // Проверяем авторизацию
+    if (!apiUtils.checkAuth()) {
+        return;
+    }
+
     const authorsGrid = document.getElementById('authorsGrid');
     const loading = document.getElementById('loading');
     const emptyState = document.getElementById('emptyState');
@@ -32,10 +37,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Загрузить сохраненных авторов
     async function loadSavedAuthors() {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = '../Authorization/auth.html';
+            return;
+        }
+
         try {
-            const response = await authorsService.getSavedAuthors();
-            savedAuthors = response.data || response;
-            renderAuthors();
+            const response = await fetch(`${apiUtils.API_BASE_URL}/saved-author/list`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                savedAuthors = await response.json();
+                // Добавляем флаг saved для каждого автора
+                savedAuthors.forEach(author => author.saved = true);
+                renderAuthors();
+            } else if (response.status === 401) {
+                // Пробуем обновить токен
+                const refreshed = await apiUtils.refreshToken();
+                if (refreshed) {
+                    await loadSavedAuthors(); // Повторяем запрос
+                } else {
+                    window.location.href = '../Authorization/auth.html';
+                }
+            } else {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
         } catch (error) {
             console.error('Ошибка загрузки сохраненных авторов:', error);
             showError('Не удалось загрузить сохраненных авторов');
@@ -64,17 +94,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="author-card ${isSaved ? 'saved' : ''}" data-author-id="${author.id}">
                 <div class="author-header">
                     <div class="author-avatar">
-                        ${getInitials(author.name)}
+                        ${getInitials(author.name || author.author_name)}
                     </div>
                     <div class="author-info">
-                        <h3 class="author-name">${author.name || 'Автор'}</h3>
-                        <span class="author-genre">${author.genre || 'Жанр не указан'}</span>
+                        <h3 class="author-name">${author.name || author.author_name || 'Автор'}</h3>
+                        <span class="author-genre">${author.genre || author.genres || 'Жанр не указан'}</span>
                     </div>
                 </div>
                 
                 <div class="author-stats">
                     <div class="stat">
-                        <div class="stat-value">${author.booksCount || '?'}</div>
+                        <div class="stat-value">${author.booksCount || author.books_count || '?'}</div>
                         <div class="stat-label">Книги</div>
                     </div>
                     <div class="stat">
@@ -88,18 +118,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
                 
                 <p class="author-description">
-                    ${author.description || 'Нет описания'}
+                    ${author.description || author.bio || 'Нет описания'}
                 </p>
                 
                 <div class="author-actions">
-                    <button class="btn-action btn-view" onclick="viewAuthor('${author.id}')">
+                    <button class="btn-action btn-view" onclick="viewAuthor('${author.id || author.author_id}')">
                         <i class="fas fa-eye"></i> Просмотр
                     </button>
                     <button class="btn-action btn-save ${isSaved ? 'saved' : ''}" 
                             data-action="toggle-save" 
-                            data-author-id="${author.id}">
+                            data-author-id="${author.id || author.author_id}">
                         ${isSaved ? 
-                            '<i class="fas fa-bookmark"></i> Сохранено' : 
+                            '<i class="fas fa-bookmark"></i> Удалить' : 
                             '<i class="far fa-bookmark"></i> Сохранить'}
                     </button>
                 </div>
@@ -148,39 +178,61 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Переключить сохранение автора
     async function toggleSaveAuthor(authorId, button) {
+        const token = localStorage.getItem('access_token');
+        if (!token) return;
+
         try {
-            const author = savedAuthors.find(a => a.id == authorId);
+            const author = savedAuthors.find(a => (a.id || a.author_id) == authorId);
             
-            if (author.saved) {
-                // Удалить из сохраненных
-                await authorsService.removeSavedAuthor(author.savedId || authorId);
-                author.saved = false;
-                
-                // Обновить UI
-                button.innerHTML = '<i class="far fa-bookmark"></i> Сохранить';
-                button.classList.remove('saved');
-                button.closest('.author-card').classList.remove('saved');
-                
-                showToast('success', 'Автор удален из сохраненных');
-                
-                // Удалить из массива (на этой странице)
-                savedAuthors = savedAuthors.filter(a => a.id != authorId);
-                renderAuthors();
+            if (author && author.saved) {
+                // Удаляем из сохраненных
+                const response = await fetch(`${apiUtils.API_BASE_URL}/saved-author/delete?author_id=${authorId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    // Обновляем UI
+                    savedAuthors = savedAuthors.filter(a => (a.id || a.author_id) != authorId);
+                    renderAuthors();
+                    showToast('success', 'Автор удален из сохраненных');
+                } else if (response.status === 401) {
+                    const refreshed = await apiUtils.refreshToken();
+                    if (refreshed) {
+                        await toggleSaveAuthor(authorId, button); // Повторяем
+                    }
+                }
             } else {
-                // Сохранить автора
-                await authorsService.saveAuthor(authorId);
-                author.saved = true;
-                
-                // Обновить UI
-                button.innerHTML = '<i class="fas fa-bookmark"></i> Сохранено';
-                button.classList.add('saved');
-                button.closest('.author-card').classList.add('saved');
-                
-                showToast('success', 'Автор добавлен в сохраненные');
+                // Сохраняем автора (на случай, если функция используется где-то еще)
+                const userId = apiUtils.getCurrentUserId();
+                if (!userId) {
+                    showToast('error', 'Не удалось определить пользователя');
+                    return;
+                }
+
+                const response = await fetch(`${apiUtils.API_BASE_URL}/saved-author/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        author_id: authorId,
+                        user_id: userId
+                    })
+                });
+
+                if (response.ok) {
+                    showToast('success', 'Автор добавлен в сохраненные');
+                    // Загружаем обновленный список
+                    await loadSavedAuthors();
+                }
             }
         } catch (error) {
             console.error('Ошибка сохранения автора:', error);
-            showToast('error', 'Не удалось сохранить автора');
+            showToast('error', 'Не удалось выполнить действие');
         }
     }
 

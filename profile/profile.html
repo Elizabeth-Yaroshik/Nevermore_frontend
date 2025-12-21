@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="profile.css">
+  
+  <!-- Подключаем utils.js -->
+  <script src="../utils.js"></script>
+  <script src="../services/search-demo-data.js"></script>
+  <script src="../services/search-api.js"></script>
+  <script src="../Search/search.js"></script>
 </head>
 
 <body>
@@ -34,7 +40,7 @@
 
           <div class="profile-stats">
             <div class="stat-item"><span>0</span> прочитанных книг</div>
-            <div class="stat-item"><span>27</span> отзывов</div>
+            <div class="stat-item"><span>0</span> отзывов</div>
           </div>
         </div>
 
@@ -56,29 +62,90 @@
   <div id="mobile-nav"></div>
 
   <script>
-    /* Загрузка меню */
-    fetch("../menu_samples/header.html").then(r => r.text()).then(h => document.getElementById("header").innerHTML = h);
-    fetch("../menu_samples/sidebar.html").then(r => r.text()).then(h => document.getElementById("sidebar").innerHTML = h);
-    fetch("../menu_samples/mobile-nav.html").then(r => r.text()).then(h => document.getElementById("mobile-nav").innerHTML = h);
-
-    /* --- Загрузка данных профиля из localStorage --- */
-    window.addEventListener("DOMContentLoaded", () => {
-      const name = localStorage.getItem("username");
-      const avatar = localStorage.getItem("avatar");
-      const bg = localStorage.getItem("bg");
-
-      const nameEl = document.getElementById("profileName");
-      const avatarEl = document.getElementById("profileAvatar");
-      const bgEl = document.getElementById("profileBg");
-
-      if (name && nameEl) nameEl.textContent = name;
-      if (avatar && avatarEl) avatarEl.src = avatar;
-      if (bg && bgEl) bgEl.src = bg;
+    // Проверка авторизации при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+      // Проверяем авторизацию
+      if (!apiUtils.checkAuth()) {
+        return;
+      }
+      
+      // Загрузка меню
+      Promise.all([
+        fetch("../menu_samples/header.html").then(r => r.text()).then(h => document.getElementById("header").innerHTML = h),
+        fetch("../menu_samples/sidebar.html").then(r => r.text()).then(h => document.getElementById("sidebar").innerHTML = h),
+        fetch("../menu_samples/mobile-nav.html").then(r => r.text()).then(h => document.getElementById("mobile-nav").innerHTML = h)
+      ]).then(() => {
+        // После загрузки меню загружаем данные профиля
+        loadProfileData();
+      });
     });
+
+    // Функция загрузки данных профиля
+    async function loadProfileData() {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        window.location.href = '../Authorization/auth.html';
+        return;
+      }
+
+      try {
+        const response = await fetch('https://natosha-considerable-rheumily.ngrok-free.dev/user', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          
+          // Сохраняем данные
+          localStorage.setItem('username', userData.name || userData.username || 'Пользователь');
+          if (userData.photo) {
+            localStorage.setItem('avatar', userData.photo);
+          }
+          
+          // Обновляем UI
+          document.getElementById('profileName').textContent = userData.name || userData.username || 'Пользователь';
+          
+          if (userData.photo) {
+            document.getElementById('profileAvatar').src = userData.photo;
+          }
+          
+          // Можно также загрузить статистику
+          await loadUserStats();
+        }
+      } catch (error) {
+        console.error('Ошибка загрузки профиля:', error);
+        // Fallback на localStorage
+        const name = localStorage.getItem('username');
+        const avatar = localStorage.getItem('avatar');
+        
+        if (name) document.getElementById('profileName').textContent = name;
+        if (avatar) document.getElementById('profileAvatar').src = avatar;
+      }
+    }
+
+    async function loadUserStats() {
+      try {
+        // Загрузка статистики пользователя
+        const response = await apiUtils.apiRequest('/user/stats');
+        
+        if (response && response.booksRead !== undefined) {
+          const statItems = document.querySelectorAll('.stat-item span');
+          if (statItems[0]) statItems[0].textContent = response.booksRead;
+          if (statItems[1] && response.reviewsCount !== undefined) {
+            statItems[1].textContent = response.reviewsCount;
+          }
+        }
+      } catch (error) {
+        console.log('Статистика пока недоступна, используем заглушки');
+      }
+    }
   </script>
+  
   <!-- Подключаем поиск -->
-<script src="../services/search-demo-data.js"></script>
-<script src="../services/search-api.js"></script>
-<script src="../Search/search.js"></script>
+  <script src="../services/search-demo-data.js"></script>
+  <script src="../services/search-api.js"></script>
+  <script src="../Search/search.js"></script>
 </body>
 </html>

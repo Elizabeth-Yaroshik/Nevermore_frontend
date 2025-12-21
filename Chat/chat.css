@@ -186,5 +186,49 @@ background: url('../resources/background.jpg') no-repeat center/cover;
     left: 50%;
     transform: translateX(-50%);
   }
+  /* Добавь эти стили в существующий chat.css */
+
+.msg .content {
+  margin-bottom: 4px;
+}
+
+.msg .username {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b46c1;
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.msg.right .username {
+  display: none; /* Не показываем username для своих сообщений */
+}
+
+.msg.left .username {
+  display: block;
+}
+
+/* Улучшенный внешний вид сообщений */
+.msg {
+  max-width: 75%;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.msg.left {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  color: white;
+  border-radius: 18px 18px 18px 4px;
+  margin-right: auto;
+}
+
+.msg.right {
+  background: linear-gradient(135deg, #E9D5FF 0%, #F3E8FF 100%);
+  color: #1e293b;
+  border-radius: 18px 18px 4px 18px;
+  margin-left: auto;
+  border: 1px solid #ddd6fe;
+}
 }
 

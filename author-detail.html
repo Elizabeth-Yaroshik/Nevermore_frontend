@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Автор</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Mainpage/main.css">
+    <style>
+        .author-container {
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .author-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+        }
+        
+        .author-avatar {
+            width: 200px;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info {
+            flex: 1;
+        }
+        
+        .author-name {
+            font-size: 2.5rem;
+            color: #4F378B;
+            margin-bottom: 10px;
+        }
+        
+        .author-meta {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .author-description {
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 25px;
+        }
+        
+        .author-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .author-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .save-btn {
+            background: #6750A4;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background: #4F378B;
+        }
+        
+        .saved-btn {
+            background: #f3e8ff;
+            color: #4F378B;
+        }
+        
+        .books-section {
+            margin-top: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #4F378B;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e6e6fa;
+            padding-bottom: 10px;
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        
+        .book-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+        
+        .book-cover {
+            width: 100%;
+            height: 280px;
+            background: #6750A4;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .book-info {
+            padding: 15px;
+        }
+        
+        .book-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .book-year {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .author-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .author-avatar {
+                width: 150px;
+                height: 200px;
+                margin: 0 auto;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    
+    <div class="container">
+        <div id="sidebar"></div>
+        
+        <div class="main-content-wrapper">
+            <div class="author-container" id="authorContainer">
+                <!-- Контент загрузится через JS -->
+            </div>
+        </div>
+    </div>
+    
+    <div id="mobile-nav"></div>
+    
+    <script src="../utils.js"></script>
+    <script>
+        // Загрузка компонентов страницы
+        fetch("../menu_samples/header.html")
+            .then(r => r.text())
+            .then(h => document.getElementById("header").innerHTML = h);
+
+        fetch("../menu_samples/sidebar.html")
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById("sidebar").innerHTML = html;
+            })
+            .catch(err => console.error('Error loading sidebar:', err));
+
+        fetch("../menu_samples/mobile-nav.html")
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById("mobile-nav").innerHTML = html;
+            })
+            .catch(err => console.error('Error loading mobile navigation:', err));
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Получаем ID автора из URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const authorId = urlParams.get('id');
+            
+            if (!authorId) {
+                window.location.href = '../catalog.html';
+                return;
+            }
+            
+            try {
+                // Проверяем аутентификацию
+                if (!checkAuth()) {
+                    window.location.href = '../Authorization/auth.html';
+                    return;
+                }
+                
+                // Загружаем данные автора
+                const author = await loadAuthorData(authorId);
+                // Загружаем книги автора
+                const books = await loadAuthorBooks(authorId);
+                // Проверяем, сохранен ли автор
+                const isSaved = await checkIfAuthorSaved(authorId);
+                
+                // Отображаем данные
+                displayAuthorData(author, books, isSaved);
+                
+            } catch (error) {
+                console.error('Error loading author:', error);
+                document.getElementById('authorContainer').innerHTML = `
+                    <div style="text-align: center; padding: 50px;">
+                        <h2 style="color: #e53935;">Ошибка загрузки данных</h2>
+                        <p>${error.message}</p>
+                        <a href="../catalog.html" style="color: #6750A4;">← Вернуться к каталогу</a>
+                    </div>
+                `;
+            }
+        });
+        
+        // Функция загрузки данных автора
+        async function loadAuthorData(authorId) {
+            try {
+                const response = await apiRequest(`/author/get/${authorId}`);
+                return response;
+            } catch (error) {
+                throw new Error('Не удалось загрузить данные автора');
+            }
+        }
+        
+        // Функция загрузки книг автора
+        async function loadAuthorBooks(authorId) {
+            try {
+                const response = await apiRequest(`/book/by-author/${authorId}`);
+                return response;
+            } catch (error) {
+                console.warn('Не удалось загрузить книги автора:', error);
+                return [];
+            }
+        }
+        
+        // Проверка, сохранен ли автор
+        async function checkIfAuthorSaved(authorId) {
+            try {
+                const savedAuthors = await apiRequest('/saved-author/list');
+                return savedAuthors.some(author => author.id == authorId);
+            } catch (error) {
+                return false;
+            }
+        }
+        
+        // Отображение данных автора
+        function displayAuthorData(author, books, isSaved) {
+            const container = document.getElementById('authorContainer');
+            
+            container.innerHTML = `
+                <div class="author-header">
+                    <div class="author-avatar">
+                        <img src="${author.photo_url || '../resources/author-default.jpg'}" 
+                             alt="${author.name}">
+                    </div>
+                    
+                    <div class="author-info">
+                        <h1 class="author-name">${author.name}</h1>
+                        
+                        <div class="author-meta">
+                            <i class="fas fa-book"></i> Книг: ${books.length}
+                            <span style="margin: 0 10px">•</span>
+                            <i class="fas fa-star"></i> Рейтинг: ${author.rating || 'Нет'}
+                        </div>
+                        
+                        <div class="author-description">
+                            ${author.biography || 'Биография автора не указана.'}
+                        </div>
+                        
+                        <div class="author-actions">
+                            <button class="author-btn ${isSaved ? 'saved-btn' : 'save-btn'}" 
+                                    id="saveAuthorBtn">
+                                <i class="fas ${isSaved ? 'fa-heart' : 'fa-heart'}"></i>
+                                ${isSaved ? 'Удалить из избранного' : 'Добавить в избранное'}
+                            </button>
+                            
+                            <a href="../Chat/chat.html?type=author&id=${author.id}" 
+                               class="author-btn" 
+                               style="background: #f3e8ff; color: #4F378B; text-decoration: none;">
+                                <i class="fas fa-comments"></i> Обсудить автора
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="books-section">
+                    <h2 class="section-title">Книги автора</h2>
+                    
+                    ${books.length > 0 ? `
+                        <div class="books-grid" id="booksGrid">
+                            ${books.map(book => `
+                                <a href="../Bookpage/book.html?id=${book.id}" class="book-card">
+                                    <div class="book-cover">
+                                        ${book.title.substring(0, 30).toUpperCase()}
+                                    </div>
+                                    <div class="book-info">
+                                        <div class="book-title">${book.title}</div>
+                                        <div class="book-year">${book.year || 'Год неизвестен'}</div>
+                                    </div>
+                                </a>
+                            `).join('')}
+                        </div>
+                    ` : `
+                        <p style="text-align: center; color: #666; padding: 30px;">
+                            У этого автора пока нет книг в каталоге.
+                        </p>
+                    `}
+                </div>
+            `;
+            
+            // Обработчик кнопки сохранения автора
+            document.getElementById('saveAuthorBtn').addEventListener('click', async function() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const authorId = urlParams.get('id');
+                    
+                    if (isSaved) {
+                        // Удаляем из сохраненных
+                        await apiRequest(`/saved-author/delete/${authorId}`, {
+                            method: 'DELETE'
+                        });
+                        showToast('Автор удален из избранного', 'info');
+                    } else {
+                        // Добавляем в сохраненные
+                        await apiRequest('/saved-author/create', {
+                            method: 'POST',
+                            body: JSON.stringify({ author_id: parseInt(authorId) })
+                        });
+                        showToast('Автор добавлен в избранное', 'success');
+                    }
+                    
+                    // Перезагружаем страницу
+                    setTimeout(() => location.reload(), 1500);
+                    
+                } catch (error) {
+                    showToast('Ошибка: ' + error.message, 'error');
+                }
+            });
+        }
+        
+        // Функция для показа уведомлений (можно использовать из utils.js или создать свою)
+        function showToast(message, type = 'info') {
+            // Реализация toast уведомлений
+            alert(message); // Временная реализация
+        }
+    </script>
+</body>
+</html>

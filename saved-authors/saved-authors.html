@@ -9,6 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../Mainpage/main.css">
   <link rel="stylesheet" href="../saved-authors/saved-authors.css">
+  
+  <!-- Подключаем утилиты первыми -->
+  <script src="../utils.js"></script>
   <script src="../services/authors-api.js" defer></script>
   <script src="../saved-authors/saved-authors.js" defer></script>
 </head>
@@ -55,27 +58,30 @@
 <div id="mobile-nav"></div>
 
 <script>
-  fetch("../menu_samples/header.html")
-    .then(r => r.text())
-    .then(h => document.getElementById("header").innerHTML = h); 
-</script>
+  // Проверка авторизации перед загрузкой страницы
+  if (!apiUtils.checkAuth()) {
+    // Перенаправление уже произойдет в checkAuth
+  } else {
+    // Загружаем компоненты только если авторизованы
+    fetch("../menu_samples/header.html")
+      .then(r => r.text())
+      .then(h => document.getElementById("header").innerHTML = h)
+      .catch(err => console.error('Error loading header:', err));
 
-<script>
-  fetch("../menu_samples/sidebar.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("sidebar").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading sidebar:', err));
-</script>
+    fetch("../menu_samples/sidebar.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("sidebar").innerHTML = html;
+      })
+      .catch(err => console.error('Error loading sidebar:', err));
 
-<script>
-  fetch("../menu_samples/mobile-nav.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("mobile-nav").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading mobile navigation:', err));
+    fetch("../menu_samples/mobile-nav.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("mobile-nav").innerHTML = html;
+      })
+      .catch(err => console.error('Error loading mobile navigation:', err));
+  }
 </script>
 
 <script src="../menu_samples/menu_loader.js"></script>

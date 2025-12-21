@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevermore - Подтверждение email</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e6e6fa 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .verify-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .verify-icon {
+            font-size: 4rem;
+            color: #4F378B;
+            margin-bottom: 20px;
+        }
+        
+        .verify-title {
+            font-size: 2rem;
+            color: #4F378B;
+            margin-bottom: 15px;
+        }
+        
+        .verify-text {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .verify-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e6e6fa;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 10px;
+        }
+        
+        .verify-btn {
+            background: #6750A4;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        .verify-btn:hover {
+            background: #4F378B;
+        }
+        
+        .resend-link {
+            color: #6750A4;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        
+        .back-link {
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="verify-container">
+        <div class="verify-icon">
+            <i class="fas fa-envelope-circle-check"></i>
+        </div>
+        
+        <h1 class="verify-title">Подтверждение email</h1>
+        
+        <p class="verify-text">
+            Мы отправили 6-значный код подтверждения на ваш email адрес.
+            Пожалуйста, введите код ниже для завершения регистрации.
+        </p>
+        
+        <input type="text" class="verify-input" id="codeInput" maxlength="6" 
+               placeholder="123456" pattern="[0-9]{6}">
+        
+        <button class="verify-btn" id="verifyBtn">
+            <i class="fas fa-check-circle"></i> Подтвердить
+        </button>
+        
+        <div class="resend-link" id="resendLink">
+            <i class="fas fa-redo"></i> Отправить код повторно
+        </div>
+        
+        <div class="back-link">
+            <a href="../Authorization/auth.html">
+                <i class="fas fa-arrow-left"></i> Вернуться на страницу входа
+            </a>
+        </div>
+    </div>
+
+    <script src="../utils.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeInput = document.getElementById('codeInput');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const resendLink = document.getElementById('resendLink');
+            
+            // Фокус на инпуте при загрузке
+            codeInput.focus();
+            
+            // Ввод только цифр
+            codeInput.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value.length === 6) {
+                    verifyBtn.disabled = false;
+                } else {
+                    verifyBtn.disabled = true;
+                }
+            });
+            
+            // Подтверждение email
+            verifyBtn.addEventListener('click', async function() {
+                const code = codeInput.value.trim();
+                
+                if (code.length !== 6) {
+                    showError('Пожалуйста, введите 6-значный код');
+                    return;
+                }
+                
+                try {
+                    // Используем apiRequest из utils.js
+                    const response = await apiRequest('/auth/verify-email?code=' + code, {
+                        method: 'GET'
+                    });
+                    
+                    showSuccess('Email успешно подтвержден!');
+                    setTimeout(() => {
+                        window.location.href = '../Mainpage/main.html';
+                    }, 2000);
+                    
+                } catch (error) {
+                    showError('Неверный код подтверждения');
+                    codeInput.value = '';
+                    codeInput.focus();
+                }
+            });
+            
+            // Повторная отправка кода
+            resendLink.addEventListener('click', async function() {
+                try {
+                    // Отправляем запрос на повторную отправку кода
+                    const response = await fetch(window.apiUtils.API_BASE_URL + '/auth/resend-verification', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        showSuccess('Новый код отправлен на ваш email');
+                    } else {
+                        showError('Не удалось отправить код. Попробуйте позже.');
+                    }
+                } catch (error) {
+                    showError('Ошибка сети');
+                }
+            });
+            
+            // Enter для подтверждения
+            codeInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && this.value.length === 6) {
+                    verifyBtn.click();
+                }
+            });
+            
+            // Функции уведомлений
+            function showSuccess(message) {
+                alert(message); // Можно заменить на красивый toast
+            }
+            
+            function showError(message) {
+                alert(message); // Можно заменить на красивый toast
+            }
+        });
+    </script>
+</body>
+</html>

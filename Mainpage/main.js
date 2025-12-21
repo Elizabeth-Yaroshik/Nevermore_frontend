@@ -25,6 +25,80 @@ document.querySelectorAll('.mobile-nav-item').forEach(item => {
 document.addEventListener("DOMContentLoaded", () => {
     const toastContainer = document.getElementById("toastContainer");
 
+    // Добавь в main.js после DOMContentLoaded
+async function loadUserData() {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+        window.location.href = '../Authorization/auth.html';
+        return;
+    }
+
+    try {
+        // Загружаем профиль пользователя
+        const response = await fetch('https://natosha-considerable-rheumily.ngrok-free.dev/user', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            const userData = await response.json();
+            
+            // Сохраняем данные пользователя в localStorage
+            localStorage.setItem('username', userData.name);
+            localStorage.setItem('userEmail', userData.email);
+            
+            // Обновляем UI если нужно
+            const userIcon = document.querySelector('.user-icon');
+            if (userIcon && userData.photo) {
+                userIcon.innerHTML = `<img src="${userData.photo}" alt="Profile">`;
+            }
+        } else if (response.status === 401) {
+            // Токен истек - пробуем обновить
+            await refreshToken();
+        }
+    } catch (error) {
+        console.error('Ошибка загрузки данных пользователя:', error);
+    }
+}
+
+// Функция обновления токена
+async function refreshToken() {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) {
+        window.location.href = '../Authorization/auth.html';
+        return;
+    }
+
+    try {
+        const response = await fetch('https://natosha-considerable-rheumily.ngrok-free.dev/auth/refresh', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                refresh_token: refreshToken
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('refresh_token', data.refresh_token);
+            
+            // Пробуем снова загрузить данные
+            await loadUserData();
+        } else {
+            window.location.href = '../Authorization/auth.html';
+        }
+    } catch (error) {
+        window.location.href = '../Authorization/auth.html';
+    }
+}
+
+// Вызываем при загрузке страницы
+document.addEventListener('DOMContentLoaded', loadUserData);
+
     function showToast(type, message) {
         const toast = document.createElement("div");
         toast.className = `toast toast-${type}`;

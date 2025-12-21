@@ -1,51 +1,17 @@
-// Загрузка компонентов страницы
-fetch("../menu_samples/header.html")
-    .then(r => r.text())
-    .then(h => document.getElementById("header").innerHTML = h);
-
-fetch("../menu_samples/sidebar.html")
-    .then(r => r.text())
-    .then(html => {
-        document.getElementById("sidebar").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading sidebar:', err));
-
-fetch("../menu_samples/mobile-nav.html")
-    .then(r => r.text())
-    .then(html => {
-        document.getElementById("mobile-nav").innerHTML = html;
-    })
-    .catch(err => console.error('Error loading mobile navigation:', err));
-
-// Обработка загрузки файла
-const fileUpload = document.getElementById('fileUpload');
-const bookCoverInput = document.getElementById('bookCover');
-
-fileUpload.addEventListener('click', () => {
-    bookCoverInput.click();
-});
-
-bookCoverInput.addEventListener('change', function() {
-    if (this.files.length > 0) {
-        const fileName = this.files[0].name;
-        fileUpload.innerHTML = `
-            <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
-            <div>Файл загружен: <strong>${fileName}</strong></div>
-            <div class="file-info">Нажмите, чтобы изменить</div>
-        `;
-    }
-});
-
-// Обработка формы
-const addBookForm = document.getElementById('addBookForm');
-
-addBookForm.addEventListener('submit', function(e) {
+addBookForm.addEventListener('submit', async function(e) {
     e.preventDefault();
+    
+    // Проверка авторизации
+    if (!window.apiUtils || !window.apiUtils.checkAuth()) {
+        showToast('error', 'Необходимо авторизоваться для добавления книги');
+        return;
+    }
     
     // Проверка обязательных полей
     const bookTitle = document.getElementById('bookTitle').value.trim();
     const bookAuthor = document.getElementById('bookAuthor').value.trim();
     const genres = document.querySelectorAll('input[name="genre"]:checked');
+    const agreeTerms = document.getElementById('agreeTerms').checked;
     
     if (!bookTitle || !bookAuthor) {
         showToast('error', 'Пожалуйста, заполните обязательные поля');
@@ -57,39 +23,106 @@ addBookForm.addEventListener('submit', function(e) {
         return;
     }
     
-    // Симуляция успешной отправки
-    showToast('success', 'Книга успешно добавлена! Она появится в каталоге после модерации.');
-    
-    // Очистка формы
-    setTimeout(() => {
-        addBookForm.reset();
-        fileUpload.innerHTML = `
-            <i class="fas fa-cloud-upload-alt"></i>
-            <div>Перетащите изображение сюда или нажмите для выбора</div>
-            <div class="file-info">Рекомендуемый размер: 600×800 px. Форматы: JPG, PNG</div>
-        `;
-    }, 2000);
-});
-
-// Функция toast уведомлений
-function showToast(type, message) {
-    const toastContainer = document.getElementById("toastContainer");
-    const toast = document.createElement("div");
-    toast.className = `toast toast-${type}`;
-    
-    let icon = "";
-    switch (type) {
-        case "success": icon = '<i class="fas fa-check-circle"></i>'; break;
-        case "error": icon = '<i class="fas fa-times-circle"></i>'; break;
-        case "warning": icon = '<i class="fas fa-exclamation-triangle"></i>'; break;
-        case "info": icon = '<i class="fas fa-info-circle"></i>'; break;
+    if (!agreeTerms) {
+        showToast('error', 'Необходимо подтвердить согласие с условиями');
+        return;
     }
     
-    toast.innerHTML = `${icon}<span>${message}</span><button>&times;</button>`;
-    toastContainer.appendChild(toast);
+    // Собираем данные для отправки
+    const formData = new FormData();
     
-    const closeBtn = toast.querySelector("button");
-    closeBtn.addEventListener("click", () => toast.remove());
+    // Основные обязательные поля
+    formData.append('title', bookTitle);
+    formData.append('author', bookAuthor);
     
-    setTimeout(() => toast.remove(), 4000);
-}
+    // Описание (может быть обязательным в API)
+    const description = document.getElementById('bookDescription').value.trim();
+    if (description) {
+        formData.append('description', description);
+    }
+    
+    // Дополнительные поля
+    const year = document.getElementById('bookYear').value;
+    const isbn = document.getElementById('bookISBN').value;
+    const language = document.getElementById('bookLanguage').value;
+    const tags = document.getElementById('bookTags').value;
+    
+    if (year) formData.append('year', parseInt(year));
+    if (isbn) formData.append('isbn', isbn);
+    if (language) formData.append('language', language);
+    if (tags) formData.append('tags', tags);
+    
+    // Жанры - преобразуем в строку с разделителями
+    const selectedGenres = Array.from(genres).map(checkbox => checkbox.value);
+    if (selectedGenres.length > 0) {
+        formData.append('genres', selectedGenres.join(','));
+    }
+    
+    // Файл обложки (ОБЯЗАТЕЛЬНО проверьте имя поля в свагере!)
+    const fileInput = document.getElementById('bookCover');
+    if (fileInput.files[0]) {
+        // Проверьте в свагере точное имя поля для файла!
+        // Это может быть 'file', 'cover', 'image', 'coverImage' и т.д.
+        formData.append('file', fileInput.files[0]); // Предположительное имя
+    } else {
+        showToast('error', 'Необходимо загрузить обложку книги');
+        return;
+    }
+    
+    try {
+        const token = localStorage.getItem('access_token');
+        
+        // Показываем индикатор загрузки
+        const submitBtn = addBookForm.querySelector('.submit-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+        submitBtn.disabled = true;
+        
+        // ИСПОЛЬЗУЕМ ПРАВИЛЬНЫЙ ЭНДПОИНТ
+        const response = await fetch(`${window.apiUtils.API_BASE_URL}/book/upload`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+                // НЕ добавляем Content-Type для FormData - браузер сам установит!
+            },
+            body: formData
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            showToast('success', 'Книга успешно добавлена! Она появится в каталоге после модерации.');
+            
+            // Очистка формы
+            setTimeout(() => {
+                addBookForm.reset();
+                fileUpload.innerHTML = `
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <div>Перетащите изображение сюда или нажмите для выбора</div>
+                    <div class="file-info">Рекомендуемый размер: 600×800 px. Форматы: JPG, PNG</div>
+                `;
+            }, 2000);
+            
+        } else {
+            const errorText = await response.text();
+            let errorMessage = 'Неизвестная ошибка';
+            
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorData.error || errorText;
+            } catch {
+                errorMessage = errorText || `HTTP ${response.status}`;
+            }
+            
+            showToast('error', `Ошибка: ${errorMessage}`);
+        }
+        
+    } catch (error) {
+        console.error('Ошибка при отправке:', error);
+        showToast('error', 'Ошибка сети или сервера: ' + error.message);
+    } finally {
+        // Восстанавливаем кнопку
+        const submitBtn = addBookForm.querySelector('.submit-btn');
+        submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Добавить книгу';
+        submitBtn.disabled = false;
+    }
+});
