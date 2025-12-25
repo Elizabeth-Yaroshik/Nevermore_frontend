@@ -6,7 +6,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const bookId = urlParams.get('id');
   
-  // Если есть ID, можно загрузить данные книги
+  // Проверяем авторизацию
+  if (!apiUtils.checkAuth()) {
+    window.location.href = '../Authorization/auth.html';
+    return;
+  }
+  
+  // Загружаем список книг для рекомендаций или других целей
+  loadBooksList();
+  
+  // Если есть ID, загружаем данные книги
   if (bookId) {
     loadBookData(bookId);
   }
@@ -24,218 +33,124 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Функция для загрузки данных книги
-async function loadBookData(bookId) {
+async function loadBooksList() {
   try {
-    // Данные всех книг
-    const booksData = [
-      { 
-        id: 1, 
-        title: "Преступление и наказание", 
-        author: "Ф.М. Достоевский", 
-        genre: "classic", 
-        year: 1866,
-        description: "Роман о нравственных страданиях и борьбе между добром и злом в душе человека. История бывшего студента Родиона Раскольникова, совершившего убийство старухи-процентщицы и пытающегося оправдать свой поступок теорией о «тварях дрожащих» и «право имеющих».",
-        tags: ["Классика", "Драма", "Психология", "Роман"],
-        chapters: [
-          "Часть первая", "Часть вторая", "Часть третья", 
-          "Часть четвертая", "Часть пятая", "Часть шестая", "Эпилог"
-        ]
-      },
-      { 
-        id: 2, 
-        title: "Над пропастью во ржи", 
-        author: "Джером Д. Сэлинджер", 
-        genre: "classic", 
-        year: 1951,
-        description: "История подростка Холдена Колфилда, который пытается найти свое место в мире взрослых, полном лицемерия и фальши. Роман стал культовым для нескольких поколений молодежи.",
-        tags: ["Классика", "Роман", "Подростковая литература"],
-        chapters: [
-          "Глава 1", "Глава 2", "Глава 3", "Глава 4", "Глава 5",
-          "Глава 6", "Глава 7", "Глава 8", "Глава 9", "Глава 10",
-          "Глава 11", "Глава 12", "Глава 13", "Глава 14", "Глава 15"
-        ]
-      },
-      { 
-        id: 3, 
-        title: "Мастер и Маргарита", 
-        author: "М.А. Булгаков", 
-        genre: "classic", 
-        year: 1967,
-        description: "Мистический роман о дьяволе, посетившем Москву 1930-х годов. Параллельно развивается история о Понтии Пилате и Иешуа Га-Ноцри.",
-        tags: ["Классика", "Мистика", "Фантастика", "Роман"],
-        chapters: [
-          "Часть 1", "Часть 2", "Эпилог"
-        ]
-      },
-      { 
-        id: 4, 
-        title: "1984", 
-        author: "Джордж Оруэлл", 
-        genre: "dystopia", 
-        year: 1949,
-        description: "Антиутопический роман о тоталитарном обществе, где правит Большой Брат. История Уинстона Смита, пытающегося сохранить свою индивидуальность.",
-        tags: ["Антиутопия", "Политика", "Фантастика"],
-        chapters: [
-          "Часть 1", "Часть 2", "Часть 3", "Приложение"
-        ]
-      },
-      { 
-        id: 5, 
-        title: "Тихий Дон", 
-        author: "М.А. Шолохов", 
-        genre: "classic", 
-        year: 1940,
-        description: "Эпопея о жизни донского казачества в период Первой мировой войны, революции и Гражданской войны. Центральный персонаж — Григорий Мелехов.",
-        tags: ["Классика", "Исторический роман", "Эпопея"],
-        chapters: [
-          "Книга 1", "Книга 2", "Книга 3", "Книга 4"
-        ]
-      },
-      { 
-        id: 6, 
-        title: "Анна Каренина", 
-        author: "Л.Н. Толстой", 
-        genre: "classic", 
-        year: 1877,
-        description: "Роман о трагической любви замужней Анны Карениной и блестящего офицера Алексея Вронского на фоне жизни русского дворянства.",
-        tags: ["Классика", "Драма", "Любовный роман"],
-        chapters: [
-          "Часть 1", "Часть 2", "Часть 3", "Часть 4", 
-          "Часть 5", "Часть 6", "Часть 7", "Часть 8"
-        ]
-      },
-      { 
-        id: 7, 
-        title: "Горе от ума", 
-        author: "А.С. Грибоедов", 
-        genre: "classic", 
-        year: 1825,
-        description: "Комедия в стихах, высмеивающая московское дворянское общество первой половины XIX века. Главный герой — Александр Чацкий.",
-        tags: ["Классика", "Комедия", "Поэзия"],
-        chapters: [
-          "Действие 1", "Действие 2", "Действие 3", "Действие 4"
-        ]
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      console.log('Пользователь не авторизован');
+      showToast('Для просмотра книг необходимо авторизоваться', 'info');
+      return [];
+    }
+
+    console.log('Загрузка списка книг...');
+    
+    const response = await fetch(`${API_BASE_URL}/book/list`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'any-value'
       }
-    ];
+    });
+
+    console.log('Статус ответа:', response.status);
     
-    const book = booksData.find(b => b.id == bookId);
-    
-    if (book) {
-      // Обновляем данные на странице
-      document.querySelector('.book-title').textContent = book.title;
-      document.querySelector('.book-meta').textContent = `${book.year} / Автор: ${book.author}`;
-      document.querySelector('.book-description').textContent = book.description;
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Данные получены:', data);
       
-      // Обновляем теги
-      const tagsContainer = document.querySelector('.tags');
-      tagsContainer.innerHTML = '';
-      book.tags.forEach(tag => {
-        const tagElement = document.createElement('span');
-        tagElement.className = 'tag';
-        tagElement.textContent = tag;
-        tagsContainer.appendChild(tagElement);
-      });
+      // Обрабатываем данные в зависимости от формата
+      let books = [];
       
-      // Обновляем обложку
-      const bookCover = document.getElementById('bookCover');
-      bookCover.textContent = book.title.toUpperCase();
-      
-      // Загружаем главы
-      if (book.chapters) {
-        loadChapters(book.chapters);
+      if (Array.isArray(data)) {
+        books = data;
+      } else if (data && Array.isArray(data.books)) {
+        books = data.books;
+      } else if (data && Array.isArray(data.data)) {
+        books = data.data;
       }
       
-      // Загружаем отзывы
-      loadReviews(bookId);
+      // Кешируем книги
+      cacheBooksData(books);
       
-      // Загружаем рекомендации
-      loadRecommendations(bookId);
+      // Обновляем рекомендации
+      const urlParams = new URLSearchParams(window.location.search);
+      const bookId = urlParams.get('id');
+      if (bookId) {
+        updateRecommendationsFromAPI(books, bookId);
+      }
+      
+      return books;
+    } else if (response.status === 401) {
+      console.log('Токен устарел, пытаемся обновить...');
+      const refreshed = await apiUtils.refreshToken();
+      if (refreshed) {
+        console.log('Токен обновлен, повторяем запрос...');
+        return await loadBooksList();
+      } else {
+        console.error('Не удалось обновить токен');
+        showToast('Сессия истекла, требуется повторный вход', 'error');
+        setTimeout(() => {
+          window.location.href = '../Authorization/auth.html';
+        }, 2000);
+      }
+    } else {
+      const errorText = await response.text();
+      console.error('Ошибка сервера:', response.status, errorText);
+      showToast(`Ошибка сервера: ${response.status}`, 'error');
     }
     
   } catch (error) {
-    console.error('Error loading book data:', error);
+    console.error('Ошибка загрузки списка книг:', error);
+    showToast('Ошибка сети при загрузке книг', 'error');
   }
+  return [];
 }
 
-// Функция для загрузки глав
-function loadChapters(chapters) {
-  const chapterList = document.querySelector('.chapter-list');
-  chapterList.innerHTML = '';
-  
-  chapters.forEach((chapter, index) => {
-    const chapterElement = document.createElement('div');
-    chapterElement.className = 'chapter';
-    chapterElement.textContent = chapter;
-    chapterElement.addEventListener('click', () => {
-      // Можно добавить переход на чтение конкретной главы
-      alert(`Начало чтения: ${chapter}`);
-    });
-    chapterList.appendChild(chapterElement);
+// Функция для кеширования данных книг
+function cacheBooksData(books) {
+  localStorage.setItem('cached_books', JSON.stringify(books));
+  console.log('Данные книг сохранены в кеш');
+}
+
+// Функция для обновления рекомендаций из API
+function updateRecommendationsFromAPI(books, currentBookId) {
+  // Фильтруем книги, исключая текущую
+  const otherBooks = books.filter(book => {
+    const bookId = book.Id || book.id || book.bookId;
+    return bookId != currentBookId;
   });
-}
-
-// Функция для загрузки отзывов
-function loadReviews(bookId) {
-  const reviewsList = document.querySelector('.reviews-list');
   
-  // Примерные отзывы
-  const reviews = {
-    1: [
-      { user: "Алексей Петров", rating: 5, text: "Великолепный роман! Заставляет задуматься о морали и ответственности." },
-      { user: "Мария Иванова", rating: 4, text: "Сложное произведение, но очень глубокое. Рекомендую всем." }
-    ],
-    2: [
-      { user: "Дмитрий Смирнов", rating: 5, text: "Книга, которая изменила мое мировоззрение. Обязательна к прочтению!" }
-    ],
-    3: [
-      { user: "Елена Козлова", rating: 5, text: "Шедевр! Перечитываю каждый год и всегда нахожу что-то новое." }
-    ]
-  };
+  // Берем первые 4 книги для рекомендаций
+  const recommendations = otherBooks.slice(0, 4);
   
-  reviewsList.innerHTML = '';
-  
-  const bookReviews = reviews[bookId] || [
-    { user: "Анонимный читатель", rating: 4, text: "Хорошая книга, стоит прочитать." }
-  ];
-  
-  bookReviews.forEach(review => {
-    const reviewElement = document.createElement('div');
-    reviewElement.className = 'review';
-    reviewElement.innerHTML = `
-      <strong>${review.user}</strong> (${review.rating}/5)
-      <p>${review.text}</p>
-    `;
-    reviewsList.appendChild(reviewElement);
-  });
-}
-
-// Функция для загрузки рекомендаций
-function loadRecommendations(bookId) {
+  // Обновляем блок рекомендаций
   const recommendationsContainer = document.querySelector('.card');
-  
-  // Примерные рекомендации
-  const recommendations = [
-    { id: 8, title: "Братья Карамазовы", author: "Ф.М. Достоевский", year: 1880 },
-    { id: 9, title: "Идиот", author: "Ф.М. Достоевский", year: 1869 },
-    { id: 10, title: "Война и мир", author: "Л.Н. Толстой", year: 1869 },
-    { id: 11, title: "Отцы и дети", author: "И.С. Тургенев", year: 1862 }
-  ];
+  if (!recommendationsContainer) return;
   
   recommendationsContainer.innerHTML = '<h3>Похожие книги</h3>';
   
+  if (recommendations.length === 0) {
+    recommendationsContainer.innerHTML += '<p style="color: #666; text-align: center; padding: 20px;">Пока нет рекомендаций</p>';
+    return;
+  }
+  
   recommendations.forEach(book => {
+    const bookId = book.Id || book.id || book.bookId;
+    const title = book.Title || book.title || book.name || 'Без названия';
+    const author = book.AuthorName || book.authorName || book.author || 'Автор неизвестен';
+    const year = book.Year || book.year || book.publicationYear || null;
+    
     const recItem = document.createElement('div');
     recItem.className = 'rec-item';
-    recItem.setAttribute('data-book-id', book.id);
+    recItem.setAttribute('data-book-id', bookId);
     recItem.innerHTML = `
       <div style="width: 56px; height: 78px; background-color: #6750A4; opacity: 0.6; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; text-align: center; padding: 5px;">
-        ${book.title.substring(0, 15).toUpperCase()}
+        ${title.substring(0, 15).toUpperCase()}
       </div>
       <div class="rec-info">
-        <div class="rec-title">${book.title}</div>
-        <div class="rec-author">${book.author}</div>
-        <div class="rec-year">${book.year}</div>
+        <div class="rec-title">${title}</div>
+        <div class="rec-author">${author}</div>
+        ${year ? `<div class="rec-year">${year} год</div>` : ''}
       </div>
     `;
     
@@ -249,90 +164,372 @@ function loadRecommendations(bookId) {
   });
 }
 
-// Функции для кнопок (можно реализовать позже)
-// Функции для кнопок
-function startReading() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const bookId = urlParams.get('id');
+// Функция для загрузки данных книги
+async function loadBookData(bookId) {
+  try {
+    // Показываем индикатор загрузки
+    document.querySelector('.book-title').textContent = 'Загрузка...';
+    document.querySelector('.book-meta').textContent = 'Загрузка данных...';
+    document.querySelector('.book-description').textContent = 'Загрузка описания...';
     
-    if (bookId) {
-        // Перенаправляем на страницу чтения
-        window.location.href = `../Reader/reader.html?bookId=${bookId}`;
-    } else {
-        alert('Ошибка: не удалось определить книгу');
+    // Сначала проверяем кеш
+    const cachedBooks = localStorage.getItem('cached_books');
+    let book;
+    
+    if (cachedBooks) {
+      const books = JSON.parse(cachedBooks);
+      // Ищем книгу по ID (учитываем разные форматы)
+      book = books.find(b => {
+        const bId = b.Id || b.id || b.bookId;
+        return bId == bookId;
+      });
     }
+    
+    // Если не нашли в кеше, загружаем список книг
+    if (!book) {
+      console.log('Книга не найдена в кеше, загружаем список...');
+      const books = await loadBooksList();
+      if (books && Array.isArray(books)) {
+        book = books.find(b => {
+          const bId = b.Id || b.id || b.bookId;
+          return bId == bookId;
+        });
+      }
+    }
+    
+    // Если нашли книгу
+    if (book) {
+      // Извлекаем данные из разных возможных форматов
+      const bookId = book.Id || book.id || book.bookId;
+      const title = book.Title || book.title || book.name || 'Без названия';
+      const author = book.AuthorName || book.authorName || book.author || 'Автор неизвестен';
+      const year = book.Year || book.year || book.publicationYear || null;
+      const genre = book.Genre || book.genre || book.category || 'Не указан';
+      const description = book.Description || book.description || book.summary || 'Описание отсутствует';
+      const tags = book.Tags || book.tags || book.categories || [];
+      
+      // Обновляем данные на странице
+      document.querySelector('.book-title').textContent = title;
+      document.querySelector('.book-meta').textContent = 
+        `${year || 'Неизвестный год'} / Автор: ${author}`;
+      document.querySelector('.book-description').textContent = description;
+      
+      // Обновляем теги
+      const tagsContainer = document.querySelector('.tags');
+      tagsContainer.innerHTML = '';
+      
+      // Добавляем жанр как первый тег
+      const genreTag = document.createElement('span');
+      genreTag.className = 'tag';
+      genreTag.textContent = genre;
+      tagsContainer.appendChild(genreTag);
+      
+      // Добавляем остальные теги
+      if (Array.isArray(tags)) {
+        tags.forEach(tag => {
+          const tagElement = document.createElement('span');
+          tagElement.className = 'tag';
+          tagElement.textContent = tag;
+          tagsContainer.appendChild(tagElement);
+        });
+      }
+      
+      // Обновляем обложку
+      const bookCover = document.getElementById('bookCover');
+      if (bookCover) {
+        // Берем первые буквы слов из названия
+        const coverText = title.split(' ')
+          .map(word => word[0] || '')
+          .join('')
+          .toUpperCase()
+          .slice(0, 4);
+        bookCover.textContent = coverText || title.substring(0, 3).toUpperCase();
+      }
+      
+      // Загружаем главы
+      loadChapters(book);
+      
+      // Загружаем отзывы
+      loadReviews(bookId);
+      
+      // Показываем успешное уведомление
+      showToast(`Загружена книга "${title}"`, 'success');
+      
+    } else {
+      // Если книга не найдена
+      document.querySelector('.book-title').textContent = 'Книга не найдена';
+      document.querySelector('.book-meta').textContent = '';
+      document.querySelector('.book-description').textContent = 
+        'Запрашиваемая книга не найдена в каталоге.';
+      
+      const bookCover = document.getElementById('bookCover');
+      if (bookCover) {
+        bookCover.textContent = '404';
+      }
+      
+      showToast('Книга не найдена', 'error');
+    }
+    
+  } catch (error) {
+    console.error('Error loading book data:', error);
+    showToast('Ошибка загрузки данных книги', 'error');
+    
+    // Показываем ошибку на странице
+    document.querySelector('.book-title').textContent = 'Ошибка загрузки';
+    document.querySelector('.book-description').textContent = 
+      'Не удалось загрузить данные книги. Пожалуйста, попробуйте обновить страницу.';
+  }
+}
+
+// Функция для загрузки глав
+function loadChapters(book) {
+  const chapterList = document.querySelector('.chapter-list');
+  if (!chapterList) return;
+  
+  chapterList.innerHTML = '';
+  
+  // Проверяем разные варианты хранения глав
+  let chapters = [];
+  
+  if (book.Chapters && Array.isArray(book.Chapters)) {
+    chapters = book.Chapters;
+  } else if (book.chapters && Array.isArray(book.chapters)) {
+    chapters = book.chapters;
+  } else if (book.contents && Array.isArray(book.contents)) {
+    chapters = book.contents;
+  } else if (book.parts && Array.isArray(book.parts)) {
+    chapters = book.parts;
+  }
+  
+  // Если есть главы, отображаем их
+  if (chapters.length > 0) {
+    chapters.forEach((chapter, index) => {
+      const chapterElement = document.createElement('div');
+      chapterElement.className = 'chapter';
+      chapterElement.textContent = typeof chapter === 'string' ? chapter : `Глава ${index + 1}`;
+      chapterElement.addEventListener('click', () => {
+        startReadingChapter(index + 1);
+      });
+      chapterList.appendChild(chapterElement);
+    });
+  } else {
+    // Если глав нет, показываем информацию о книге
+    const genre = book.Genre || book.genre || book.category || 'Не указан';
+    const year = book.Year || book.year || book.publicationYear || 'Неизвестен';
+    const author = book.AuthorName || book.authorName || book.author || 'Неизвестен';
+    
+    const infoElement = document.createElement('div');
+    infoElement.className = 'chapter';
+    infoElement.innerHTML = `
+      <div style="text-align: center;">
+        <div style="font-weight: bold; margin-bottom: 5px;">Информация о книге</div>
+        <div style="font-size: 0.9rem;">Жанр: ${genre}</div>
+        <div style="font-size: 0.9rem;">Год: ${year}</div>
+        <div style="font-size: 0.9rem;">Автор: ${author}</div>
+      </div>
+    `;
+    chapterList.appendChild(infoElement);
+  }
+}
+
+// Функция для начала чтения конкретной главы
+function startReadingChapter(chapterNumber) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookId = urlParams.get('id');
+  
+  if (bookId) {
+    // Перенаправляем на страницу чтения с указанием главы
+    window.location.href = `../Reader/reader.html?bookId=${bookId}&chapter=${chapterNumber}`;
+  } else {
+    alert('Ошибка: не удалось определить книгу');
+  }
+}
+
+// Функция для загрузки отзывов
+function loadReviews(bookId) {
+  const reviewsList = document.querySelector('.reviews-list');
+  if (!reviewsList) return;
+  
+  // В реальном приложении здесь должен быть запрос к API для получения отзывов
+  // Пока используем демо-отзывы
+  const reviews = [
+    { user: "Алексей Петров", rating: 5, text: "Отличная книга! Очень понравилось." },
+    { user: "Мария Иванова", rating: 4, text: "Интересное произведение, рекомендую к прочтению." },
+    { user: "Дмитрий Смирнов", rating: 5, text: "Шедевр! Перечитываю уже в третий раз." }
+  ];
+  
+  reviewsList.innerHTML = '';
+  
+  if (reviews.length === 0) {
+    reviewsList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">Пока нет отзывов</p>';
+    return;
+  }
+  
+  reviews.forEach(review => {
+    const reviewElement = document.createElement('div');
+    reviewElement.className = 'review';
+    
+    // Создаем звездочки рейтинга
+    let stars = '';
+    for (let i = 1; i <= 5; i++) {
+      if (i <= review.rating) {
+        stars += '<i class="fas fa-star" style="color: #ffd700;"></i>';
+      } else {
+        stars += '<i class="far fa-star" style="color: #ccc;"></i>';
+      }
+    }
+    
+    reviewElement.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <strong>${review.user}</strong>
+        <div style="display: flex; gap: 2px;">
+          ${stars}
+        </div>
+      </div>
+      <p>${review.text}</p>
+    `;
+    reviewsList.appendChild(reviewElement);
+  });
+}
+
+// Функция для кнопок
+function startReading() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookId = urlParams.get('id');
+  
+  if (bookId) {
+    // Перенаправляем на страницу чтения
+    window.location.href = `../Reader/reader.html?bookId=${bookId}`;
+  } else {
+    alert('Ошибка: не удалось определить книгу');
+  }
 }
 
 function addToBookmarks() {
-    const bookId = new URLSearchParams(window.location.search).get('id');
-    
-    // Получаем данные о книге
-    const booksData = [
-        // ... ваш массив книг
-    ];
-    
-    const book = booksData.find(b => b.id == bookId);
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookId = urlParams.get('id');
+  
+  if (!bookId) {
+    showToast('Не удалось определить книгу', 'error');
+    return;
+  }
+  
+  // Получаем данные о книге из кеша
+  const cachedBooks = localStorage.getItem('cached_books');
+  
+  if (cachedBooks) {
+    const books = JSON.parse(cachedBooks);
+    const book = books.find(b => {
+      const bId = b.Id || b.id || b.bookId;
+      return bId == bookId;
+    });
     
     if (book) {
-        // Сохраняем в localStorage
-        const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+      const title = book.Title || book.title || book.name || 'Без названия';
+      const author = book.AuthorName || book.authorName || book.author || 'Автор неизвестен';
+      
+      // Сохраняем в localStorage
+      const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+      
+      // Проверяем, есть ли уже эта книга в закладках
+      const existingIndex = bookmarks.findIndex(b => b.id == bookId);
+      
+      if (existingIndex === -1) {
+        bookmarks.push({
+          id: bookId,
+          title: title,
+          author: author,
+          addedDate: new Date().toISOString()
+        });
         
-        // Проверяем, есть ли уже эта книга в закладках
-        const existingIndex = bookmarks.findIndex(b => b.id == bookId);
-        
-        if (existingIndex === -1) {
-            bookmarks.push({
-                id: book.id,
-                title: book.title,
-                author: book.author,
-                addedDate: new Date().toISOString()
-            });
-            
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-            showToast(`Книга "${book.title}" добавлена в закладки!`, 'success');
-        } else {
-            bookmarks.splice(existingIndex, 1);
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-            showToast(`Книга "${book.title}" удалена из закладок!`, 'info');
-        }
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        showToast(`Книга "${title}" добавлена в закладки!`, 'success');
+      } else {
+        bookmarks.splice(existingIndex, 1);
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        showToast(`Книга "${title}" удалена из закладок!`, 'info');
+      }
+    } else {
+      showToast('Не удалось найти данные книги', 'error');
     }
+  } else {
+    showToast('Данные книг не загружены', 'error');
+  }
 }
 
 function reportBook() {
-    const bookId = new URLSearchParams(window.location.search).get('id');
-    const reason = prompt('Укажите причину жалобы:');
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookId = urlParams.get('id');
+  
+  if (!bookId) {
+    showToast('Не удалось определить книгу', 'error');
+    return;
+  }
+  
+  // Получаем данные о книге из кеша
+  const cachedBooks = localStorage.getItem('cached_books');
+  let bookTitle = 'неизвестная книга';
+  
+  if (cachedBooks) {
+    const books = JSON.parse(cachedBooks);
+    const book = books.find(b => {
+      const bId = b.Id || b.id || b.bookId;
+      return bId == bookId;
+    });
     
-    if (reason) {
-        // В реальном приложении здесь был бы отправка на сервер
-        console.log(`Жалоба на книгу ${bookId}: ${reason}`);
-        showToast('Жалоба отправлена модераторам. Спасибо!', 'info');
+    if (book) {
+      bookTitle = book.Title || book.title || book.name || 'неизвестная книга';
     }
+  }
+  
+  const reason = prompt(`Укажите причину жалобы на книгу "${bookTitle}":`);
+  
+  if (reason) {
+    // В реальном приложении здесь была бы отправка на сервер
+    console.log(`Жалоба на книгу ${bookId}: ${reason}`);
+    showToast('Жалоба отправлена модераторам. Спасибо!', 'info');
+  }
 }
 
-// Функция для показа уведомлений (добавьте в book.js)
+// Функция для показа уведомлений
 function showToast(message, type = 'info') {
-    let container = document.querySelector('.toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'toast-container';
-        document.body.appendChild(container);
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+  
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+    <span>${message}</span>
+    <button onclick="this.parentElement.remove()">
+      <i class="fas fa-times"></i>
+    </button>
+  `;
+  
+  container.appendChild(toast);
+  
+  setTimeout(() => {
+    if (toast.parentElement) {
+      toast.remove();
     }
-    
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
-        <span>${message}</span>
-        <button onclick="this.parentElement.remove()">
-            <i class="fas fa-times"></i>
-        </button>
-    `;
-    
-    container.appendChild(toast);
-    
-    setTimeout(() => {
-        if (toast.parentElement) {
-            toast.remove();
-        }
-    }, 4000);
+  }, 4000);
 }
+
+// Функция для проверки, загружена ли страница
+function isPageLoaded() {
+  return document.readyState === 'complete';
+}
+
+// Добавляем обработчик для кнопки "Назад" в браузере
+window.addEventListener('popstate', function(event) {
+  // При возврате на страницу книги, перезагружаем данные
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookId = urlParams.get('id');
+  if (bookId && isPageLoaded()) {
+    loadBookData(bookId);
+  }
+});
