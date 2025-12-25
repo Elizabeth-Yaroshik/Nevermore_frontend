@@ -1,6 +1,6 @@
 // utils.js - объединённая версия
 const API_BASE_URL = 'https://natosha-considerable-rheumily.ngrok-free.dev';
-
+//const API_BASE_URL = 'https://e64e7fa1166011ff-151-249-189-59.serveousercontent.com';
 // Проверка аутентификации
 function checkAuth() {
     const token = localStorage.getItem('access_token');
@@ -34,7 +34,7 @@ window.apiUtils = {
     verifyEmail
 };
 // Общий запрос с обработкой ошибок
-async function apiRequest(endpoint, options = {}) {
+async function apiRequest(endpoint, get = {}) {
     const token = localStorage.getItem('access_token');
     
     const defaultHeaders = {
@@ -43,10 +43,10 @@ async function apiRequest(endpoint, options = {}) {
     };
     
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        ...options,
+        ...get,
         headers: {
             ...defaultHeaders,
-            ...options.headers
+            ...get.headers
         }
     });
     
@@ -55,7 +55,7 @@ async function apiRequest(endpoint, options = {}) {
         const refreshed = await refreshToken();
         if (refreshed) {
             // Повторяем запрос с новым токеном
-            return apiRequest(endpoint, options);
+            return apiRequest(endpoint, get);
         } else {
             window.location.href = '../Authorization/auth.html';
             throw new Error('Authentication failed');

@@ -12,7 +12,8 @@ async function loadProfileData() {
     try {
         const response = await fetch('https://natosha-considerable-rheumily.ngrok-free.dev/user', {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'ngrok-skip-browser-warning': 'any-value' // Пропускаем предупреждение ngrok[citation:5]
             }
         });
 
